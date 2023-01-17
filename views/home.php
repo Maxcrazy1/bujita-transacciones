@@ -36,7 +36,7 @@
 				<a href="<?=$device_data['sef_url']?>">
 					<?php
 					if($device_data['device_img']) {
-						$device_img_path = 'https://cashmovil.es/images/device/'.$device_data['device_img'];
+						$device_img_path = 'https://tasaciones-labrujita.online/images/device/'.$device_data['device_img'];
 						echo '<img loading="lazy" src="'.$device_img_path.'" alt="'.$device_data['title'].'">';
 					} ?>
 				  <h5><?=$device_data['title']?></h5>
@@ -83,7 +83,7 @@
 					} elseif($brand_data['title'] == "Xiaomi") {
 						$class = " balance2";
 					}
-					echo '<li class="brand_block-cell'.$class.'"><a href="'.SITE_URL.'brand/'.$brand_data['sef_url'].'"><img loading="lazy" src="https://cashmovil.es/images/brand/'.$brand_data['image'].'" alt="'.$brand_data['title'].'"></a></li>';
+					echo '<li class="brand_block-cell'.$class.'"><a href="'.SITE_URL.'brand/'.$brand_data['sef_url'].'"><img loading="lazy" src="https://tasaciones-labrujita.online/images/brand/'.$brand_data['image'].'" alt="'.$brand_data['title'].'"></a></li>';
 				} ?>
             </ul>
           </div>
@@ -118,9 +118,9 @@
                   <div class="image">
 				  <?php
 				  if($review_data['photo']) {
-					echo '<img loading="lazy" src="https://cashmovil.es/images/review/'.$review_data['photo'].'" alt="'.$review_data['name'].'">';
+					echo '<img loading="lazy" src="https://tasaciones-labrujita.online/images/review/'.$review_data['photo'].'" alt="'.$review_data['name'].'">';
 				  } else {
-					echo '<img loading="lazy" src="https://cashmovil.es/images/Avatar.png" alt="'.$review_data['name'].'">';
+					echo '<img loading="lazy" src="https://tasaciones-labrujita.online/images/Avatar.png" alt="'.$review_data['name'].'">';
 				  } ?>
 				  </div>
                   <div class="h4"><?=$review_data['name']?></div>
@@ -168,7 +168,7 @@
             <div class="row">
               <div class="col-md-5">
                 <h1 class="text-uppercase text-center rating-head border-line"><?php echo $LANG['RATINGS']; ?></h1>
-                <p class="text-center"><a class="trust_pilot" href="https://www.trustpilot.com/"><img class="trust_pilot" loading="lazy" src="https://cashmovil.es/images/Trustpilot_logo.png" alt=""></a></p>
+                <p class="text-center"><a class="trust_pilot" href="https://www.trustpilot.com/"><img class="trust_pilot" loading="lazy" src="https://tasaciones-labrujita.online/images/Trustpilot_logo.png" alt=""></a></p>
               </div>
               <div class="col-md-7">
 			    <?php
@@ -187,17 +187,17 @@
             <div class="h1 border-line"><?php echo $LANG['WHY US']; ?></div>
             <ul>
               <li>
-                <img loading="lazy" src="https://cashmovil.es/images/wepayfirst.png" alt="" class="pa-ws"><br>
+                <img loading="lazy" src="https://tasaciones-labrujita.online/images/wepayfirst.png" alt="" class="pa-ws"><br>
                 <div class="yel-line"></div>
                 <p><?php echo $LANG['We Pay Fast']; ?></p>
               </li>
               <li>
-                <img loading="lazy" src="https://cashmovil.es/images/bestoffer.png" alt="" class="pa-ws"><br>
+                <img loading="lazy" src="https://tasaciones-labrujita.online/images/bestoffer.png" alt="" class="pa-ws"><br>
                 <div class="yel-line"></div>
                 <p><?php echo $LANG['Best offer']; ?></p>
               </li>
               <li>
-                <img loading="lazy" src="https://cashmovil.es/images/trust.png" alt="" class="pa-ws"><br>
+                <img loading="lazy" src="https://tasaciones-labrujita.online/images/trust.png" alt="" class="pa-ws"><br>
                 <div class="yel-line"></div>
                 <p><?php echo $LANG['Guaranteed']; ?></p>
               </li>
@@ -231,7 +231,7 @@
                 <div class="block coffee-offer clearfix">
                   <div class="row">
                     <!-- <div class="col-md-4">
-                      <img loading="lazy" src="https://cashmovil.es/images/Coffee.png" alt="">
+                      <img loading="lazy" src="https://tasaciones-labrujita.online/images/Coffee.png" alt="">
                     </div> -->
                     <div class="col-md-12 text-center">
                       <a href="#" class="btn btn-secondary" data-toggle="modal" data-target="#locationModal"><?php  echo 'VER UBICACIONES' ; ?></a>

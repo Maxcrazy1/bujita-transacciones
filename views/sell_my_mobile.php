@@ -6,7 +6,7 @@ if($active_page_data['image'] != "") { ?>
 			if($active_page_data['image_text'] != "") {
 				echo '<h2>'.$active_page_data['image_text'].'</h2>';
 			} ?>
-			<img src="<?='https://cashmovil.es/images/pages/'.$active_page_data['image']?>" alt="<?=$active_page_data['title']?>" width="100%">
+			<img src="<?='https://tasaciones-labrujita.online/images/pages/'.$active_page_data['image']?>" alt="<?=$active_page_data['title']?>" width="100%">
 		</div>
 	</section>
 <?php
@@ -44,7 +44,7 @@ if($active_page_data['image'] != "") { ?>
 				<a href="<?=SITE_URL.$device_data['sef_url']?>">
 					<?php
 					if($device_data['device_img']) {
-						$device_img_path = 'https://cashmovil.es/images/device/'.$device_data['device_img'];
+						$device_img_path = 'https://tasaciones-labrujita.online/images/device/'.$device_data['device_img'];
 						echo '<img src="'.$device_img_path.'" alt="'.$device_data['title'].'">';
 					} ?>
 				  <h5><?=$device_data['title']?></h5>

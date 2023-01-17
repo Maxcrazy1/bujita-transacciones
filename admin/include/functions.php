@@ -245,12 +245,12 @@ function send_email($to,$subject,$message,$from_name,$from_email, $attachment_da
 		$response = $sg->client->mail()->send()->post($mail);
 	
 		return '1';
-//         $smtp_username = 'hola@cashmovil.es';
+//         $smtp_username = 'hola@tasaciones-labrujita.online';
 //         $smtp_password = 'bt$jpNnI&=B';
 // 		$mail = new PHPMailer();
 
 // 		$mail->Timeout = 30;
-// 		$mail->Host = 'smtp.cashmovil.es';
+// 		$mail->Host = 'smtp.tasaciones-labrujita.online';
 // 		$mail->Port = 25;
 // 		if($smtp_username && $smtp_password) {
 // // 			$mail->IsSMTP(); 

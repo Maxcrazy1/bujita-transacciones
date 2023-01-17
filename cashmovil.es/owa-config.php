@@ -58,7 +58,7 @@ define('OWA_AUTH_SALT', ';ux4c]:+(H]3@tWf9OAz<SW4oF^76<>/#<s01)@,(aX*E5;D:_(~aPR
  * Don't forget the slash at the end.
  */
  
-define('OWA_PUBLIC_URL', 'http://cashmovil.es/cashmovil.es/');  
+define('OWA_PUBLIC_URL', 'http://tasaciones-labrujita.online/tasaciones-labrujita.online/');  
 
 /** 
  * OWA ERROR HANDLER

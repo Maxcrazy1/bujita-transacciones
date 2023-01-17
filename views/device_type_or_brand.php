@@ -35,7 +35,7 @@ include("include/header.php");
 				<a href="/<?=$device_data['sef_url']?>">
 					<?php
 					if($device_data['device_img']) {
-						$device_img_path = 'https://cashmovil.es/images/device/'.$device_data['device_img'];
+						$device_img_path = 'https://tasaciones-labrujita.online/images/device/'.$device_data['device_img'];
 						echo '<img src="'.$device_img_path.'" alt="'.$device_data['title'].'">';
 					} ?>
 				  <h5><?=$device_data['title']?></h5>
@@ -82,7 +82,7 @@ include("include/header.php");
 					} elseif($brand_data['title'] == "Xiaomi") {
 						$class = " balance2";
 					}
-					echo '<li class="brand_block-cell'.$class.'"><a href="https://cashmovil.es/brand/'.$brand_data['sef_url'].'"><img src="/images/brand/'.$brand_data['image'].'" alt="'.$brand_data['title'].'"></a></li>';
+					echo '<li class="brand_block-cell'.$class.'"><a href="https://tasaciones-labrujita.online/brand/'.$brand_data['sef_url'].'"><img src="/images/brand/'.$brand_data['image'].'" alt="'.$brand_data['title'].'"></a></li>';
 				} ?>
             </ul>
           </div>

@@ -91,11 +91,11 @@ if(isset($_POST['submit'])){
 			</tr>
 		</tbody>
 		</body></html>';
-		$from = 'info@cashmovil.es';
+		$from = 'info@tasaciones-labrujita.online';
 		//email filter sanitize
 		$email = filter_var($email, FILTER_SANITIZE_EMAIL);
 		if(!empty($email)){
-			$to_email = 'hola@cashmovil.es';
+			$to_email = 'hola@tasaciones-labrujita.online';
 			$subject ='Solicitud de cliente de Cashmovil Dispositivo no listado';
 			$message =  $emailBody;//'This mail is sent using the PHP mail function';
 			$headers  = 'MIME-Version: 1.0' . "\r\n";
@@ -120,7 +120,7 @@ if(isset($_POST['submit'])){ ?>
 		<div class="row">
 			<div class="col">
 				<div class="alert <?= ($formsubmit==1) ? 'alert-success':'alert-danger'; ?> alert-dismissible fade show" role="alert">
-					<?= ($formsubmit==1) ? '<strong>formulario enviado con éxito.</strong> nos pondremos en contacto con usted pronto' : 'el envío del formulario falló. intente nuevamente si el error persiste, comuníquese con nosotros <a href="mailto:hola@cashmovil.es">hola@cashmovil.es</a>'; ?>
+					<?= ($formsubmit==1) ? '<strong>formulario enviado con éxito.</strong> nos pondremos en contacto con usted pronto' : 'el envío del formulario falló. intente nuevamente si el error persiste, comuníquese con nosotros <a href="mailto:hola@tasaciones-labrujita.online">hola@tasaciones-labrujita.online</a>'; ?>
 					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -175,7 +175,7 @@ if(isset($_POST['submit'])){ ?>
 						<a href="<?=SITE_URL.$model_list['device_sef_url'].'/'.createSlug($model_list['title']).'/'.$model_list['id']?>">
 							<?php
 							if($model_list['model_img']) {
-								$md_img_path = SITE_URL.'libraries/phpthumb.php?imglocation=https://cashmovil.es/images/mobile/'.$model_list['model_img'].'&h=150';
+								$md_img_path = SITE_URL.'libraries/phpthumb.php?imglocation=https://tasaciones-labrujita.online/images/mobile/'.$model_list['model_img'].'&h=150';
 								echo '<div class="brand-image"><img src="'.$md_img_path.'" alt="'.$model_list['title'].'"></div>';
 							} ?>
 						  <h6 class="h6"><?=$model_list['title']?></h6>
@@ -190,7 +190,7 @@ if(isset($_POST['submit'])){ ?>
 					if($general_setting_data['missing_product_section']=='1') { ?>
 					  <li>
 						<a href="javascript:void(0);" data-toggle="modal" data-target="#MissingProduct">
-						  <div class="brand-image"><img src="<?=SITE_URL.'libraries/phpthumb.php?imglocation=https://cashmovil.es/images/iphone.png&h=150'?>" alt="Missing Product"></div>
+						  <div class="brand-image"><img src="<?=SITE_URL.'libraries/phpthumb.php?imglocation=https://tasaciones-labrujita.online/images/iphone.png&h=150'?>" alt="Missing Product"></div>
 						  <h6 class="h6"><?php echo $LANG['I dont see my Device']; ?></h6>
 						  <p class="price"><?php echo $LANG['Missing Product']; ?></p>
 						</a>
@@ -455,13 +455,13 @@ if(isset($_POST['submit'])){ ?>
                <!--  <ul class="about_brand_logo clearfix">
                  <li>
                     <a target="_blank" href="https://offerup.co/profile/oneguygadget">
-                      <img src="https://cashmovil.es/images/offer-up.png" alt=""><br />
+                      <img src="https://tasaciones-labrujita.online/images/offer-up.png" alt=""><br />
                       <span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
                     </a>
                   </li>
                   <li>
                     <a target="_blank" href="https://www.5miles.com/s/1GuyGadget">
-                      <img src="https://cashmovil.es/images/5smile.png" alt=""><br />
+                      <img src="https://tasaciones-labrujita.online/images/5smile.png" alt=""><br />
                       <span><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></span>
                     </a>
                   </li>
@@ -478,7 +478,7 @@ if(isset($_POST['submit'])){ ?>
                     </a>
                   </li>
                 </ul>-->
-                <p class="text-center"><a class="trust_pilot" href="https://www.trustpilot.com"><img class="trust_pilot" src="https://cashmovil.es/images/Trustpilot_logo.png" alt=""></a></p>
+                <p class="text-center"><a class="trust_pilot" href="https://www.trustpilot.com"><img class="trust_pilot" src="https://tasaciones-labrujita.online/images/Trustpilot_logo.png" alt=""></a></p>
               </div>
               <div class="col-md-7">
 			  	<?php
@@ -500,17 +500,17 @@ if(isset($_POST['submit'])){ ?>
             <div class="h1 border-line"><?php echo $LANG['WHY US']; ?></div>
             <ul>
               <li>
-                <img src="https://cashmovil.es/images/wepayfirst.png" alt="" class="pa-ws"><br />
+                <img src="https://tasaciones-labrujita.online/images/wepayfirst.png" alt="" class="pa-ws"><br />
                 <div class="yel-line"></div>
                 <p><?php echo $LANG['We Pay Fast']; ?></p>
               </li>
               <li>
-                <img src="https://cashmovil.es/images/bestoffer.png" alt="" class="pa-ws"><br />
+                <img src="https://tasaciones-labrujita.online/images/bestoffer.png" alt="" class="pa-ws"><br />
                 <div class="yel-line"></div>
                 <p><?php echo $LANG['Best offer']; ?></p>
               </li>
               <li>
-                <img src="https://cashmovil.es/images/trust.png" alt=""><br />
+                <img src="https://tasaciones-labrujita.online/images/trust.png" alt=""><br />
                 <!-- <div class="yel-line"></div> -->
                 <!-- <p>Trust</p> -->
               </li>
