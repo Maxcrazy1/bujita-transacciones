@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2019 (64-Bit Evaluation Version) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="512px" height="512px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 512 512"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .str0 {stroke:#717171;stroke-width:10;stroke-miterlimit:2.61313}
+    .str3 {stroke:#717171;stroke-width:8;stroke-miterlimit:2.61313}
+    .str1 {stroke:#717171;stroke-width:10;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .str2 {stroke:#717171;stroke-width:8;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:2.61313}
+    .fil0 {fill:none}
+    .fil1 {fill:#717171}
+   ]]>
+  </style>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <g id="_1572433459584">
+   <rect class="fil0 str0" x="77" y="10.5" width="358" height="491" rx="33.69" ry="30.75"/>
+   <rect class="fil0 str0" x="77" y="76.5" width="358" height="361"/>
+   <line class="fil0 str1" x1="224.41" y1="43.5" x2="286.54" y2= "43.5" />
+   <line class="fil0 str2" x1="101.22" y1="145.5" x2="148.6" y2= "100.5" />
+   <line class="fil0 str2" x1="107.53" y1="172.5" x2="179.13" y2= "104.5" />
+   <rect class="fil0 str0" x="222.05" y="453.5" width="67.91" height="31" rx="6.86" ry="14.09"/>
+   <path class="fil0 str3" d="M254.95 148.5c-27.38,0 -48.44,22 -49.49,49l100.03 0c-1.05,-27 -23.17,-49 -50.54,-49z"/>
+   <path class="fil0 str3" d="M204.41 212.5l102.13 0 0 107 -19.53 0c0.38,1.1 0.58,2.28 0.58,3.5l0 25c0,6.33 -5.45,11.5 -12.11,11.5l0 0c-6.66,0 -12.11,-5.17 -12.11,-11.5l0 -25c0,-1.22 0.2,-2.4 0.58,-3.5l-16.95 0c0.37,1.1 0.58,2.28 0.58,3.5l0 25c0,6.33 -5.45,11.5 -12.11,11.5l0 0c-6.66,0 -12.11,-5.17 -12.11,-11.5l0 -25c0,-1.22 0.2,-2.4 0.58,-3.5l-19.53 0 0 -107z"/>
+   <rect class="fil0 str3" x="161.23" y="216.5" width="27.38" height="80" rx="13.69" ry="11"/>
+   <rect class="fil0 str3" x="322.33" y="216.5" width="27.38" height="80" rx="13.69" ry="11"/>
+   <rect class="fil1" transform="matrix(0.744542 -0.707107 0.744542 0.707107 221.811 141.979)" width="7" height="17" rx="3.5" ry="3.5"/>
+   <rect class="fil1" transform="matrix(-0.744542 -0.707107 -0.744542 0.707107 285.5 141.994)" width="7" height="17" rx="3.5" ry="3.5"/>
+   <rect class="fil1" x="240.21" y="167.5" width="7.37" height="12" rx="3.69" ry="5.25"/>
+   <rect class="fil1" x="263.37" y="167.5" width="7.37" height="12" rx="3.69" ry="5.25"/>
+   <rect class="fil0 str3" x="125" y="465.75" width="65" height="6.5" rx="6.56" ry="2.95"/>
+   <rect class="fil0 str3" x="323.5" y="465.75" width="65" height="6.5" rx="6.56" ry="2.95"/>
+  </g>
+ </g>
+</svg>

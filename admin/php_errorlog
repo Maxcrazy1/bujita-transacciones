@@ -1,0 +1,16 @@
+[12-Jul-2019 05:08:17 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/webgrowt/public_html/buybackdevice-demo10/admin/views/starbuck_location/edit.php on line 22
+[12-Jul-2019 10:09:27 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/webgrowt/public_html/buybackdevice-demo10/admin/include/functions.php on line 316
+[13-Jul-2019 06:18:54 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/webgrowt/public_html/buybackdevice-demo10/admin/views/categories/edit_category.php on line 826
+[13-Jul-2019 08:00:48 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/webgrowt/public_html/buybackdevice-demo10/admin/edit_mobile.php on line 11
+[13-Jul-2019 08:03:00 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/webgrowt/public_html/buybackdevice-demo10/admin/views/mobile/edit_mobile.php on line 174
+[13-Jul-2019 08:03:02 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/webgrowt/public_html/buybackdevice-demo10/admin/views/mobile/edit_mobile.php on line 174
+[13-Jul-2019 08:03:03 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/webgrowt/public_html/buybackdevice-demo10/admin/views/mobile/edit_mobile.php on line 174
+[16-Jul-2019 09:53:29 UTC] EasyPost Notice: Undefined property of EasyPost\Tracker instance: insurance
+[17-Jul-2019 06:26:13 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/webgrowt/public_html/buybackdevice-demo10/admin/device.php on line 18
+[17-Jul-2019 06:26:13 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/webgrowt/public_html/buybackdevice-demo10/admin/views/device/device.php on line 81
+[17-Jul-2019 06:28:20 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, null given in /home/webgrowt/public_html/buybackdevice-demo10/admin/views/device/device.php on line 30
+[17-Jul-2019 06:32:52 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/webgrowt/public_html/buybackdevice-demo10/admin/mobile.php on line 27
+[17-Jul-2019 06:32:52 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/webgrowt/public_html/buybackdevice-demo10/admin/views/mobile/mobile.php on line 111
+[17-Jul-2019 06:33:56 UTC] PHP Warning:  mysqli_num_rows() expects parameter 1 to be mysqli_result, boolean given in /home/webgrowt/public_html/buybackdevice-demo10/admin/include/functions.php on line 117
+[17-Jul-2019 06:41:00 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/webgrowt/public_html/buybackdevice-demo10/admin/include/functions.php on line 130
+[17-Jul-2019 06:41:00 UTC] PHP Warning:  mysqli_fetch_assoc() expects parameter 1 to be mysqli_result, boolean given in /home/webgrowt/public_html/buybackdevice-demo10/admin/include/functions.php on line 130

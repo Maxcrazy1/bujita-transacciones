@@ -1,0 +1,11 @@
+Model_ID,Category_ID,Category_Title,Brand,Device,Model_Title,Model_Price,Type_ID,Type_Title,Type_Price,Network_ID,Network_Title,Network_Price,Network_UnlockPrice,Storage_ID,Storage_Title,Storage_Title_Postfix,Storage_Price,Case_Material_ID,Case_Material_Title,Case_Material_Price,Case_Size_ID,Case_Size_Title,Case_Size_Price,Color_ID,Color_Title,Color_Code,Color_Price,Condition_ID,Condition_Title,Condition_Price,Accessories_ID,Accessories_Title,Accessories_Price
+384,13,Watch,Apple,iPhone,Apple Watch,280,8,Series 4 GPS,11,9,Airtel,2,4,25,16,GB,2,1,Aluminum,5,1,40mm,7,9,White,#fbfbfb,3,21,Brand New,1,11,Do you have charger?,5
+,,,,,,,9,Series 4 GPS + Cellular,12,10,Vodafone,3,5,26,32,GB,3,2,Stainless Steel,7,2,44mm,9,10,Blank,#000000,4,22,Flawless,3,12,Do you have pendrive?,8
+,,,,,,,,,,,,,,27,64,GB,4,,,,,,,,,,,23,Good,2,,,
+,,,,,,,,,,,,,,28,128,GB,5,,,,,,,,,,,24,Fair,4,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,25,Broken,7,,,
+385,13,Watch,Apple,iPhone,Apple Watch 2,260,10,Series 4 GPS,11,11,Airtel,2,4,29,16,GB,2,3,Aluminum,5,3,40mm,7,11,White,#fbfbfb,3,26,Brand New,1,13,Do you have charger?,5
+,,,,,,,11,Series 4 GPS + Cellular,12,12,Vodafone,3,5,30,32,GB,3,4,Stainless Steel,7,4,44mm,9,12,Blank,#000000,4,27,Flawless,3,14,Do you have pendrive?,8
+,,,,,,,,,,,Vodafone 2,4,,31,64,GB,4,,,,,,,,,,,28,Good,2,,,
+,,,,,,,,,,,,,,32,128,GB,5,,,,,,,,,,,29,Fair,4,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,30,Broken,7,,,

@@ -1,0 +1,11 @@
+Model_ID,Category_ID,Category_Title,Brand,Device,Model_Title,Model_Price,Type_ID,Type_Title,Type_Price,Network_ID,Network_Title,Network_Price,Network_UnlockPrice,Screen_Size_ID,Screen_Size_Title,Screen_Size_Price,Screen_Resolution_ID,Screen_Resolution_Title,Screen_Resolution_Price,Year_ID,Year_Title,Year_Price,Processor_ID,Processor_Title,Processor_Price,Storage_ID,Storage_Title,Storage_Title_Postfix,Storage_Price,Ram_ID,Ram_Title,Ram_Title_Postfix,Ram_Price,Color_ID,Color_Title,Color_Code,Color_Price,Condition_ID,Condition_Title,Condition_Price,Accessories_ID,Accessories_Title,Accessories_Price
+386,17,LAPTOPS,Apple,iPhone,MacBook,590,12,Series 1,2,14,Airtel,3,5,1,29mm,4,1,960cm,9,1,"Early 2015 (MacBook8,1)",10,1,Intel Core m3 1.2GHz,8,33,16,GB,1,1,4,GB,1,13,White,#eefcfd,1,31,Brand New,5,15,Do you have charger?,5
+,,,,,,,13,Series 2,3,15,Vodafone,4,6,2,32mm,5,2,1228cm,8,2,"Early 2016 (MacBook9,1)",11,2,Intel Core i5 1.3GHz,9,34,32,GB,3,2,8,GB,2,14,Blank,#000000,4,32,Flawless,2,16,Do you have pendrive?,8
+,,,,,,,,,,,,,,3,48mm,10,,1428cm,10,3,"2017 (MacBook10,1)",12,3,Intel Core i7 1.4GHz,7,35,64,GB,2,3,16,GB,5,,,,,33,Good,8,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,36,128,GB,5,,,,,,,,,34,Fair,7,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,37,256,GB,8,,,,,,,,,35,Broken,1,,,
+387,17,LAPTOPS,Apple,iPhone,MacBook Pro,690,14,Series 1,2,16,Airtel,3,5,4,29mm,4,3,960cm,9,4,"Early 2015 (MacBook8,1)",10,4,Intel Core m3 1.2GHz,8,38,16,GB,1,4,4,GB,1,15,White,#eefcfd,1,36,Brand New,5,17,Do you have charger?,5
+,,,,,,,15,Series 2,3,17,Vodafone,4,6,5,32mm,5,4,1228cm,8,5,"Early 2016 (MacBook9,1)",11,5,Intel Core i5 1.3GHz,9,39,32,GB,3,5,8,GB,2,16,Blank,#000000,4,37,Flawless,2,18,Do you have pendrive?,8
+,,,,,,,,Series 3,5,,,,,6,48mm,10,,,,6,"2017 (MacBook10,1)",12,6,Intel Core i7 1.4GHz,7,40,64,GB,2,6,16,GB,5,,,,,38,Good,8,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,41,128,GB,5,,,,,,,,,39,Fair,7,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,42,256,GB,8,,,,,,,,,40,Broken,1,,,

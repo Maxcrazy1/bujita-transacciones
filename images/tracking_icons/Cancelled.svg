@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW 2019 (64-Bit Evaluation Version) -->
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="512px" height="512px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 512 512"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:red}
+    .fil1 {fill:white}
+   ]]>
+  </style>
+    <clipPath id="id0">
+     <path d="M55.12 55.12l401.76 0 0 401.76 -401.76 0 0 -401.76z"/>
+    </clipPath>
+ </defs>
+ <g id="Layer_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <path class="fil0" d="M4 256c0,-139.18 112.82,-252 252,-252 139.18,0 252,112.82 252,252 0,139.18 -112.82,252 -252,252 -139.18,0 -252,-112.82 -252,-252zm66 0c0,-102.72 83.28,-186 186,-186 102.72,0 186,83.28 186,186 0,102.72 -83.28,186 -186,186 -102.72,0 -186,-83.28 -186,-186z"/>
+  <g id="_2242482511328">
+   <g style="clip-path:url(#id0)">
+    <image x="55.12" y="55.12" width="401.76" height="401.76" xlink:href="Cancelled_Images\Cancelled_ImgID1.png"/>
+   </g>
+  </g>
+  <circle class="fil1" transform="matrix(-5.86443E-14 -0.738095 0.738095 -5.86443E-14 256 256)" r="252"/>
+  <path class="fil0" d="M331.66 180.34l0 0c5.06,5.06 5.06,13.33 0,18.38l-57.27 57.28 57.27 57.28c5.06,5.05 5.06,13.32 0,18.38l0 0c-5.06,5.06 -13.33,5.06 -18.38,0l-57.28 -57.27 -57.28 57.27c-5.05,5.06 -13.33,5.06 -18.38,0l0 0c-5.06,-5.05 -5.06,-13.33 0,-18.38l57.27 -57.28 -57.27 -57.28c-5.06,-5.05 -5.06,-13.33 0,-18.38l0 0c5.05,-5.06 13.33,-5.06 18.38,0l57.28 57.27 57.28 -57.27c5.05,-5.06 13.32,-5.06 18.38,0z"/>
+ </g>
+</svg>

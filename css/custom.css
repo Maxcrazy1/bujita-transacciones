@@ -1,0 +1,79 @@
+.block.logo a img {
+    margin-top: -27px;
+    width: 270px;
+    object-fit: cover !important;
+    max-height: 92px !important;
+    max-width: 80% !important;
+}
+@media only screen and (max-width:1280px){
+    .block.logo a img {
+        margin-top: -22px;
+    }
+}
+@media only screen and (max-width:1024px){
+    .block.logo a img {
+        margin-top: -15px !important;
+        max-height: 80px !important;
+    }
+}
+@media only screen and (max-width:767px){
+    div.block.logo a img {
+        margin-top: -20px !important;
+        max-height: 80px !important;
+    }
+}
+@media only screen and (max-width:765px){
+    div.block.logo a img {
+      margin-top: -10px !important;
+    }
+}
+@media only screen and (max-width:369px){
+    div.block.logo a img {
+      margin-top: -15px !important;
+      max-height: 80px !important;
+    }
+}
+
+.block.content-text {
+    margin-top: -50px;
+}
+#siteSiderMenu ul li a {
+    background: #8bb927;
+}
+.block.get-offer i {
+    font-size: 20px;
+    color: white;
+    padding-top: 0px;
+}
+.nextBtn {
+    float: left !important;
+    margin-left: 30px;
+}
+/*
+==============================
+  Auto Complete
+==============================
+
+
+.autocomplete-suggestions{
+  width: 547px !important;
+  padding: 15px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  border: none;
+  background: #fff;
+  overflow: auto;
+}
+.autocomplete-suggestions .autocomplete-suggestion{
+  font-size: 15px;
+  color:#000;
+}
+.autocomplete-suggestions .autocomplete-suggestion strong{
+  color:rgba(177, 67, 181, 1.0);
+  font-weight: 600;
+}
+.autocomplete-suggestions { border: 1px solid #ddd; background: #fff; cursor: default; overflow: auto; }
+.autocomplete-suggestion { padding: 10px 5px; font-size: 1.2em; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #f0f0f0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399ff; }

@@ -1,0 +1,9 @@
+Model_ID,Category,Brand,Device,Model_Title,Model_Price,Type_ID,Type_Title,Type_Price,Network_ID,Network_Title,Network_Price,Network_UnlockPrice,Storage_ID,Storage_Title,Storage_Title_Postfix,Storage_Price,Case_Material_ID,Case_Material_Title,Case_Material_Price,Case_Size_ID,Case_Size_Title,Case_Size_Price,Color_ID,Color_Title,Color_Code,Color_Price,Condition_ID,Condition_Title,Condition_Price,Accessories_ID,Accessories_Title,Accessories_Price
+359,Watch,Apple,Sell my Apple Watch,Apple Watch (Series 4),0,67,Series 4 GPS,9,,,,,,,,,1,Alum88inum,2,4,40mm,5525,,,,,2891,great condition,8865,,,
+,,,,,,68,Series 4 GPS + Cellular,10,,,,,,,,,2,Sta88inless Steel,5,5,44mm,5528,,,,,2892,noticeable wears and tears,68,,,
+,,,,,,,,,,,,,,,,,3,Sta88inless Steel2,7,6,56mm,5531,,,,,,,,,,
+370,Watch,Apple,iPhone,Watch A1,102,76,S33eries 4 GPS,11,1577,TEst22,1,0,478,8,GB,,4,Alu44minum,5,9,40mm,7,13,tt,#000000,500,2920,Brand New,1,12,Charger?,6
+,,,,,,77,Se333ries 4 GPS + Cellular,12,1578,Test 233,2,0,479,16,GB,,5,Stai44nless Steel,7,10,44mm,9,14,58,#000000,500,2921,Flawless,3,13,Headphone?,30
+,,,,,,78,S444amsung gear S3,20,,,,,480,32,GB,,,,,,,,,,,,2922,Good,2,,,
+,,,,,,,,,,,,,481,64,GB,,,,,,,,,,,,2923,Fair,4,,,
+,,,,,,,,,,,,,482,128,GB,,,,,,,,,,,,2924,Broken,7,,,

@@ -1,0 +1,2 @@
+[21-Sep-2019 18:03:32 UTC] PHP Warning:  require(/home1/codeitjs/public_html/admin/_config/connect_db.php): failed to open stream: No such file or directory in /home1/codeitjs/public_html/1guygadget/admin/_config/config.php on line 11
+[21-Sep-2019 18:03:32 UTC] PHP Warning:  require(/home1/codeitjs/public_html/admin/_config/connect_db.php): failed to open stream: No such file or directory in /home1/codeitjs/public_html/1guygadget/admin/_config/config.php on line 11

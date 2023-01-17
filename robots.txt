@@ -1,0 +1,14 @@
+User-agent: *
+
+Disallow: /admin/
+Disallow: /ajax/
+Disallow: /controllers/
+Disallow: /cron/
+Disallow: /lang/
+Disallow: /libraries/
+Disallow: /models/
+Disallow: /pdf/
+Disallow: /social/
+Allow: /
+
+Sitemap: https://cellsensei.macmetro.com/sitemap.xml

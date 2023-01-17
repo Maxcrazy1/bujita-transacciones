@@ -1,0 +1,730 @@
+<?php
+require_once("../_config/config.php");
+require_once("../include/functions.php");
+
+//Url params
+$req_model_id=$_REQUEST['model_id'];
+if($req_model_id>0) {
+
+//Fetching data from model
+require_once('../../models/mobile.php');
+
+//Get data from models/mobile.php, get_single_model_data function
+$model_data = get_single_model_data($req_model_id);
+$meta_title = $model_data['meta_title'];
+$meta_desc = $model_data['meta_desc'];
+$meta_keywords = $model_data['meta_keywords'];
+
+$model_price = $model_data['price'];
+$f_model_price = $model_price;
+$unlock_price = $model_data['unlock_price'];
+
+$storage_list = get_models_storage_data($req_model_id);
+$condition_list = get_models_condition_data($req_model_id);
+$network_list = get_models_networks_data($req_model_id);
+$connectivity_list = get_models_connectivity_data($req_model_id);
+$watchtype_list = get_models_watchtype_data($req_model_id);
+$case_material_list = get_models_case_material_data($req_model_id);
+$case_size_list = get_models_case_size_data($req_model_id);
+
+$edit_item_id = $_REQUEST['item_id'];
+$order_item_data = array();
+if($edit_item_id>0) {
+	$order_item_data = get_order_item($edit_item_id,'');
+	$order_item_data = $order_item_data['data'];
+	$order_id = $order_item_data['order_id'];
+}
+if($order_item_data['model_id']!=$req_model_id) {
+	$order_item_data = array();
+}
+
+require_once("../../include/custom_js.php");
+?>
+
+<script type="text/javascript">
+function check_form(){
+	<?php
+	if(!empty($condition_list)) { ?>
+		var condition_spt = jQuery("input[name='check_condition']:checked").val().split('::');
+		if(document.getElementById("select_network").value.trim()=="::0" && condition_spt[2]=='1') {
+			alert('Please select your network');
+			return false;
+		}
+	<?php
+	} ?>
+
+	if(document.getElementById("quantity").value<=0) {
+		alert('Please enter quantity');
+		return false;
+	}
+}
+
+function network_cal(extra_price) {
+	var f_model_price = '<?=$f_model_price?>';
+	var model_price = '<?=$model_price?>';
+	var network_amt_spt = 0;
+	var network_name = '';
+	var network_amt = 0;
+	
+	var capacity_amt_spt = 0;
+	var capacity_name = '';
+	var capacity_amt = 0;
+	
+	var cond_amt_spt = jQuery("input[name='check_condition']:checked"). val().split('::');
+	//var cond_amt_spt = jQuery("#check_condition").val().split('::');
+	var condition_name = cond_amt_spt[0];
+	var cond_amt = cond_amt_spt[1];
+	var condition_plus_minus = cond_amt_spt[3];
+	var condition_fixed_percentage = cond_amt_spt[4];
+
+	if(condition_fixed_percentage == '%') {
+		var f_condition_price = (model_price*cond_amt)/100;
+	} else {
+		var f_condition_price = cond_amt;
+	}
+
+	if(condition_plus_minus == '-') {
+		f_model_price = Number(f_model_price)-Number(f_condition_price);
+	}
+	if(condition_plus_minus == '+') {
+		f_model_price = Number(f_model_price)+Number(f_condition_price);
+	}
+
+	if(cond_amt_spt[2]=='1') {
+		var network_amt_spt = jQuery("#select_network").val().split('::');
+		var network_name = network_amt_spt[0];
+		var network_amt = network_amt_spt[1];
+		var network_plus_minus = network_amt_spt[2];
+		var network_fixed_percentage = network_amt_spt[3];
+
+		if(network_fixed_percentage == '%') {
+			var f_network_price = (model_price*network_amt)/100;
+		} else {
+			var f_network_price = network_amt;
+		}
+
+		if(network_plus_minus == '-') {
+			f_model_price = Number(f_model_price)-Number(f_network_price);
+		}
+		if(network_plus_minus == '+') {
+			f_model_price = Number(f_model_price)+Number(f_network_price);
+		}
+	}
+	
+	<?php
+	if(!empty($storage_list)) { ?>
+	var select_capacity_spt = jQuery("input[name='select_capacity']:checked").val().split('::');
+	var capacity_name = select_capacity_spt[0];
+	var capacity_amt = select_capacity_spt[1];
+	var capacity_plus_minus = select_capacity_spt[2];
+	var capacity_fixed_percentage = select_capacity_spt[3];
+
+	if(capacity_fixed_percentage == '%') {
+		var f_capacity_price = (model_price*capacity_amt)/100;
+	} else {
+		var f_capacity_price = capacity_amt;
+	}
+
+	if(capacity_plus_minus == '-') {
+		f_model_price = Number(f_model_price)-Number(f_capacity_price);
+	}
+	if(capacity_plus_minus == '+') {
+		f_model_price = Number(f_model_price)+Number(f_capacity_price);
+	}
+	<?php
+	} ?>
+	
+	var color_price = 0;
+	var accessories_price = 0;
+	var miscellaneous_price = 0;
+	var storage_color_name = '';
+	var accessories_name = '';
+	var miscellaneous_name = '';
+
+	var color_plus_minus = 0;
+	var color_fixed_percentage = 0;
+	var accessories_plus_minus = 0;
+	var accessories_fixed_percentage = 0;
+	var miscellaneous_plus_minus = 0;
+	var miscellaneous_fixed_percentage = 0;
+
+	<?php
+	if($accessories_list) { ?>
+	jQuery('.accessories_price').each(function () {
+		if(this.checked==true) {
+			var price_adt = this.value.split('::');
+			accessories_price += parseFloat(price_adt[1]);
+			accessories_name += price_adt[0]+' ';
+			accessories_plus_minus = price_adt[2];
+			accessories_fixed_percentage = price_adt[3];
+
+			if(accessories_fixed_percentage == '%') {
+				var f_accessories_price = (model_price*price_adt[1])/100;
+			} else {
+				var f_accessories_price = price_adt[1];
+			}
+
+			if(accessories_plus_minus == '-') {
+				f_model_price = Number(f_model_price)-Number(f_accessories_price);
+			}
+			if(accessories_plus_minus == '+') {
+				f_model_price = Number(f_model_price)+Number(f_accessories_price);
+			}
+		}
+	});
+	<?php
+	}
+	if($miscellaneous_list) { ?>
+	jQuery('.miscellaneous_price').each(function () {
+		if(this.checked==true) {
+			var price_mdt = this.value.split('::');
+			miscellaneous_price += parseFloat(price_mdt[1]);
+			miscellaneous_name += price_mdt[0]+':Yes ';
+			miscellaneous_plus_minus = price_mdt[2];
+			miscellaneous_fixed_percentage = price_mdt[3];
+
+			if(miscellaneous_fixed_percentage == '%') {
+				var f_miscellaneous_price = (model_price*price_mdt[1])/100;
+			} else {
+				var f_miscellaneous_price = price_mdt[1];
+			}
+
+			if(miscellaneous_plus_minus == '-') {
+				f_model_price = Number(f_model_price)-Number(f_miscellaneous_price);
+			}
+			if(miscellaneous_plus_minus == '+') {
+				f_model_price = Number(f_model_price)+Number(f_miscellaneous_price);
+			}
+		}
+	});
+	<?php
+	} ?>
+
+	var final_accessories_name = '';
+	if(accessories_name!="") {
+		final_accessories_name = '<br />Accessories: '+accessories_name;
+	}
+
+	var final_miscellaneous_name = '';
+	if(miscellaneous_name!="") {
+		final_miscellaneous_name = '<br />Miscellaneous: '+miscellaneous_name;
+	}
+
+	if(f_model_price<0) {
+		f_model_price = 0;
+	}
+	var final_model_amt = parseFloat(extra_price)+parseFloat(f_model_price);
+	jQuery("#payment_amt").val(final_model_amt);
+	//jQuery(".show_final_amt").html('<?=$amount_sign_with_prefix?>'+final_model_amt+'<?=$amount_sign_with_postfix?><i class="fa fa-check-circle" aria-hidden="true"></i>');
+	
+	var _final_model_amt=formatMoney(final_model_amt);
+	var __final_model_amt=format_amount(_final_model_amt);
+	jQuery(".show_final_amt").html(__final_model_amt);
+			
+	jQuery(".device_name").html(storage_color_name+' '+network_name+' '+capacity_name+' ('+condition_name+')' +final_accessories_name+final_miscellaneous_name);
+}
+
+jQuery(document).ready(function($) {
+	$(".check_condition").on('change',function() {
+		var id = $(this).attr('id');
+		var key = $(this).data("key");
+
+		//$(".condition_terms").hide();
+		//$("#terms"+key).show();
+		//var cond_amt_spt = $("#"+id).val().split('::');
+		
+		//var id = ($(this).children('option:selected').data('id'));
+		//var uniqid = ($(this).children('option:selected').data('uniqid'));
+		var id = ($(this).data('id'));
+		var uniqid = ($(this).data('uniqid'));
+		
+		$(".condition_tooltip").hide();
+		$("#condition_tooltip"+uniqid).show();
+		
+		var capacity_amt_spt = 0;
+		var capacity_name = '';
+		var capacity_amt = 0;
+		
+		var cond_amt_spt = $(this).val().split('::');
+		
+		if(cond_amt_spt[2]=='1') {
+			var f_model_price = '<?=$f_model_price?>';
+			var model_price = '<?=$model_price?>';
+
+			var condition_name = cond_amt_spt[0];
+			var cond_amt = cond_amt_spt[1];
+			var condition_plus_minus = cond_amt_spt[3];
+			var condition_fixed_percentage = cond_amt_spt[4];
+
+			if(condition_fixed_percentage == '%') {
+				var f_condition_price = (model_price*cond_amt)/100;
+			} else {
+				var f_condition_price = cond_amt;
+			}
+
+			if(condition_plus_minus == '-') {
+				f_model_price = Number(f_model_price)-Number(f_condition_price);
+			}
+			if(condition_plus_minus == '+') {
+				f_model_price = Number(f_model_price)+Number(f_condition_price);
+			}
+
+			var network_amt_spt = $("#select_network").val().split('::');
+			var network_name = network_amt_spt[0];
+			var network_amt = network_amt_spt[1];
+			var network_plus_minus = network_amt_spt[2];
+			var network_fixed_percentage = network_amt_spt[3];
+
+			if(network_fixed_percentage == '%') {
+				var f_network_price = (model_price*network_amt)/100;
+			} else {
+				var f_network_price = network_amt;
+			}
+
+			if(network_plus_minus == '-') {
+				f_model_price = Number(f_model_price)-Number(f_network_price);
+			}
+			if(network_plus_minus == '+') {
+				f_model_price = Number(f_model_price)+Number(f_network_price);
+			}
+			
+			<?php
+			if(!empty($storage_list)) { ?>
+			var select_capacity_spt = jQuery("input[name='select_capacity']:checked").val().split('::');
+			var capacity_name = select_capacity_spt[0];
+			var capacity_amt = select_capacity_spt[1];
+			var capacity_plus_minus = select_capacity_spt[2];
+			var capacity_fixed_percentage = select_capacity_spt[3];
+		
+			if(capacity_fixed_percentage == '%') {
+				var f_capacity_price = (model_price*capacity_amt)/100;
+			} else {
+				var f_capacity_price = capacity_amt;
+			}
+		
+			if(capacity_plus_minus == '-') {
+				f_model_price = Number(f_model_price)-Number(f_capacity_price);
+			}
+			if(capacity_plus_minus == '+') {
+				f_model_price = Number(f_model_price)+Number(f_capacity_price);
+			}
+			<?php
+			} ?>
+		
+			var color_price = 0;
+			var accessories_price = 0;
+			var miscellaneous_price = 0;
+			var storage_color_name = '';
+			var accessories_name = '';
+			var miscellaneous_name = '';
+
+			var color_plus_minus = 0;
+			var color_fixed_percentage = 0;
+			var accessories_plus_minus = 0;
+			var accessories_fixed_percentage = 0;
+			var miscellaneous_plus_minus = 0;
+			var miscellaneous_fixed_percentage = 0;
+
+			<?php
+			if($accessories_list) { ?>
+			$('.accessories_price').each(function () {
+				if(this.checked==true) {
+					var price_adt = this.value.split('::');
+					accessories_price += parseFloat(price_adt[1]);
+					accessories_name += price_adt[0]+' ';
+					accessories_plus_minus = price_adt[2];
+					accessories_fixed_percentage = price_adt[3];
+
+					if(accessories_fixed_percentage == '%') {
+						var f_accessories_price = (model_price*price_adt[1])/100;
+					} else {
+						var f_accessories_price = price_adt[1];
+					}
+
+					if(accessories_plus_minus == '-') {
+						f_model_price = Number(f_model_price)-Number(f_accessories_price);
+					}
+					if(accessories_plus_minus == '+') {
+						f_model_price = Number(f_model_price)+Number(f_accessories_price);
+					}
+				}
+			});
+			<?php
+			}
+			if($miscellaneous_list) { ?>
+			$('.miscellaneous_price').each(function () {
+				if(this.checked==true) {
+					var price_mdt = this.value.split('::');
+					miscellaneous_price += parseFloat(price_mdt[1]);
+					miscellaneous_name += price_mdt[0]+':Yes ';
+					miscellaneous_plus_minus = price_mdt[2];
+					miscellaneous_fixed_percentage = price_mdt[3];
+
+					if(miscellaneous_fixed_percentage == '%') {
+						var f_miscellaneous_price = (model_price*price_mdt[1])/100;
+					} else {
+						var f_miscellaneous_price = price_mdt[1];
+					}
+
+					if(miscellaneous_plus_minus == '-') {
+						f_model_price = Number(f_model_price)-Number(f_miscellaneous_price);
+					}
+					if(miscellaneous_plus_minus == '+') {
+						f_model_price = Number(f_model_price)+Number(f_miscellaneous_price);
+					}
+				}
+			});
+			<?php
+			} ?>
+
+			var final_accessories_name = '';
+			if(accessories_name!="") {
+				final_accessories_name = '<br />Accessories: '+accessories_name;
+			}
+
+			var final_miscellaneous_name = '';
+			if(miscellaneous_name!="") {
+				final_miscellaneous_name = '<br />Miscellaneous: '+miscellaneous_name;
+			}
+
+			if(f_model_price<0) {
+				f_model_price = 0;
+			}
+			var final_model_amt = parseFloat(f_model_price);
+			$("#payment_amt").val(final_model_amt);
+			//$(".show_final_amt").html('<?=$amount_sign_with_prefix?>'+final_model_amt+'<?=$amount_sign_with_postfix?><i class="fa fa-check-circle" aria-hidden="true"></i>');
+			
+			var _final_model_amt=formatMoney(final_model_amt);
+			var __final_model_amt=format_amount(_final_model_amt);
+			$(".show_final_amt").html(__final_model_amt);
+	
+			$(".device_name").html(storage_color_name+' '+network_name+' '+capacity_name+' ('+condition_name+')' +final_accessories_name+final_miscellaneous_name);
+			$(".hide_network").show();
+			$(".show_network_msg").hide();
+		} else {
+			var f_model_price = '<?=$f_model_price?>';
+			var model_price = '<?=$model_price?>';
+
+			var condition_name = cond_amt_spt[0];
+			var network_name = '';
+			var cond_amt = cond_amt_spt[1];
+			var condition_plus_minus = cond_amt_spt[3];
+			var condition_fixed_percentage = cond_amt_spt[4];
+
+			if(condition_fixed_percentage == '%') {
+				var f_condition_price = (model_price*cond_amt)/100;
+			} else {
+				var f_condition_price = cond_amt;
+			}
+
+			if(condition_plus_minus == '-') {
+				f_model_price = Number(f_model_price)-Number(f_condition_price);
+			}
+			if(condition_plus_minus == '+') {
+				f_model_price = Number(f_model_price)+Number(f_condition_price);
+			}
+			
+			<?php
+			if(!empty($storage_list)) { ?>
+			var select_capacity_spt = jQuery("input[name='select_capacity']:checked").val().split('::');
+			var capacity_name = select_capacity_spt[0];
+			var capacity_amt = select_capacity_spt[1];
+			var capacity_plus_minus = select_capacity_spt[2];
+			var capacity_fixed_percentage = select_capacity_spt[3];
+		
+			if(capacity_fixed_percentage == '%') {
+				var f_capacity_price = (model_price*capacity_amt)/100;
+			} else {
+				var f_capacity_price = capacity_amt;
+			}
+		
+			if(capacity_plus_minus == '-') {
+				f_model_price = Number(f_model_price)-Number(f_capacity_price);
+			}
+			if(capacity_plus_minus == '+') {
+				f_model_price = Number(f_model_price)+Number(f_capacity_price);
+			}
+			<?php
+			} ?>
+			
+			var color_price = 0;
+			var accessories_price = 0;
+			var miscellaneous_price = 0;
+			var storage_color_name = '';
+			var accessories_name = '';
+			var miscellaneous_name = '';
+
+			var color_plus_minus = 0;
+			var color_fixed_percentage = 0;
+			var accessories_plus_minus = 0;
+			var accessories_fixed_percentage = 0;
+			var miscellaneous_plus_minus = 0;
+			var miscellaneous_fixed_percentage = 0;
+
+			<?php
+			if($accessories_list) { ?>
+			$('.accessories_price').each(function () {
+				if(this.checked==true) {
+					var price_adt = this.value.split('::');
+					accessories_price += parseFloat(price_adt[1]);
+					accessories_name += price_adt[0]+' ';
+					accessories_plus_minus = price_adt[2];
+					accessories_fixed_percentage = price_adt[3];
+
+					if(accessories_fixed_percentage == '%') {
+						var f_accessories_price = (model_price*price_adt[1])/100;
+					} else {
+						var f_accessories_price = price_adt[1];
+					}
+
+					if(accessories_plus_minus == '-') {
+						f_model_price = Number(f_model_price)-Number(f_accessories_price);
+					}
+					if(accessories_plus_minus == '+') {
+						f_model_price = Number(f_model_price)+Number(f_accessories_price);
+					}
+				}
+			});
+			<?php
+			}
+			if($miscellaneous_list) { ?>
+			$('.miscellaneous_price').each(function () {
+				if(this.checked==true) {
+					var price_mdt = this.value.split('::');
+					miscellaneous_price += parseFloat(price_mdt[1]);
+					miscellaneous_name += price_mdt[0]+':Yes ';
+					miscellaneous_plus_minus = price_mdt[2];
+					miscellaneous_fixed_percentage = price_mdt[3];
+
+					if(miscellaneous_fixed_percentage == '%') {
+						var f_miscellaneous_price = (model_price*price_mdt[1])/100;
+					} else {
+						var f_miscellaneous_price = price_mdt[1];
+					}
+
+					if(miscellaneous_plus_minus == '-') {
+						f_model_price = Number(f_model_price)-Number(f_miscellaneous_price);
+					}
+					if(miscellaneous_plus_minus == '+') {
+						f_model_price = Number(f_model_price)+Number(f_miscellaneous_price);
+					}
+				}
+			});
+			<?php
+			} ?>
+
+			var final_accessories_name = '';
+			if(accessories_name!="") {
+				final_accessories_name = '<br />Accessories: '+accessories_name;
+			}
+
+			var final_miscellaneous_name = '';
+			if(miscellaneous_name!="") {
+				final_miscellaneous_name = '<br />Miscellaneous: '+miscellaneous_name;
+			}
+
+			if(f_model_price<0) {
+				f_model_price = 0;
+			}
+			var final_model_amt = parseFloat(f_model_price);
+			$("#payment_amt").val(final_model_amt);
+			$(".network_name").html('');
+			//$(".show_final_amt").html('<?=$amount_sign_with_prefix?>'+final_model_amt+'<?=$amount_sign_with_postfix?><i class="fa fa-check-circle" aria-hidden="true"></i>');
+
+			var _final_model_amt=formatMoney(final_model_amt);
+			var __final_model_amt=format_amount(_final_model_amt);
+			$(".show_final_amt").html(__final_model_amt);
+
+			$(".device_name").html(storage_color_name+' '+network_name+' '+capacity_name+' ('+condition_name+')' +final_accessories_name+final_miscellaneous_name);
+			$(".hide_network").hide();
+			$(".show_network_msg").show();
+		}
+	});
+
+	$("#select_network").change(function() {
+		network_cal(0);
+	});
+
+	$(".accessories_price").on('change',function() {
+		network_cal(0);
+	});
+
+	$(".miscellaneous_price").on('change',function() {
+		network_cal(0);
+	});
+	
+	$(".select_capacity").on('change',function() {
+		network_cal(0);
+	});
+});
+</script>
+
+<?php /*?><form action="<?=SITE_URL?>controllers/mobile.php" method="post" class="form-inline no-margin" onSubmit="return check_form(this);"><?php */?>
+	<div class="control-group radio-inline">
+		<label class="control-label" for="input">Condition: </label>
+		<div class="controls">
+			<?php
+			$c=0;
+			$cond_amt=0;
+			foreach($condition_list as $key=>$condition_data) {
+			  $c=$c+1;
+			  if($c==1) {
+				$condition_plus_minus = $condition_data['plus_minus'];
+				$condition_fixed_percentage = $condition_data['fixed_percentage'];
+				$cond_amt=($condition_data['condition_price']>0?$condition_data['condition_price']:0);
+				$disabled_network = $condition_data['disabled_network'];
+			  } ?>
+			  <label class="radio custom-radio">
+			  	<input type="radio" class="check_condition" id="check_condition" name="check_condition" data-id="check_condition<?=$key?>" data-uniqid="<?=$key?>" value="<?=$condition_data['condition_name']?>::<?=($condition_data['condition_price']>0?$condition_data['condition_price']:0)?>::<?=$condition_data['disabled_network']?>::<?=$condition_data['plus_minus']?>::<?=$condition_data['fixed_percentage']?>" <?php if($order_item_data['condition']!="" && $order_item_data['condition']==$condition_data['condition_name']){echo 'checked="checked"';}elseif($order_item_data['condition']=="" && $c==1){echo 'checked="checked"';}?>> <?=$condition_data['condition_name']?>
+			  </label>
+			<?php
+			} ?>
+		</div>
+	</div>
+	
+	<?php
+	if(!empty($storage_list)) {
+	$edit_storage_array = array();
+	if($order_item_data['storage']!="") {
+		$edit_storage_array = explode(",",$order_item_data['storage']);
+		foreach($edit_storage_array as $storage_index => $storage_word) {
+			$edit_storage_array[$storage_index] = trim($storage_word);
+		}
+	} ?>
+	<div class="control-group radio-inline">
+		<label class="control-label" for="input">Storage: </label>
+		<div class="controls">
+		<?php
+		$s=0;
+		foreach($storage_list as $s_key => $storage_data) {
+			$s=$s+1;
+			if($s==1) {
+				$storage_plus_minus = $storage_data['plus_minus'];
+				$storage_fixed_percentage = $storage_data['fixed_percentage'];
+				$storage_price = $storage_data['storage_price'];
+			} ?>
+			<label class="radio custom-radio">
+			   <input id="capacity<?=$s_key?>" class="select_capacity" type="radio" name="select_capacity" value="<?=$storage_data['storage_size'].$storage_data['storage_size_postfix']?>::<?=($storage_data['storage_price']>0?$storage_data['storage_price']:0)?>::<?=$storage_data['plus_minus']?>::<?=$storage_data['fixed_percentage']?>"  <?php if($order_item_data['storage']!="" && in_array(trim($storage_data['storage_size'].$storage_data['storage_size_postfix']),$edit_storage_array)){echo 'checked="checked"';}elseif($order_item_data['storage']=="" && $s==1){echo 'checked="checked"';}?> > <?=$storage_data['storage_size'].$storage_data['storage_size_postfix']?>
+			</label>
+		<?php
+		} ?>
+	    </div>
+	</div>
+	<?php
+	} ?>
+	
+	<?php
+	if(!empty($network_list)) { ?>
+	<div class="control-group" <?php if($disabled_network == '1'){echo 'style="display:block;"';}else{echo 'style="display:none;"';}?>>
+		<label class="control-label" for="input">Network: </label>
+		<div class="controls">
+			<select class="custom-select" name="select_network" id="select_network">
+				<?php
+				$n=1;
+				foreach($network_list as $n_key=>$network_data) {
+					$n = $n+1;
+					if($network_data['network_name']!="") { ?>
+						<option id="<?=$network_data['network_name']?>" value="<?=$network_data['network_name']?>::<?=$network_data['network_price']?>::<?=$network_data['plus_minus']?>::<?=$network_data['fixed_percentage']?>" <?php if($order_item_data['network']==$network_data['network_name']){echo 'selected="selected"';}elseif($order_item_data['condition']=="" && $c==1){echo 'selected="selected"';}?>><?=$network_data['network_name']?></option>
+					<?php
+					}
+				} ?>
+			</select>
+		</div>
+	</div>
+    <?php
+	} ?>
+	
+	<?php
+	if($accessories_list) {
+	$edit_accessories_array = array();
+	if($order_item_data['accessories']!="") {
+		$edit_accessories_array = explode(",",$order_item_data['accessories']);
+		foreach($edit_accessories_array as $accessories_index => $accessories_word) {
+			$edit_accessories_array[$accessories_index] = trim($accessories_word);
+		}
+	} ?>
+	<div class="control-group">
+		<label class="control-label" for="input">Accessories: </label>
+		<div class="controls">
+			<?php
+			foreach(array_chunk($accessories_list, 2) as $cnk_key=>$accessories_cnk_data) {
+				foreach($accessories_cnk_data as $key=>$accessories_data) { ?>
+				<label class="checkbox custom-checkbox">
+					<input type="checkbox" id="check_accessories<?=$cnk_key.$key?>" class="accessories_price" name="check_accessories[]" value="<?=$accessories_data['accessories_name'].'::'.($accessories_data['accessories_price']>0?$accessories_data['accessories_price']:0).'::'.$accessories_data['plus_minus'].'::'.$accessories_data['fixed_percentage']?>" <?php if(in_array(trim($accessories_data['accessories_name']),$edit_accessories_array)){echo 'checked="checked"';}?>> <?=$accessories_data['accessories_name']?>
+				</label>
+				<?php
+				}
+			} ?>
+		</div>
+	</div>
+	<?php
+	} ?>
+						
+	<?php
+	if($miscellaneous_list) {
+	$edit_miscellaneous_array = array();
+	if($order_item_data['miscellaneous']!="") {
+		$edit_miscellaneous_array = explode(",",str_replace(":Yes","",$order_item_data['miscellaneous']));
+		foreach($edit_miscellaneous_array as $misc_index => $misc_word) {
+			$edit_miscellaneous_array[$misc_index] = trim($misc_word);
+		}
+	} ?>
+	<div class="control-group">
+		<label class="control-label" for="input">Miscellaneous: </label>
+		<div class="controls">
+			<?php
+			$c=0;
+			foreach(array_chunk($miscellaneous_list, 2) as $cnk_key=>$miscellaneous_cnk_data) {
+				foreach($miscellaneous_cnk_data as $key=>$miscellaneous_data) { ?>
+				<label class="checkbox custom-checkbox">
+					<input type="checkbox" id="check_miscellaneous<?=$cnk_key.$key?>" class="miscellaneous_price" name="check_miscellaneous[]" value="<?=$miscellaneous_data['miscellaneous_name'].'::'.($miscellaneous_data['miscellaneous_price']>0?$miscellaneous_data['miscellaneous_price']:0).'::'.$miscellaneous_data['plus_minus'].'::'.$miscellaneous_data['fixed_percentage']?>" <?php if(in_array($miscellaneous_data['miscellaneous_name'],$edit_miscellaneous_array)){echo 'checked="checked"';}?>> <?=$miscellaneous_data['miscellaneous_name']?>
+				</label>
+				<?php
+				}
+			} ?>
+	 	</div>
+	</div>
+	<?php
+	} ?>
+
+	<div class="control-group">				
+		<strong>Device Info: </strong><?=$model_data['title']?><br /><span class="device_name"></span>
+		<h2 class="show_final_amt"><?=amount_fomat($total)?></h2>
+	</div>
+	
+	<?php /*?><div class="control-group">
+		<label class="control-label" for="input">&nbsp;</label>
+		<div class="controls">
+			<button type="submit" name="sell_this_device" id="sell_this_device" class="save_btn"><?=($edit_item_id>0?"Update":"Next")?></button>
+		</div>
+	</div><?php */?>
+						
+	<input type="hidden" id="quantity" name="quantity" value="1">
+	<input type="hidden" name="device_id" id="device_id" value="<?=$model_data['device_id']?>"/>
+	<input type="hidden" name="payment_amt" id="payment_amt" value="<?=$total?>"/>
+	<input type="hidden" name="req_model_id" id="req_model_id" value="<?=$req_model_id?>"/>
+	<input type="hidden" name="order_id" id="order_id" value="<?=$order_id?>"/>
+	<?php
+	if($edit_item_id>0) {
+		echo '<input type="hidden" name="edit_item_id" id="edit_item_id" value="'.$edit_item_id.'"/>';
+	} ?>
+<?php /*?></form><?php */?>
+
+<script type="text/javascript">
+<?php
+//Trigger by onload page
+if(!empty($condition_list)) {
+	echo 'network_cal(0);';
+} ?>
+</script>
+
+<!-- Custom checkbox and radio -->
+<script src="js/plugins/prettyCheckable/prettyCheckable.js"></script>
+<script>
+	$(document).ready(function() {
+		$('.custom-checkbox input, .custom-radio input').prettyCheckable();
+	});
+</script>
+
+<?php
+} ?>

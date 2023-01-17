@@ -1,0 +1,13 @@
+Model_ID,Category_ID,Category_Title,Brand,Device,Model_Title,Model_Price,Network_ID,Network_Title,Network_Price,Network_UnlockPrice,Storage_ID,Storage_Title,Storage_Title_Postfix,Storage_Price,Color_ID,Color_Title,Color_Code,Color_Price,Condition_ID,Condition_Title,Condition_Price,Accessories_ID,Accessories_Title,Accessories_Price
+380,6,Mobiles,Apple,iPhone,iPhone 8,100,1,Unlocked,11,14,1,16,GB,1,1,White,#fbfbfb,2,1,Brand New,3,1,Have you Charger ?,10
+,,,,,,,2,ATT,13,15,2,32,GB,2,2,Black,#000000,3,2,Flawless,6,2,Have you headphone ?,25
+,,,,,,,,,,,3,64,TB,4,,,,,3,Good,10,3,Box,20
+,,,,,,,,,,,4,128,GB,3,,,,,4,Fair,11,,,
+,,,,,,,,,,,5,256,GB,5,,,,,5,Broken,12,,,
+,,,,,,,,,,,6,512,GB,6,,,,,,,,,,
+381,6,Mobiles,Apple,iPhone,iphone 8.1,110,3,Unlocked,11,14,7,16,GB,1,3,White,,2,6,Brand New,4,4,Have you Charger ?,10
+,,,,,,,4,ATT,13,15,8,32,GB,2,4,Black,,3,7,Flawless,8,5,Have you headphone ?,25
+,,,,,,,,,,,9,64,TB,4,,,,,8,Good,10,6,Box,20
+,,,,,,,,,,,10,128,GB,3,,,,,9,Fair,12,,,
+,,,,,,,,,,,11,256,GB,5,,,,,10,Broken,13,,,
+,,,,,,,,,,,12,512,GB,6,,,,,,,,,,

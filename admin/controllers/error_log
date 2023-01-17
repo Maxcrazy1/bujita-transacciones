@@ -1,0 +1,76 @@
+[05-Aug-2019 15:55:01 UTC] SMTP Mailer Error:You must provide at least one recipient email address.
+[05-Aug-2019 15:55:02 UTC] Authenticate
+[09-Aug-2019 18:39:00 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[09-Aug-2019 18:39:00 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[09-Aug-2019 18:39:19 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[09-Aug-2019 18:39:19 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[09-Aug-2019 20:54:26 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[09-Aug-2019 20:54:26 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[09-Aug-2019 20:55:27 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[09-Aug-2019 20:55:27 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[09-Aug-2019 21:04:24 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[09-Aug-2019 21:04:24 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[11-Aug-2019 13:07:01 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[11-Aug-2019 13:07:01 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[11-Aug-2019 13:07:38 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[11-Aug-2019 13:07:38 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[11-Aug-2019 13:13:16 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[11-Aug-2019 13:13:16 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[11-Aug-2019 13:23:13 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[11-Aug-2019 13:23:13 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[11-Aug-2019 13:24:42 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[11-Aug-2019 13:24:42 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[11-Aug-2019 13:26:48 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[11-Aug-2019 13:26:48 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 17:32:17 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 17:32:17 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 17:54:32 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 17:54:32 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:11:15 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:11:15 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:12:41 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:12:41 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:14:13 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:14:13 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:16:19 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:16:19 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:16:58 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:16:58 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:29:11 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:29:11 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:30:19 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:30:19 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:31:08 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:31:08 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:31:13 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:31:13 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:34:52 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:34:52 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:35:32 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:35:32 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:35:50 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:35:50 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:36:06 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:36:06 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:39:33 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:39:33 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:41:25 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:41:25 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:45:00 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:45:00 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[13-Aug-2019 18:49:07 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[13-Aug-2019 18:49:07 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[20-Aug-2019 13:05:10 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[20-Aug-2019 13:05:10 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[20-Aug-2019 13:07:00 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[20-Aug-2019 13:07:00 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[20-Aug-2019 13:07:59 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[20-Aug-2019 13:07:59 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[20-Aug-2019 13:08:24 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[20-Aug-2019 13:08:24 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[20-Aug-2019 13:13:11 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[20-Aug-2019 13:13:11 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[03-Sep-2019 05:55:09 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[03-Sep-2019 05:55:09 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64
+[03-Sep-2019 05:56:26 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 54
+[03-Sep-2019 05:56:26 UTC] PHP Warning:  implode(): Invalid arguments passed in /home1/codeitjs/public_html/1guygadget/admin/controllers/page.php on line 64

@@ -1,0 +1,8 @@
+Model_ID,Category,Brand,Device,Model_Title,Model_Price,Type_ID,Type_Title,Type_Price,Network_ID,Network_Title,Network_Price,Network_UnlockPrice,Screen_Size_ID,Screen_Size_Title,Screen_Size_Price,Screen_Resolution_ID,Screen_Resolution_Title,Screen_Resolution_Price,Year_ID,Year_Title,Year_Price,Processor_ID,Processor_Title,Processor_Price,Storage_ID,Storage_Title,Storage_Title_Postfix,Storage_Price,Ram_ID,Ram_Title,Ram_Title_Postfix,Ram_Price,Color_ID,Color_Title,Color_Code,Color_Price,Condition_ID,Condition_Title,Condition_Price,Accessories_ID,Accessories_Title,Accessories_Price
+367,LAPTOPS,Apple,iPhone,Laptop,150,79,dsd,,1579,dsd,111,0,1,129mm,4,1,1111125,9,1,2017,10,1,3.6GHz Intel Core i3,8,460,128,GB,1,1,4,GB,1,8,White,#000000,1,2925,ref,10,14,tt1,10
+,,,,,,80,dsd,,1580,dsd,2,110,2,132mm,5,2,1111111,8,2,2018,11,2,3.0GHz Intel Core i5,9,461,256,GB,3,2,8,GB,8,9,Black,#000000,3,2926,dfgt,11,15,tt2,11
+,,,,,,,,,1581,dsd2,113,0,3,45mm,10,,,,3,2019,12,3,3.2GHz Intel Core i7,7,462,512,GB,2,3,16,GB,16,,,,,2927,ewd,12,16,tt3,12
+,,,,,,,,,1582,trt,145,0,,,,,,,,,,,,,463,1,TB,5,4,32,GB,29,,,,,2928,uyuyu,15,,,
+,,,,,,,,,1583,trty,115,110,,,,,,,,,,,,,464,2,TB,8,,,,,,,,,,,,,,
+,,,,,,,,,1584,uyu2,87,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,1585,oio1,11,110,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

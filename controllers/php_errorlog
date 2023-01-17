@@ -1,0 +1,60 @@
+[19-Jul-2019 12:23:44 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 197
+[19-Jul-2019 13:18:19 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 197
+[19-Jul-2019 13:19:49 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 189
+[19-Jul-2019 13:19:49 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 197
+[19-Jul-2019 13:20:29 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 197
+[19-Jul-2019 13:22:41 UTC] SMTP Mailer Error:SMTP Error: The following recipients failed: bharat@indiaphpexpert.com<p>SMTP server error: Sorry 37.60.254.192. The "MAIL FROM" email address chony4u2002@gmail.com /
+550-gmail.com you are using is not hosted on this server. Tried to use
+550-chony4u2002@gmail.com / gmail.com as mail from address. Sending mails from
+550-addresses not hosted on our server is not allowed. Please check the "MAIL
+550-FROM" settings of your mail client and make sure you set the "MAIL FROM"
+550 address to an email account which is hosted on the server.
+</p>
+
+[19-Jul-2019 13:37:52 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 197
+[19-Jul-2019 14:21:20 UTC] SMTP Mailer Error:SMTP Error: The following recipients failed: bharat@indiaphpexpert.com<p>SMTP server error: Sorry 37.60.254.192. The "MAIL FROM" email address  /  you are using is not
+550-hosted on this server. Tried to use  /  as mail from address. Sending mails
+550-from addresses not hosted on our server is not allowed. Please check the
+550-"MAIL FROM" settings of your mail client and make sure you set the "MAIL
+550 FROM" address to an email account which is hosted on the server.
+</p>
+
+[19-Jul-2019 14:21:20 UTC] SMTP Mailer Error:You must provide at least one recipient email address.
+[19-Jul-2019 14:29:16 UTC] SMTP Mailer Error:SMTP Error: The following recipients failed: bharat@indiaphpexpert.com<p>SMTP server error: Sorry 37.60.254.192. The "MAIL FROM" email address  /  you are using is not
+550-hosted on this server. Tried to use  /  as mail from address. Sending mails
+550-from addresses not hosted on our server is not allowed. Please check the
+550-"MAIL FROM" settings of your mail client and make sure you set the "MAIL
+550 FROM" address to an email account which is hosted on the server.
+</p>
+
+[19-Jul-2019 14:29:16 UTC] SMTP Mailer Error:You must provide at least one recipient email address.
+[19-Jul-2019 14:33:09 UTC] SMTP Mailer Error:SMTP Error: The following recipients failed: bharat@indiaphpexpert.com<p>SMTP server error: Sorry 37.60.254.192. The "MAIL FROM" email address  /  you are using is not
+550-hosted on this server. Tried to use  /  as mail from address. Sending mails
+550-from addresses not hosted on our server is not allowed. Please check the
+550-"MAIL FROM" settings of your mail client and make sure you set the "MAIL
+550 FROM" address to an email account which is hosted on the server.
+</p>
+
+[19-Jul-2019 14:33:09 UTC] SMTP Mailer Error:You must provide at least one recipient email address.
+[19-Jul-2019 14:33:34 UTC] SMTP Mailer Error:SMTP Error: The following recipients failed: bharat@indiaphpexpert.com<p>SMTP server error: Sorry 37.60.254.192. The "MAIL FROM" email address  /  you are using is not
+550-hosted on this server. Tried to use  /  as mail from address. Sending mails
+550-from addresses not hosted on our server is not allowed. Please check the
+550-"MAIL FROM" settings of your mail client and make sure you set the "MAIL
+550 FROM" address to an email account which is hosted on the server.
+</p>
+
+[19-Jul-2019 14:33:34 UTC] SMTP Mailer Error:You must provide at least one recipient email address.
+[19-Jul-2019 15:00:30 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 197
+[19-Jul-2019 15:07:51 UTC] SMTP Mailer Error:SMTP Error: The following recipients failed: bharat@indiaphpexpert.com<p>SMTP server error: Sorry 37.60.254.192. The "MAIL FROM" email address chony4u2002@gmail.com /
+550-gmail.com you are using is not hosted on this server. Tried to use
+550-chony4u2002@gmail.com / gmail.com as mail from address. Sending mails from
+550-addresses not hosted on our server is not allowed. Please check the "MAIL
+550-FROM" settings of your mail client and make sure you set the "MAIL FROM"
+550 address to an email account which is hosted on the server.
+</p>
+
+[20-Jul-2019 11:17:46 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 189
+[20-Jul-2019 11:17:46 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 197
+[20-Jul-2019 11:33:53 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 197
+[20-Jul-2019 12:43:05 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 197
+[21-Jul-2019 04:24:33 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/webgrowt/public_html/buybackdevice-demo10/controllers/mobile.php on line 197

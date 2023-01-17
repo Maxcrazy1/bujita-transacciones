@@ -1,0 +1,129 @@
+.anim-button-space {
+    margin: 4.5em 0 7em 0;
+  position: relative;
+    z-index: 3;
+
+}
+.anim-button-space > a{
+  position: relative;
+  text-align: center;
+ /* margin: 1em 0 0 37.5%;*/
+
+
+  position: absolute;
+  left: 49.65%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+/*
+@media(max-width: 660px){
+  .anim-button-space{    
+    margin: 0.8em 0;
+  }
+}
+
+@media(max-width: 1200px){
+  .anim-button-space{    
+    margin: 1em 0 0 34.5%;
+  }
+}
+
+@media(max-width: 900px){
+  .anim-button-space{    
+    margin: 1em 0 0 31%;
+  }
+}
+
+@media(max-width: 768px){
+  .anim-button-space{    
+    margin: 1em 0 0 29.5%;
+  }
+}
+@media(max-width: 690px){
+  .anim-button-space{    
+    margin: 1em 0 0 26.5%;
+  }
+}
+
+@media(max-width: 668px){
+  .anim-button-space{    
+    margin: 1em 0 0 21.5%;
+  }
+}
+@media(max-width: 550px){
+  .anim-button-space{    
+    margin: 1em 0 0 12.5%;
+  }
+}
+
+@media(max-width: 550px){
+  .anim-button-space{    
+        margin: 1em 0 0 18.5%;
+  }
+}
+
+@media(max-width: 432px){
+  .anim-button-space{    
+    margin: 1em 0 0 6.5%;
+  }
+}
+
+@media(max-width: 350px){
+  .anim-button-space{    
+    margin: 1em 0 0 -9px;
+  }
+}*/
+#showcaseSlider .active .anim-button-space{
+  z-index: 4;
+}
+.fancy-button {
+  position: relative;
+  display: block;
+  cursor: pointer;
+  -webkit-perspective: 1800px;
+          perspective: 1800px;
+}
+.fancy-button .fancy-flipper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  -webkit-transform: rotateX(-90deg);
+          transform: rotateX(-90deg);
+  transition: -webkit-transform 0.3s ease;
+  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, -webkit-transform 0.3s ease;
+}
+.fancy-button .fancy-front,
+.fancy-button .fancy-back {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+.fancy-button .fancy-front svg,
+.fancy-button .fancy-back svg {
+  display: block;
+}
+.fancy-button:hover .fancy-flipper {
+  -webkit-transform: rotateX(0deg);
+          transform: rotateX(0deg);
+}
+.fancy-button:active .fancy-flipper {
+  -webkit-transform: rotateX(0deg) scale(0.95);
+          transform: rotateX(0deg) scale(0.95);
+  transition: -webkit-transform 0.05s ease;
+  transition: transform 0.05s ease;
+  transition: transform 0.05s ease, -webkit-transform 0.05s ease;
+}
+.fancy-button .button-text {
+  letter-spacing: 0.01em;
+  font-family: Montserrat, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: bold;
+}

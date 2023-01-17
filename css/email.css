@@ -1,0 +1,127 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap");
+/*!
+ * Font Awesome Free 5.8.2 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
+@font-face {
+  font-family: 'Font Awesome 5 Brands';
+  font-style: normal;
+  font-weight: normal;
+  font-display: auto;
+  src: url("./fonts/fontawesome/fontawesome-free-5.8.2-web/fa-brands-400.eot");
+  src: url("./fonts/fontawesome/fontawesome-free-5.8.2-web/fa-brands-400.eot?#iefix") format("embedded-opentype"),
+   url("./fonts/fontawesome/fontawesome-free-5.8.2-web/fa-brands-400.woff2") format("woff2"), 
+   url("./fontawesome/fontawesome-free-5.8.2-web/fa-brands-400.woff") format("woff"), 
+   url("./fontawesome/fontawesome-free-5.8.2-web/fa-brands-400.ttf") format("truetype"), 
+   url("./fontawesome/fontawesome-free-5.8.2-web/fa-brands-400.svg#fontawesome") format("svg");
+}
+.email-body{
+	font-family: 'Montserrat', sans-serif;
+	background-color: #f9f9f9;
+	color: black;
+}
+.social-icon {
+	color: #eaeaea;
+    font-size: 3em;
+}
+.fab {
+  font-family: 'Font Awesome 5 Brands';
+}
+.row {
+	width: 100%;
+	margin: 0;
+	padding: 1.4em 5.5em;
+}
+.logo {
+	    width: 19em;
+}
+.col-6{
+	width: 50%;
+	margin: 0;
+	box-sizing: border-box;
+	float: left;
+	
+}
+.col-4{
+	float: left;
+		width: 33.3333%;
+		margin: 0;
+	 	box-sizing: border-box;
+	 
+}
+.col-8{
+	float: left;
+		width: 66.6666%;
+		margin: 0;
+	 	box-sizing: border-box;
+	 	
+}
+.email-header {
+	background: #1c1e23;
+	overflow: auto;
+}
+.text-center {
+	text-align: center !important;
+}
+.footer-text {
+	padding-top: 0.7em;
+}
+.content {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.4em;
+	font-weight: 400;
+	color: white;
+	text-align: left;
+}
+
+.title {
+	font-family: 'Montserrat', sans-serif;
+	font-size: 1.6em;
+	font-weight: 600;
+	color: #f1bb00;
+	text-align: right;
+}
+
+.contact {
+	    padding-top: 0.7em;
+	    width: 100%;
+}
+
+.fab {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+.fa.fa-twitter {
+  font-family: 'Font Awesome 5 Brands';
+  font-weight: 400;
+}
+
+.fa-twitter:before {
+  content: "\f099";
+}
+.fa.fa-facebook-square {
+  font-family: 'Font Awesome 5 Brands';
+  font-weight: 400;
+}
+.fa-twitter-square:before {
+  content: "\f081";
+}
+.fa-facebook-square:before {
+  content: "\f082";
+}
+
+
+.fa.fa-instagram {
+  font-family: 'Font Awesome 5 Brands';
+  font-weight: 400;
+}
+.fa-instagram:before {
+  content: "\f16d";
+}
+
+

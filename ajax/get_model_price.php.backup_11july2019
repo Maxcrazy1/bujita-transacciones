@@ -1,0 +1,265 @@
+<?php
+require_once("../admin/_config/config.php");
+require_once("../admin/include/functions.php");
+require_once('../models/mobile.php');
+
+$final_model_amt = 0;
+$device_name = '';
+
+$req_data = $_REQUEST;
+$req_model_id = $req_data['model_id'];
+$fields_cat_type = $req_data['fields_cat_type'];
+$network_price_mode = $req_data['network_price_mode'];
+$step_type = $req_data['step_type'];
+
+$model_data = get_single_model_data($req_model_id);
+$model_price = $model_data['price'];
+$f_model_price = $model_price;
+$f_other_item_price = $model_price;
+
+$storage_id = $req_data['storage_id'];
+$condition_id = $req_data['condition_id'];
+$network_id = $req_data['network_id'];
+$color_id = $req_data['color_id'];
+$accessories_ids = $req_data['accessories_ids'];
+$connectivity_id = $req_data['connectivity_id'];
+$case_size_id = $req_data['case_size_id'];
+$watchtype_id = $req_data['watchtype_id'];
+$case_material_id = $req_data['case_material_id'];
+$screen_size_id = $req_data['screen_size_id'];
+$screen_resolution_id = $req_data['screen_resolution_id'];
+$lyear_id = $req_data['lyear_id'];
+$processor_id = $req_data['processor_id'];
+$ram_id = $req_data['ram_id'];
+
+if($req_model_id) {
+	$storage_list = array();
+	$condition_list = array();
+	$network_list = array();
+	$color_list = array();
+	$accessories_list = array();
+	$connectivity_list = array();
+	$watchtype_list = array();
+	$case_material_list = array();
+	$case_size_list = array();
+	$screen_size_list = array();
+	$screen_resolution_list = array();
+	$lyear_list = array();
+	$processor_list = array();
+	$ram_list = array();
+
+	if($storage_id>0) {
+		$storage_list = get_models_storage_data($req_model_id,array($storage_id));
+	}
+	if($condition_id>0) {
+		$condition_list = get_models_condition_data($req_model_id,array($condition_id));
+	}
+	if($network_id>0) {
+		$network_list = get_models_networks_data($req_model_id,array($network_id));
+	}
+	if(!empty($color_id)) {
+		$color_list = get_models_color_data($req_model_id,array($color_id));
+	}
+	if(!empty($accessories_ids)) {
+		$accessories_list = get_models_accessories_data($req_model_id,$accessories_ids);
+	}
+	if($connectivity_id>0) {
+		$connectivity_list = get_models_connectivity_data($req_model_id,array($connectivity_id));
+	}
+	if($watchtype_id>0) {
+		$watchtype_list = get_models_watchtype_data($req_model_id,array($watchtype_id));
+	}
+	if($case_material_id>0) {
+		$case_material_list = get_models_case_material_data($req_model_id,array($case_material_id));
+	}
+	if($case_size_id>0) {
+		$case_size_list = get_models_case_size_data($req_model_id,array($case_size_id));
+	}
+	if($screen_size_id>0) {
+		$screen_size_list = get_models_screen_size_data($req_model_id,array($screen_size_id));
+	}
+	if($screen_resolution_id>0) {
+		$screen_resolution_list = get_models_screen_resolution_data($req_model_id,array($screen_resolution_id));
+	}
+	if($lyear_id>0) {
+		$lyear_list = get_models_lyear_data($req_model_id,array($lyear_id));
+	}
+	if($processor_id>0) {
+		$processor_list = get_models_processor_data($req_model_id,array($processor_id));
+	}
+	if($ram_id>0) {
+		$ram_list = get_models_ram_data($req_model_id,array($ram_id));
+	}
+	
+	// Storage
+	$storage_price = ($storage_list[0]['storage_price']>0?$storage_list[0]['storage_price']:'0');
+	$req_storage = $storage_list[0]['storage_size'].$storage_list[0]['storage_size_postfix'];
+	
+	$f_model_price = ($f_model_price+$storage_price);
+	$f_other_item_price = ($f_other_item_price+$storage_price);
+	// Storage
+	
+	// Condition
+	$condition_name = $condition_list[0]['condition_name'];
+	$cond_amt = ($condition_list[0]['condition_price']>0?$condition_list[0]['condition_price']:'0');
+	
+	$f_model_price = ($f_model_price+$cond_amt);
+	$f_other_item_price = ($f_other_item_price+$cond_amt);
+	// Condition
+	
+	// Network
+	$network_name = $network_list[0]['network_name'];
+	if($network_price_mode == "unlock") {
+		$network_amt = ($network_list[0]['network_unlock_price']>0?$network_list[0]['network_unlock_price']:'0');
+	} else {
+		$network_amt = ($network_list[0]['network_price']>0?$network_list[0]['network_price']:'0');
+	}
+	
+	$f_model_price = ($f_model_price+$network_amt);
+	$f_other_item_price = ($f_other_item_price+$network_amt);
+	// Network
+	
+	// Connectivity
+	$connectivity_name = $connectivity_list[0]['connectivity_name'];
+	$connectivity_amt = ($connectivity_list[0]['connectivity_price']>0?$connectivity_list[0]['connectivity_price']:'0');
+	
+	$f_model_price = ($f_model_price+$connectivity_amt);
+	$f_other_item_price = ($f_other_item_price+$connectivity_amt);
+	// Connectivity
+	
+	// Colors
+	$color_name = $color_list[0]['color_name'];
+	$color_price = ($color_list[0]['color_price']>0?$color_list[0]['color_price']:'0');
+
+	$f_model_price = ($f_model_price+$color_price);
+	$f_other_item_price = ($f_other_item_price+$color_price);
+	// Colors
+
+	// Accessories
+	if(count($accessories_list)>0) {
+		foreach($accessories_list as $accessories_data) {
+			$accessories_price = $accessories_data['accessories_price'];
+			$accessories_name .= $accessories_data['accessories_name'].', ';
+	
+			$f_model_price = ($f_model_price+$accessories_price);
+			$f_other_item_price = ($f_other_item_price+$accessories_price);
+		}
+	} // Accessories
+
+	// Connectivity
+	$connectivity_name = $connectivity_list[0]['connectivity_name'];
+	$connectivity_amt = ($connectivity_list[0]['connectivity_price']>0?$connectivity_list[0]['connectivity_price']:'0');
+	
+	$f_model_price = ($f_model_price+$connectivity_amt);
+	$f_other_item_price = ($f_other_item_price+$connectivity_amt);
+	// Connectivity
+	
+	// Watchtype
+	$watchtype_name = $watchtype_list[0]['watchtype_name'];
+	$watchtype_amt = ($watchtype_list[0]['watchtype_price']>0?$watchtype_list[0]['watchtype_price']:'0');
+	
+	$f_model_price = ($f_model_price+$watchtype_amt);
+	$f_other_item_price = ($f_other_item_price+$watchtype_amt);
+	// Watchtype
+	
+	// Case Material
+	$case_material_name = $case_material_list[0]['case_material_name'];
+	$case_material_amt = ($case_material_list[0]['case_material_price']>0?$case_material_list[0]['case_material_price']:'0');
+	
+	$f_model_price = ($f_model_price+$case_material_amt);
+	$f_other_item_price = ($f_other_item_price+$case_material_amt);
+	// Case Material
+	
+	// Case Size
+	$case_size = $case_size_list[0]['case_size'];
+	$case_size_amt = ($case_size_list[0]['case_size_price']>0?$case_size_list[0]['case_size_price']:'0');
+	
+	$f_model_price = ($f_model_price+$case_size_amt);
+	$f_other_item_price = ($f_other_item_price+$case_size_amt);
+	// Case Size
+
+	// Screen Size
+	$screen_size_name = $screen_size_list[0]['screen_size_name'];
+	$screen_size_amt = ($screen_size_list[0]['screen_size_price']>0?$screen_size_list[0]['screen_size_price']:'0');
+	
+	$f_model_price = ($f_model_price+$screen_size_amt);
+	$f_other_item_price = ($f_other_item_price+$screen_size_amt);
+	// Screen Size
+	
+	// Screen Resolution
+	$screen_resolution_name = $screen_resolution_list[0]['screen_resolution_name'];
+	$screen_resolution_amt = ($screen_resolution_list[0]['screen_resolution_price']>0?$screen_resolution_list[0]['screen_resolution_price']:'0');
+	
+	$f_model_price = ($f_model_price+$screen_resolution_amt);
+	$f_other_item_price = ($f_other_item_price+$screen_resolution_amt);
+	// Screen Resolution
+	
+	// lyear
+	$lyear_name = $lyear_list[0]['lyear_name'];
+	$lyear_amt = ($lyear_list[0]['lyear_price']>0?$lyear_list[0]['lyear_price']:'0');
+	
+	$f_model_price = ($f_model_price+$lyear_amt);
+	$f_other_item_price = ($f_other_item_price+$lyear_amt);
+	// lyear
+	
+	// Processor
+	$processor_name = $processor_list[0]['processor_name'];
+	$processor_amt = ($processor_list[0]['processor_price']>0?$processor_list[0]['processor_price']:'0');
+	
+	$f_model_price = ($f_model_price+$processor_amt);
+	$f_other_item_price = ($f_other_item_price+$processor_amt);
+	// Processor
+	
+	// Ram
+	$ram_name = $ram_list[0]['ram_size'].$ram_list[0]['ram_size_postfix'];
+	$ram_amt = ($ram_list[0]['ram_price']>0?$ram_list[0]['ram_price']:'0');
+	
+	$f_model_price = ($f_model_price+$ram_amt);
+	$f_other_item_price = ($f_other_item_price+$ram_amt);
+	// Ram
+
+	$final_model_amt = $f_model_price;
+	if($fields_cat_type == "mobile") {
+		$device_name .= '<div class="device-details storage_nm">Capacity: <span class="storage_nm_dt">'.$req_storage.'</span></div>';
+		$device_name .= '<div class="device-details condition_nm">Condition: <span class="condition_nm_dt">'.$condition_name.'</span></div>';
+		$device_name .= '<div class="device-details network_nm">Network: <span class="network_nm_dt">'.$network_name.'</span></div>';
+		$device_name .= '<div class="device-details color_nm">Color: <span class="color_nm_dt">'.$color_name.'</span></div>';
+		$device_name .= '<div class="device-details accessories_nm">Accessories: <span class="accessories_nm_dt">'.rtrim($accessories_name,', ').'</span></div>';
+	}
+	if($fields_cat_type == "tablet") {
+		$device_name .= '<div class="device-details storage_nm">Capacity: <span class="storage_nm_dt">'.$req_storage.'</span></div>';
+		$device_name .= '<div class="device-details condition_nm">Condition: <span class="condition_nm_dt">'.$condition_name.'</span></div>';
+		$device_name .= '<div class="device-details connectivity_nm">Connectivity: <span class="connectivity_nm_dt">'.$connectivity_name.'</span></div>';
+	}
+	if($fields_cat_type == "watch") {
+		$device_name .= '<div class="device-details type_nm">Type: <span class="type_nm_dt">'.$watchtype_name.'</span></div>';
+		$device_name .= '<div class="device-details case_material_nm">Case Material: <span class="case_material_nm_dt">'.$case_material_name.'</span></div>';
+		$device_name .= '<div class="device-details case_size_nm">Case Size: <span class="case_size_nm_dt">'.$case_size.'</span></div>';
+		$device_name .= '<div class="device-details condition_nm">Condition: <span class="condition_nm_dt">'.$condition_name.'</span></div>';
+	}
+	if($fields_cat_type == "laptop") {
+		$device_name .= '<div class="device-details screen_size_nm">Screen Size: <span class="screen_size_nm_dt">'.$screen_size_name.'</span></div>';
+		$device_name .= '<div class="device-details screen_resolution_nm">Screen Resolution: <span class="screen_resolution_nm_dt">'.$screen_resolution_name.'</span></div>';
+		$device_name .= '<div class="device-details lyear_nm">Year: <span class="lyear_nm_dt">'.$lyear_name.'</span></div>';
+		$device_name .= '<div class="device-details processor_nm">Processor: <span class="processor_nm_dt">'.$processor_name.'</span></div>';
+		$device_name .= '<div class="device-details storage_nm">HD capacity: <span class="storage_nm_dt">'.$req_storage.'</span></div>';
+		$device_name .= '<div class="device-details ram_nm">Ram (Memory): <span class="ram_nm_dt">'.$ram_name.'</span></div>';
+	}
+}
+
+if($final_model_amt>0) {
+	$response_array = array();
+	$response_array['payment_amt'] = $final_model_amt;
+	
+	$_final_model_amt=amount_fomat($final_model_amt);
+	$response_array['show_final_amt'] = $_final_model_amt;
+	$response_array['device_name'] = $device_name;
+} else {
+	$response_array['payment_amt'] = '0';
+	$_final_model_amt=amount_fomat('0');
+	$response_array['show_final_amt'] = $_final_model_amt;
+	$response_array['device_name'] = '';
+}
+
+echo json_encode($response_array);
+exit;

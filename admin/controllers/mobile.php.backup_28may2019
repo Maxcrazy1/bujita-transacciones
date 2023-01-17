@@ -1,0 +1,765 @@
+<?php 
+require_once("../_config/config.php");
+require_once("../include/functions.php");
+
+if($post['r_img_id']) {
+	$mobile_data_q=mysqli_query($db,'SELECT model_img FROM mobile WHERE id="'.$post['r_img_id'].'"');
+	$mobile_data=mysqli_fetch_assoc($mobile_data_q);
+
+	mysqli_query($db,'UPDATE mobile SET model_img="" WHERE id='.$post['r_img_id']);
+	if($mobile_data['model_img']!="")
+		unlink('../../images/mobile/'.$mobile_data['model_img']);
+
+	setRedirect(ADMIN_URL.'edit_mobile.php?id='.$post['id']);
+} elseif(isset($post['d_id'])) {
+	$mobile_q=mysqli_query($db,'SELECT model_img FROM mobile WHERE id="'.$post['d_id'].'"');
+	$mobile_data=mysqli_fetch_assoc($mobile_q);
+
+	$query=mysqli_query($db,'DELETE FROM mobile WHERE id="'.$post['d_id'].'" ');
+	if($query=="1"){
+		if($mobile_data['model_img']!="")
+			unlink('../../images/mobile/'.$mobile_data['model_img']);
+
+		$msg="Record successfully removed.";
+		$_SESSION['success_msg']=$msg;
+	} else {
+		$msg='Sorry! something wrong delete failed.';
+		$_SESSION['error_msg']=$msg;
+	}
+	setRedirect(ADMIN_URL.'mobile.php');
+} elseif(isset($post['bulk_remove'])) {
+	$ids_array = $post['ids'];
+	if(!empty($ids_array)) {
+		$removed_idd = array();
+		foreach(explode(",",$ids_array) as $id_k=>$id_v) {
+			$removed_idd[] = $id_v;
+
+			$mobile_q=mysqli_query($db,'SELECT model_img FROM mobile WHERE id="'.$id_v.'"');
+			$mobile_data=mysqli_fetch_assoc($mobile_q);
+			if($mobile_data['model_img']!="")
+				unlink('../../images/mobile/'.$mobile_data['model_img']);
+
+			$query=mysqli_query($db,'DELETE FROM mobile WHERE id="'.$id_v.'"');
+		}
+	}
+
+	if($query=='1') {
+		$msg = count($removed_idd)." Record(s) successfully removed.";
+		if(count($removed_idd)=='1')
+			$msg = "Record successfully removed.";
+	
+		$_SESSION['success_msg']=$msg;
+	} else {
+		$msg='Sorry! something wrong updation failed.';
+		$_SESSION['error_msg']=$msg;
+	}
+	setRedirect(ADMIN_URL.'mobile.php');
+} elseif(isset($post['p_id'])) {
+	$query=mysqli_query($db,'UPDATE mobile SET published="'.$post['published'].'" WHERE id="'.$post['p_id'].'"');
+	if($query=="1"){
+		if($post['published']==1)
+			$msg="Successfully Published.";
+		elseif($post['published']==0)
+			$msg="Successfully Unpublished.";
+			
+		$_SESSION['success_msg']=$msg;
+	} else {
+		$msg='Sorry! something wrong Delete failed.';
+		$_SESSION['error_msg']=$msg;
+	}
+	setRedirect(ADMIN_URL.'mobile.php');
+} if(isset($post['update'])) {
+	$device_id = $post['device_id'];
+	$cat_id = $post['cat_id'];
+	$title=real_escape_string($post['title']);
+	$description=real_escape_string($post['description']);
+	$meta_title=real_escape_string($post['meta_title']);
+	$meta_desc=real_escape_string($post['meta_desc']);
+	$meta_keywords=real_escape_string($post['meta_keywords']);
+	$price=real_escape_string($post['price']);
+	$top_seller=real_escape_string(intval($post['top_seller']));
+	$unlock_price=real_escape_string($post['unlock_price']);
+	$tooltip_device=real_escape_string($post['tooltip_device']);
+	$tooltip_storage=real_escape_string($post['tooltip_storage']);
+	$tooltip_condition=real_escape_string($post['tooltip_condition']);
+	$tooltip_network=real_escape_string($post['tooltip_network']);
+	$tooltip_colors=real_escape_string($post['tooltip_colors']);
+	$tooltip_miscellaneous=real_escape_string($post['tooltip_miscellaneous']);
+	$tooltip_accessories=real_escape_string($post['tooltip_accessories']);
+	$published = $post['published'];
+	$ordering = $post['ordering'];
+	$description = real_escape_string($post['description']);
+	$searchable_words = real_escape_string($post['searchable_words']);
+
+	if($_FILES['model_img']['name']) {
+		if(!file_exists('../../images/mobile/'))
+			mkdir('../../images/mobile/',0777);
+			
+		$image_ext = pathinfo($_FILES['model_img']['name'],PATHINFO_EXTENSION);
+		if($image_ext=="png" || $image_ext=="jpg" || $image_ext=="jpeg" || $image_ext=="gif") {
+			if($post['old_image']!="")
+				unlink('../../images/mobile/'.$post['old_image']);
+
+			$image_tmp_name=$_FILES['model_img']['tmp_name'];
+			$image_name=date('YmdHis').'.'.$image_ext;
+			$imageupdate=', model_img="'.$image_name.'"';
+			move_uploaded_file($image_tmp_name,'../../images/mobile/'.$image_name);
+		} else {
+			$msg="Image type must be png, jpg, jpeg, gif";
+			$_SESSION['success_msg']=$msg;
+			if($post['id']) {
+				setRedirect(ADMIN_URL.'edit_mobile.php?id='.$post['id']);
+			} else {
+				setRedirect(ADMIN_URL.'edit_mobile.php');
+			}
+			exit();
+		}
+	}
+	
+	function save_model_fields($model_id,$post) {
+		global $db;
+		
+		//START save/update for storage section
+		$saved_storage_ids = array();
+		if(empty($post['storage_size'])) {
+			mysqli_query($db,"DELETE FROM models_storage WHERE model_id='".$model_id."'");
+		} elseif(!empty($post['storage_size'])) {
+			foreach($post['storage_size'] as $key=>$value) {
+				if(trim($value)) {
+					$storage_q=mysqli_query($db,'SELECT * FROM models_storage WHERE model_id="'.$model_id.'" AND id="'.$key.'"');
+					$models_storage_data=mysqli_fetch_assoc($storage_q);
+					if(empty($models_storage_data)) {
+						$query=mysqli_query($db,'INSERT INTO models_storage(model_id, storage_size, storage_size_postfix, plus_minus, fixed_percentage, storage_price, top_seller) values("'.$model_id.'","'.$post['storage_size'][$key].'","'.$post['storage_size_postfix'][$key].'","'.$post['storage_plus_minus'][$key].'","'.$post['storage_fixed_percentage'][$key].'","'.$post['storage_price'][$key].'","'.$post['top_seller'][$key].'")');
+						$saved_storage_ids[] = mysqli_insert_id($db);
+					} else {
+						$query=mysqli_query($db,'UPDATE models_storage SET storage_size="'.$post['storage_size'][$key].'",storage_size_postfix="'.$post['storage_size_postfix'][$key].'",plus_minus="'.$post['storage_plus_minus'][$key].'",fixed_percentage="'.$post['storage_fixed_percentage'][$key].'",storage_price="'.$post['storage_price'][$key].'",top_seller="'.$post['top_seller'][$key].'" WHERE model_id="'.$model_id.'" AND id="'.$key.'"');
+						$saved_storage_ids[] = $key;
+					}
+				}
+			}
+		}
+		if(!empty($saved_storage_ids)) {
+			mysqli_query($db,"DELETE FROM models_storage WHERE model_id='".$model_id."' AND id NOT IN(".implode(",",$saved_storage_ids).")");
+		} //END save/update for storage section
+
+		//START save/update for condition section
+		$saved_condition_ids = array();
+		if(empty($post['condition_name'])) {
+			mysqli_query($db,"DELETE FROM models_condition WHERE model_id='".$model_id."'");
+		} elseif(!empty($post['condition_name'])) {
+			foreach($post['condition_name'] as $cd_key=>$cd_value) {
+				if(trim($cd_value)) {
+					$condition_q=mysqli_query($db,'SELECT * FROM models_condition WHERE model_id="'.$model_id.'" AND id="'.$cd_key.'"');
+					$models_condition_data=mysqli_fetch_assoc($condition_q);
+					if(empty($models_condition_data)) {
+						$query=mysqli_query($db,'INSERT INTO models_condition(model_id, condition_name, plus_minus, fixed_percentage, condition_price, condition_terms, disabled_network) values("'.$model_id.'","'.real_escape_string($post['condition_name'][$cd_key]).'","'.$post['condition_plus_minus'][$cd_key].'","'.$post['condition_fixed_percentage'][$cd_key].'","'.$post['condition_price'][$cd_key].'","'.real_escape_string($post['condition_terms'][$cd_key]).'","'.$post['disabled_network'][$cd_key].'")');
+						$saved_condition_ids[] = mysqli_insert_id($db);
+					} else {
+						$query=mysqli_query($db,'UPDATE models_condition SET condition_name="'.real_escape_string($post['condition_name'][$cd_key]).'",plus_minus="'.$post['condition_plus_minus'][$cd_key].'",fixed_percentage="'.$post['condition_fixed_percentage'][$cd_key].'",condition_price="'.$post['condition_price'][$cd_key].'",condition_terms="'.real_escape_string($post['condition_terms'][$cd_key]).'",disabled_network="'.$post['disabled_network'][$cd_key].'" WHERE model_id="'.$model_id.'" AND id="'.$cd_key.'"');
+						$saved_condition_ids[] = $cd_key;
+					}
+				}
+			}
+		}
+		if(!empty($saved_condition_ids)) {
+			mysqli_query($db,"DELETE FROM models_condition WHERE model_id='".$model_id."' AND id NOT IN(".implode(",",$saved_condition_ids).")");
+		} //END save/update for condition section
+		
+		//START save/update for color section
+		$saved_color_ids = array();
+		if(!empty($post['color_name'])) {
+			foreach($post['color_name'] as $c_key=>$c_value) {
+				if(trim($c_value)) {
+					$color_q=mysqli_query($db,'SELECT * FROM models_color WHERE model_id="'.$model_id.'" AND id="'.$c_key.'"');
+					$models_color_data=mysqli_fetch_assoc($color_q);
+					if(empty($models_color_data)) {
+						$query=mysqli_query($db,'INSERT INTO models_color(model_id, color_name, plus_minus, fixed_percentage, color_price) values("'.$model_id.'","'.real_escape_string($post['color_name'][$c_key]).'","'.$post['color_plus_minus'][$c_key].'","'.$post['color_fixed_percentage'][$c_key].'","'.$post['color_price'][$c_key].'")');
+						$saved_color_ids[] = mysqli_insert_id($db);
+					} else {
+						$query=mysqli_query($db,'UPDATE models_color SET color_name="'.real_escape_string($post['color_name'][$c_key]).'",plus_minus="'.$post['color_plus_minus'][$c_key].'",fixed_percentage="'.$post['color_fixed_percentage'][$c_key].'",color_price="'.$post['color_price'][$c_key].'" WHERE model_id="'.$model_id.'" AND id="'.$c_key.'"');
+						$saved_color_ids[] = $c_key;
+					}
+				}
+			}
+		}
+		if(!empty($saved_color_ids)) {
+			mysqli_query($db,"DELETE FROM models_color WHERE model_id='".$model_id."' AND id NOT IN(".implode(",",$saved_color_ids).")");
+		} //END save/update for color section
+
+		//START save/update for accessories section
+		$saved_accessories_ids = array();
+		if(empty($post['accessories_name'])) {
+			mysqli_query($db,"DELETE FROM models_accessories WHERE model_id='".$model_id."'");
+		} elseif(!empty($post['accessories_name'])) {
+			foreach($post['accessories_name'] as $acce_key=>$acce_value) {
+				if(trim($acce_value)) {
+					$accessories_q=mysqli_query($db,'SELECT * FROM models_accessories WHERE model_id="'.$model_id.'" AND id="'.$acce_key.'"');
+					$models_accessories_data=mysqli_fetch_assoc($accessories_q);
+					if(empty($models_accessories_data)) {
+						$query=mysqli_query($db,'INSERT INTO models_accessories(model_id, accessories_name, plus_minus, fixed_percentage, accessories_price) values("'.$model_id.'","'.real_escape_string($post['accessories_name'][$acce_key]).'","'.$post['accessories_plus_minus'][$acce_key].'","'.$post['accessories_fixed_percentage'][$acce_key].'","'.$post['accessories_price'][$acce_key].'")');
+						$saved_accessories_ids[] = mysqli_insert_id($db);
+					} else {
+						$query=mysqli_query($db,'UPDATE models_accessories SET accessories_name="'.real_escape_string($post['accessories_name'][$acce_key]).'",plus_minus="'.$post['accessories_plus_minus'][$acce_key].'",fixed_percentage="'.$post['accessories_fixed_percentage'][$acce_key].'",accessories_price="'.$post['accessories_price'][$acce_key].'" WHERE model_id="'.$model_id.'" AND id="'.$acce_key.'"');
+						$saved_accessories_ids[] = $acce_key;
+					}
+				}
+			}
+		}
+		if(!empty($saved_accessories_ids)) {
+			mysqli_query($db,"DELETE FROM models_accessories WHERE model_id='".$model_id."' AND id NOT IN(".implode(",",$saved_accessories_ids).")");
+		} //END save/update for accessories section
+		
+		//START save/update for miscellaneous section
+		$saved_miscellaneous_ids = array();
+		if(empty($post['miscellaneous_name'])) {
+			mysqli_query($db,"DELETE FROM models_miscellaneous WHERE model_id='".$model_id."'");
+		} elseif(!empty($post['miscellaneous_name'])) {
+			foreach($post['miscellaneous_name'] as $misc_key=>$misc_value) {
+				if(trim($misc_value)) {
+					$miscellaneous_q=mysqli_query($db,'SELECT * FROM models_miscellaneous WHERE model_id="'.$model_id.'" AND id="'.$misc_key.'"');
+					$models_miscellaneous_data=mysqli_fetch_assoc($miscellaneous_q);
+					if(empty($models_miscellaneous_data)) {
+						$query=mysqli_query($db,'INSERT INTO models_miscellaneous(model_id, miscellaneous_name, plus_minus, fixed_percentage, miscellaneous_price) values("'.$model_id.'","'.real_escape_string($post['miscellaneous_name'][$misc_key]).'","'.$post['miscellaneous_plus_minus'][$misc_key].'","'.$post['miscellaneous_fixed_percentage'][$misc_key].'","'.$post['miscellaneous_price'][$misc_key].'")');
+						$saved_miscellaneous_ids[] = mysqli_insert_id($db);
+					} else {
+						$query=mysqli_query($db,'UPDATE models_miscellaneous SET miscellaneous_name="'.real_escape_string($post['miscellaneous_name'][$misc_key]).'",plus_minus="'.$post['miscellaneous_plus_minus'][$misc_key].'",fixed_percentage="'.$post['miscellaneous_fixed_percentage'][$misc_key].'",miscellaneous_price="'.$post['miscellaneous_price'][$misc_key].'" WHERE model_id="'.$model_id.'" AND id="'.$misc_key.'"');
+						$saved_miscellaneous_ids[] = $misc_key;
+					}
+				}
+			}
+		}
+		if(!empty($saved_miscellaneous_ids)) {
+			mysqli_query($db,"DELETE FROM models_miscellaneous WHERE model_id='".$model_id."' AND id NOT IN(".implode(",",$saved_miscellaneous_ids).")");
+		} //END save/update for miscellaneous section
+		
+		//START save/update for network section
+		$saved_network_ids = array();
+		if(empty($post['network_name'])) {
+			mysqli_query($db,"DELETE FROM models_networks WHERE model_id='".$model_id."'");
+		} elseif(!empty($post['network_name'])) {
+			foreach($post['network_name'] as $n_key=>$n_value) {
+				if(trim($n_value)) {
+				
+					if(trim($_FILES['network_icon']['name'][$n_key])) {
+						if(!file_exists('../../images/network/'))
+							mkdir('../../images/network/',0777);
+
+						$network_image_ext = pathinfo($_FILES['network_icon']['name'][$n_key],PATHINFO_EXTENSION);
+						if($network_image_ext=="png" || $network_image_ext=="jpg" || $network_image_ext=="jpeg" || $network_image_ext=="gif") {
+							$net_image_tmp_name=$_FILES['network_icon']['tmp_name'][$n_key];
+							$network_icon=$n_key.date('YmdHis').'.'.$network_image_ext;
+							move_uploaded_file($net_image_tmp_name,'../../images/network/'.$network_icon);
+						} else {
+							$msg="Image type must be png, jpg, jpeg, gif";
+							$_SESSION['success_msg']=$msg;
+							if($post['id']) {
+								setRedirect(ADMIN_URL.'edit_mobile.php?id='.$model_id);
+							} else {
+								setRedirect(ADMIN_URL.'edit_mobile.php');
+							}
+							exit();
+						}
+					} else {
+						$network_icon=$post['old_network_icon'][$n_key];
+					}
+
+					$network_price = 0;
+					$network_price = ($post['network_price'][$n_key]>0?$post['network_price'][$n_key]:0);
+			
+					$network_q=mysqli_query($db,'SELECT * FROM models_networks WHERE model_id="'.$model_id.'" AND id="'.$n_key.'"');
+					$models_network_data=mysqli_fetch_assoc($network_q);
+					if(empty($models_network_data)) {
+						$query=mysqli_query($db,'INSERT INTO models_networks(model_id, network_name, plus_minus, fixed_percentage, network_price, most_popular, change_unlock, network_icon) values("'.$model_id.'","'.$post['network_name'][$n_key].'","'.$post['network_plus_minus'][$n_key].'","'.$post['network_fixed_percentage'][$n_key].'","'.$network_price.'","'.$post['most_popular'][$n_key].'","'.$post['change_unlock'][$n_key].'","'.$network_icon.'")');
+						$saved_network_ids[] = mysqli_insert_id($db);
+					} else {
+						$query=mysqli_query($db,'UPDATE models_networks SET network_name="'.$post['network_name'][$n_key].'",plus_minus="'.$post['network_plus_minus'][$n_key].'",fixed_percentage="'.$post['network_fixed_percentage'][$n_key].'",network_price="'.$network_price.'",most_popular="'.$post['most_popular'][$n_key].'",change_unlock="'.$post['change_unlock'][$n_key].'",network_icon="'.$network_icon.'" WHERE model_id="'.$model_id.'" AND id="'.$n_key.'"');
+						$saved_network_ids[] = $n_key;
+					}
+				}
+			}
+		}
+		if(!empty($saved_network_ids)) {
+			mysqli_query($db,"DELETE FROM models_networks WHERE model_id='".$model_id."' AND id NOT IN(".implode(",",$saved_network_ids).")");
+		} //END save/update for network section
+			
+	}
+
+	if($post['id']) {
+		$query=mysqli_query($db,'UPDATE mobile SET title="'.$title.'", meta_title="'.$meta_title.'", meta_desc="'.$meta_desc.'", meta_keywords="'.$meta_keywords.'", device_id="'.$device_id.'", cat_id="'.$cat_id.'", price="'.$price.'" '.$imageupdate.', unlock_price="'.$unlock_price.'", tooltip_device="'.$tooltip_device.'", tooltip_storage="'.$tooltip_storage.'", tooltip_condition="'.$tooltip_condition.'", tooltip_network="'.$tooltip_network.'", tooltip_colors="'.$tooltip_colors.'", tooltip_miscellaneous="'.$tooltip_miscellaneous.'", tooltip_accessories="'.$tooltip_accessories.'", top_seller='.$top_seller.', published="'.$published.'", ordering="'.$ordering.'", searchable_words="'.$searchable_words.'", description="'.$description.'" WHERE id="'.$post['id'].'"');
+		if($query=="1") {
+			$model_id = $post['id'];
+			save_model_fields($model_id,$post);
+			$msg="Model has been successfully updated.";
+			$_SESSION['success_msg']=$msg;
+		} else {
+			$msg='Sorry! something wrong updation failed.';
+			$_SESSION['error_msg']=$msg;
+		}
+		setRedirect(ADMIN_URL.'edit_mobile.php?id='.$post['id']);
+	} else {
+		//$_q='INSERT INTO mobile(title, description, meta_title, meta_desc, meta_keywords, device_id, cat_id, price, model_img, unlock_price, tooltip_device, tooltip_storage, tooltip_condition, tooltip_network, tooltip_colors, tooltip_miscellaneous, tooltip_accessories, top_seller, published, ordering, searchable_words, description) values("'.$title.'","'.$description.'","'.$meta_title.'","'.$meta_desc.'","'.$meta_keywords.'","'.$device_id.'","'.$cat_id.'","'.$price.'","'.$image_name.'","'.$unlock_price.'","'.$tooltip_device.'","'.$tooltip_storage.'","'.$tooltip_condition.'","'.$tooltip_network.'","'.$tooltip_colors.'","'.$tooltip_miscellaneous.'","'.$tooltip_accessories.'","'.$top_seller.'","'.$published.'","'.$ordering.'","'.$searchable_words.'","'.$description.'")';
+		
+		$_q='INSERT INTO mobile(title, meta_title, meta_desc, meta_keywords, device_id, cat_id, price, model_img, unlock_price, tooltip_device, tooltip_storage, tooltip_condition, tooltip_network, tooltip_colors, tooltip_miscellaneous, tooltip_accessories, top_seller, published, ordering, searchable_words, description) values("'.$title.'","'.$meta_title.'","'.$meta_desc.'","'.$meta_keywords.'","'.$device_id.'","'.$cat_id.'","'.$price.'","'.$image_name.'","'.$unlock_price.'","'.$tooltip_device.'","'.$tooltip_storage.'","'.$tooltip_condition.'","'.$tooltip_network.'","'.$tooltip_colors.'","'.$tooltip_miscellaneous.'","'.$tooltip_accessories.'","'.$top_seller.'","'.$published.'","'.$ordering.'","'.$searchable_words.'","'.$description.'")';
+		
+		$query=mysqli_query($db,$_q);
+		if($query=="1") {
+			$model_id = mysqli_insert_id($db);
+			save_model_fields($model_id,$post);
+			$msg="Model has been successfully added.";
+			$_SESSION['success_msg']=$msg;
+			setRedirect(ADMIN_URL.'mobile.php');
+		} else {
+			$msg='Sorry! something wrong add failed.';
+			$_SESSION['error_msg']=$msg;
+			setRedirect(ADMIN_URL.'edit_mobile.php');
+		}
+	}
+} elseif($post['r_img_id']) {
+	$mobile_data_q=mysqli_query($db,'SELECT model_img FROM mobile WHERE id="'.$post['r_img_id'].'"');
+	$mobile_data=mysqli_fetch_assoc($mobile_data_q);
+
+	$del_logo=mysqli_query($db,'UPDATE mobile SET model_img="" WHERE id='.$post['r_img_id']);
+	if($mobile_data['model_img']!="")
+		unlink('../../images/mobile/'.$mobile_data['model_img']);
+
+	setRedirect(ADMIN_URL.'edit_mobile.php?id='.$post['id']);
+} elseif($post['sbt_order']) {
+	foreach($post['ordering'] as $ordering_key => $ordering_val) {
+		if($ordering_val>0) {
+			$query = mysqli_query($db,"UPDATE mobile SET ordering='".$ordering_val."' WHERE id='".$ordering_key."'");
+		}
+	}
+	if($query=="1") {
+		$msg="Order(s) successfully saved.";
+		$_SESSION['success_msg']=$msg;
+	} else {
+		$msg='Sorry! something wrong updation failed.';
+		$_SESSION['error_msg']=$msg;
+	}
+	setRedirect(ADMIN_URL.'mobile.php');
+} elseif($post['sbt_order']) {
+	foreach($post['ordering'] as $ordering_key => $ordering_val) {
+		if($ordering_val>0) {
+			$query = mysqli_query($db,"UPDATE mobile SET ordering='".$ordering_val."' WHERE id='".$ordering_key."'");
+		}
+	}
+	if($query=="1") {
+		$msg="Order(s) successfully saved.";
+		$_SESSION['success_msg']=$msg;
+	} else {
+		$msg='Sorry! something wrong updation failed.';
+		$_SESSION['error_msg']=$msg;
+	}
+	setRedirect(ADMIN_URL.'mobile.php');
+} elseif(isset($post['export'])) {
+	$ids = $post['ids'];
+
+	$filter_by = "";
+	if($post['filter_by']) {
+		$filter_by .= " AND (m.title LIKE '%".real_escape_string($post['filter_by'])."%')";
+	}
+
+	if($post['cat_id']) {
+		$filter_by .= " AND m.cat_id = '".$post['cat_id']."'";
+	}
+
+	if($post['brand_id']) {
+		$filter_by .= " AND d.brand_id = '".$post['brand_id']."'";
+	}
+
+	if($post['device_id']) {
+		$filter_by .= " AND m.device_id = '".$post['device_id']."'";
+	}
+
+	if($ids) {
+		$filter_by .= " AND m.id IN(".$ids.")";
+	}
+
+	$query=mysqli_query($db,"SELECT m.*, c.title AS cat_title, d.title AS device_title, d.sef_url, b.title AS brand_title FROM mobile AS m LEFT JOIN categories AS c ON c.id=m.cat_id LEFT JOIN devices AS d ON d.id=m.device_id LEFT JOIN brand AS b ON b.id=d.brand_id WHERE 1 ".$filter_by." ORDER BY m.id ASC");
+	$num_rows = mysqli_num_rows($query);
+	if($num_rows>0) {
+		$filename = 'models-'.date("YmdHis").".csv";
+		$fp = fopen('php://output', 'w');	
+		header('Content-type: application/csv');
+		header('Content-Disposition: attachment; filename='.$filename);
+
+		$header = array('Model_ID',
+			'Brand',
+			'Model_Title',
+			'Device',
+			'Model_Price',
+			'Storage_ID',
+			'Storage_Title',
+			'Storage_Title_Postfix',
+			'Storage_Price',
+			'Storage_Price_PlusMinus',
+			'Storage_Price_FixedPercentage',
+			'Condition_ID',
+			'Condition_Title',
+			'Condition_Price',
+			'Condition_Price_PlusMinus',
+			'Condition_Price_FixedPercentage',
+			'Network_ID',
+			'Network_Title',
+			'Network_Price',
+			'Network_Price_PlusMinus',
+			'Network_Price_FixedPercentage',
+			'Accessories_ID',
+			'Accessories_Title',
+			'Accessories_Price',
+			'Accessories_Price_PlusMinus',
+			'Accessories_Price_FixedPercentage',
+			'Miscellaneous_ID',
+			'Miscellaneous_Title',
+			'Miscellaneous_Price',
+			'Miscellaneous_Price_PlusMinus',
+			'Miscellaneous_Price_FixedPercentage');
+		fputcsv($fp, $header);
+
+		$data_to_csv_array = array();
+		while($model_data=mysqli_fetch_assoc($query)) {
+			$data_to_csv = array();
+			$model_fields_data_array = array();
+
+			$model_id = $model_data['id'];
+			$storage_items_array = get_models_storage_data($model_id);
+			$condition_items_array = get_models_condition_data($model_id);
+			$colors_items_array = get_models_color_data($model_id);
+			$accessories_items_array = get_models_accessories_data($model_id);
+			$miscellaneous_items_array = get_models_miscellaneous_data($model_id);
+			$network_items_array = get_models_networks_data($model_id);
+
+			if(!empty($storage_items_array)) {
+				foreach($storage_items_array as $s_key => $storage_items_data) {
+					$model_fields_data_array[$s_key]['Storage_ID'] = $storage_items_data['id'];
+					$model_fields_data_array[$s_key]['Storage_Title'] = $storage_items_data['storage_size'];
+					$model_fields_data_array[$s_key]['Storage_Title_Postfix'] = $storage_items_data['storage_size_postfix'];
+					$model_fields_data_array[$s_key]['Storage_Price'] = $storage_items_data['storage_price'];
+					$model_fields_data_array[$s_key]['Storage_Price_PlusMinus'] = $storage_items_data['plus_minus'];
+					$model_fields_data_array[$s_key]['Storage_Price_FixedPercentage'] = $storage_items_data['fixed_percentage'];
+				}
+			}
+			
+			if(!empty($condition_items_array)) {
+				foreach($condition_items_array as $c_key => $condition_items_data) {
+					$model_fields_data_array[$c_key]['Condition_ID'] = $condition_items_data['id'];
+					$model_fields_data_array[$c_key]['Condition_Title'] = $condition_items_data['condition_name'];
+					$model_fields_data_array[$c_key]['Condition_Price'] = $condition_items_data['condition_price'];
+					$model_fields_data_array[$c_key]['Condition_Price_PlusMinus'] = $condition_items_data['plus_minus'];
+					$model_fields_data_array[$c_key]['Condition_Price_FixedPercentage'] = $condition_items_data['fixed_percentage'];
+				}
+			}
+			
+			if(!empty($network_items_array)) {
+				foreach($network_items_array as $n_key => $network_items_data) {
+					$model_fields_data_array[$n_key]['Network_ID'] = $network_items_data['id'];
+					$model_fields_data_array[$n_key]['Network_Title'] = $network_items_data['network_name'];
+					$model_fields_data_array[$n_key]['Network_Price'] = $network_items_data['network_price'];
+					$model_fields_data_array[$n_key]['Network_Price_PlusMinus'] = $network_items_data['plus_minus'];
+					$model_fields_data_array[$n_key]['Network_Price_FixedPercentage'] = $network_items_data['fixed_percentage'];
+				}
+			}
+
+			if(!empty($accessories_items_array)) {
+				foreach($accessories_items_array as $acce_key => $accessories_items_data) {
+					$model_fields_data_array[$acce_key]['Accessories_ID'] = $accessories_items_data['id'];
+					$model_fields_data_array[$acce_key]['Accessories_Title'] = $accessories_items_data['accessories_name'];
+					$model_fields_data_array[$acce_key]['Accessories_Price'] = $accessories_items_data['accessories_price'];
+					$model_fields_data_array[$acce_key]['Accessories_Price_PlusMinus'] = $accessories_items_data['plus_minus'];
+					$model_fields_data_array[$acce_key]['Accessories_Price_FixedPercentage'] = $accessories_items_data['fixed_percentage'];
+				}
+			}
+			
+			if(!empty($miscellaneous_items_array)) {
+				foreach($miscellaneous_items_array as $misc_key => $miscellaneous_items_data) {
+					$model_fields_data_array[$misc_key]['Miscellaneous_ID'] = $miscellaneous_items_data['id'];
+					$model_fields_data_array[$misc_key]['Miscellaneous_Title'] = $miscellaneous_items_data['miscellaneous_name'];
+					$model_fields_data_array[$misc_key]['Miscellaneous_Price'] = $miscellaneous_items_data['miscellaneous_price'];
+					$model_fields_data_array[$misc_key]['Miscellaneous_Price_PlusMinus'] = $miscellaneous_items_data['plus_minus'];
+					$model_fields_data_array[$misc_key]['Miscellaneous_Price_FixedPercentage'] = $miscellaneous_items_data['fixed_percentage'];
+				}
+			}
+
+			if(!empty($model_fields_data_array)) {
+				foreach($model_fields_data_array as $model_fields_data) {
+					if($model_data['id']!=$model_tmp_id) {
+						$data_to_csv['Model_ID'] = $model_data['id'];
+						$data_to_csv['Brand'] = $model_data['brand_title'];
+						$data_to_csv['Model_Title'] = $model_data['title'];
+						$data_to_csv['Device'] = $model_data['device_title'];
+						$data_to_csv['Model_Price'] = $model_data['price'];
+					} else {
+						$data_to_csv['Model_ID'] = '';
+						$data_to_csv['Brand'] = '';
+						$data_to_csv['Model_Title'] = '';
+						$data_to_csv['Device'] = '';
+						$data_to_csv['Model_Price'] = '';
+					}
+
+					$data_to_csv['Storage_ID'] = $model_fields_data['Storage_ID'];
+					$data_to_csv['Storage_Title'] = $model_fields_data['Storage_Title'];
+					$data_to_csv['Storage_Title_Postfix'] = $model_fields_data['Storage_Title_Postfix'];
+					$data_to_csv['Storage_Price'] = $model_fields_data['Storage_Price'];
+					$data_to_csv['Storage_Price_PlusMinus'] = $model_fields_data['Storage_Price_PlusMinus'];
+					$data_to_csv['Storage_Price_FixedPercentage'] = $model_fields_data['Storage_Price_FixedPercentage'];
+					$data_to_csv['Condition_ID'] = $model_fields_data['Condition_ID'];
+					$data_to_csv['Condition_Title'] = $model_fields_data['Condition_Title'];
+					$data_to_csv['Condition_Price'] = $model_fields_data['Condition_Price'];
+					$data_to_csv['Condition_Price_PlusMinus'] = $model_fields_data['Condition_Price_PlusMinus'];
+					$data_to_csv['Condition_Price_FixedPercentage'] = $model_fields_data['Condition_Price_FixedPercentage'];
+					$data_to_csv['Network_ID'] = $model_fields_data['Network_ID'];
+					$data_to_csv['Network_Title'] = $model_fields_data['Network_Title'];
+					$data_to_csv['Network_Price'] = $model_fields_data['Network_Price'];
+					$data_to_csv['Network_Price_PlusMinus'] = $model_fields_data['Network_Price_PlusMinus'];
+					$data_to_csv['Network_Price_FixedPercentage'] = $model_fields_data['Network_Price_FixedPercentage'];
+					$data_to_csv['Accessories_ID'] = $model_fields_data['Accessories_ID'];
+					$data_to_csv['Accessories_Title'] = $model_fields_data['Accessories_Title'];
+					$data_to_csv['Accessories_Price'] = $model_fields_data['Accessories_Price'];
+					$data_to_csv['Accessories_Price_PlusMinus'] = $model_fields_data['Accessories_Price_PlusMinus'];
+					$data_to_csv['Accessories_Price_FixedPercentage'] = $model_fields_data['Accessories_Price_FixedPercentage'];
+					$data_to_csv['Miscellaneous_ID'] = $model_fields_data['Miscellaneous_ID'];
+					$data_to_csv['Miscellaneous_Title'] = $model_fields_data['Miscellaneous_Title'];
+					$data_to_csv['Miscellaneous_Price'] = $model_fields_data['Miscellaneous_Price'];
+					$data_to_csv['Miscellaneous_Price_PlusMinus'] = $model_fields_data['Miscellaneous_Price_PlusMinus'];
+					$data_to_csv['Miscellaneous_Price_FixedPercentage'] = $model_fields_data['Miscellaneous_Price_FixedPercentage'];
+					$data_to_csv_array[] = $data_to_csv;
+
+					$model_tmp_id = $model_data['id'];											
+				}
+			} else {
+				$data_to_csv['Model_ID'] = $model_data['id'];
+				$data_to_csv['Brand'] = $model_data['brand_title'];
+				$data_to_csv['Model_Title'] = $model_data['title'];
+				$data_to_csv['Device'] = $model_data['device_title'];
+				$data_to_csv['Model_Price'] = $model_data['price'];
+				$data_to_csv['Storage_ID'] = "";
+				$data_to_csv['Storage_Title'] = "";
+				$data_to_csv['Storage_Title_Postfix'] = "";
+				$data_to_csv['Storage_Price'] = "";
+				$data_to_csv['Storage_Price_PlusMinus'] = "";
+				$data_to_csv['Storage_Price_FixedPercentage'] = "";
+				$data_to_csv['Condition_ID'] = "";
+				$data_to_csv['Condition_Title'] = "";
+				$data_to_csv['Condition_Price'] = "";
+				$data_to_csv['Condition_Price_PlusMinus'] = "";
+				$data_to_csv['Condition_Price_FixedPercentage'] = "";
+				$data_to_csv['Network_ID'] = "";
+				$data_to_csv['Network_Title'] = "";
+				$data_to_csv['Network_Price'] = "";
+				$data_to_csv['Network_Price_PlusMinus'] = "";
+				$data_to_csv['Network_Price_FixedPercentage'] = "";
+				$data_to_csv['Accessories_ID'] = "";
+				$data_to_csv['Accessories_Title'] = "";
+				$data_to_csv['Accessories_Price'] = "";
+				$data_to_csv['Accessories_Price_PlusMinus'] = "";
+				$data_to_csv['Accessories_Price_FixedPercentage'] = "";
+				$data_to_csv['Miscellaneous_ID'] = "";
+				$data_to_csv['Miscellaneous_Title'] = "";
+				$data_to_csv['Miscellaneous_Price'] = "";
+				$data_to_csv['Miscellaneous_Price_PlusMinus'] = "";
+				$data_to_csv['Miscellaneous_Price_FixedPercentage'] = "";
+				$data_to_csv_array[] = $data_to_csv;
+			}
+		}
+
+		//print_r($data_to_csv_array);
+		if(!empty($data_to_csv_array)) {
+			foreach($data_to_csv_array as $data_to_csv_data) {
+				$f_data_to_csv = array();
+				$f_data_to_csv[] = $data_to_csv_data['Model_ID'];
+				$f_data_to_csv[] = $data_to_csv_data['Brand'];
+				$f_data_to_csv[] = $data_to_csv_data['Model_Title'];
+				$f_data_to_csv[] = $data_to_csv_data['Device'];
+				$f_data_to_csv[] = $data_to_csv_data['Model_Price'];
+				$f_data_to_csv[] = $data_to_csv_data['Storage_ID'];
+				$f_data_to_csv[] = $data_to_csv_data['Storage_Title'];
+				$f_data_to_csv[] = $data_to_csv_data['Storage_Title_Postfix'];
+				$f_data_to_csv[] = $data_to_csv_data['Storage_Price'];
+				$f_data_to_csv[] = $data_to_csv_data['Storage_Price_PlusMinus'];
+				$f_data_to_csv[] = $data_to_csv_data['Storage_Price_FixedPercentage'];
+				$f_data_to_csv[] = $data_to_csv_data['Condition_ID'];
+				$f_data_to_csv[] = $data_to_csv_data['Condition_Title'];
+				$f_data_to_csv[] = $data_to_csv_data['Condition_Price'];
+				$f_data_to_csv[] = $data_to_csv_data['Condition_Price_PlusMinus'];
+				$f_data_to_csv[] = $data_to_csv_data['Condition_Price_FixedPercentage'];
+				$f_data_to_csv[] = $data_to_csv_data['Network_ID'];
+				$f_data_to_csv[] = $data_to_csv_data['Network_Title'];
+				$f_data_to_csv[] = $data_to_csv_data['Network_Price'];
+				$f_data_to_csv[] = $data_to_csv_data['Network_Price_PlusMinus'];
+				$f_data_to_csv[] = $data_to_csv_data['Network_Price_FixedPercentage'];
+				$f_data_to_csv[] = $data_to_csv_data['Accessories_ID'];
+				$f_data_to_csv[] = $data_to_csv_data['Accessories_Title'];
+				$f_data_to_csv[] = $data_to_csv_data['Accessories_Price'];
+				$f_data_to_csv[] = $data_to_csv_data['Accessories_Price_PlusMinus'];
+				$f_data_to_csv[] = $data_to_csv_data['Accessories_Price_FixedPercentage'];
+				$f_data_to_csv[] = $data_to_csv_data['Miscellaneous_ID'];
+				$f_data_to_csv[] = $data_to_csv_data['Miscellaneous_Title'];
+				$f_data_to_csv[] = $data_to_csv_data['Miscellaneous_Price'];
+				$f_data_to_csv[] = $data_to_csv_data['Miscellaneous_Price_PlusMinus'];
+				$f_data_to_csv[] = $data_to_csv_data['Miscellaneous_Price_FixedPercentage'];
+					
+				fputcsv($fp, $f_data_to_csv);
+			}
+		}
+	}
+	exit();
+	//setRedirect(ADMIN_URL.'mobile.php');
+} elseif(isset($post['import'])) {
+	if($_FILES['file_name']['name'] == "") {
+		$msg="Please choose .csv, .xls or .xlsx file.";
+		$_SESSION['success_msg']=$msg;
+		setRedirect(ADMIN_URL.'mobile.php');
+		exit();
+	} else {
+		$path = str_replace(' ','_',$_FILES['file_name']['name']);
+		$ext = pathinfo($path,PATHINFO_EXTENSION);
+		if($ext=="csv" || $ext=="xls" || $ext=="xlsx") {
+
+			$filename=$_FILES['file_name']['tmp_name'];
+			move_uploaded_file($filename,'../uploaded_file/'.$path);
+
+			$excel_file_path = '../uploaded_file/'.$path;
+			require('../libraries/spreadsheet-reader-master/php-excel-reader/excel_reader2.php');
+			require('../libraries/spreadsheet-reader-master/SpreadsheetReader.php');
+			$excel_file_data_list = new SpreadsheetReader($excel_file_path);
+			foreach($excel_file_data_list as $ek=>$excel_file_data)
+			{
+				//print_r($excel_file_data);
+				$Model_ID = $excel_file_data[0];
+				$Brand = $excel_file_data[1];
+				$Model_Title = $excel_file_data[2];
+				$Device = $excel_file_data[3];
+				$Model_Price = $excel_file_data[4];
+				$Storage_ID = $excel_file_data[5];
+				$Storage_Title = $excel_file_data[6];
+				$Storage_Title_Postfix = $excel_file_data[7];
+				$Storage_Price = $excel_file_data[8];
+				$Storage_Price_PlusMinus = $excel_file_data[9];
+				$Storage_Price_FixedPercentage = $excel_file_data[10];
+				$Condition_ID = $excel_file_data[11];
+				$Condition_Title = $excel_file_data[12];
+				$Condition_Price = $excel_file_data[13];
+				$Condition_Price_PlusMinus = $excel_file_data[14];
+				$Condition_Price_FixedPercentage = $excel_file_data[15];
+				$Network_ID = $excel_file_data[16];
+				$Network_Title = $excel_file_data[17];
+				$Network_Price = $excel_file_data[18];
+				$Network_Price_PlusMinus = $excel_file_data[19];
+				$Network_Price_FixedPercentage = $excel_file_data[20];
+				$Accessories_ID = $excel_file_data[21];
+				$Accessories_Title = $excel_file_data[22];
+				$Accessories_Price = $excel_file_data[23];
+				$Accessories_Price_PlusMinus = $excel_file_data[24];
+				$Accessories_Price_FixedPercentage = $excel_file_data[25];
+				$Miscellaneous_ID = $excel_file_data[26];
+				$Miscellaneous_Title = $excel_file_data[27];
+				$Miscellaneous_Price = $excel_file_data[28];
+				$Miscellaneous_Price_PlusMinus = $excel_file_data[29];
+				$Miscellaneous_Price_FixedPercentage = $excel_file_data[30];
+					
+				if($Model_ID>0) {
+					$f_model_id = $Model_ID;
+				}
+				if($Storage_ID>0) {
+					$f_storage_id = $Storage_ID;
+				}
+				if($Condition_ID>0) {
+					$f_condition_id = $Condition_ID;
+				}
+				if($Network_ID>0) {
+					$f_network_id = $Network_ID;
+				}
+				if($Accessories_ID>0) {
+					$f_accessories_id = $Accessories_ID;
+				}
+				if($Miscellaneous_ID>0) {
+					$f_miscellaneous_id = $Miscellaneous_ID;
+				}
+
+				/*echo $f_model_id.'::'.$f_field_id;
+				echo '<br>';
+				exit;*/
+
+				if(($ext=="xls" && $ek>1) || ($ext!="xls" && $ek>0)) {
+					if($Model_Title!="") {
+						$qr=mysqli_query($db,"SELECT * FROM mobile WHERE id='".$Model_ID."'");
+						$exist_mobile_data=mysqli_fetch_assoc($qr);
+						if(empty($exist_mobile_data)) {
+							$query = mysqli_query($db,"INSERT INTO mobile(title, price) VALUES('".$Model_Title."','".$Model_Price."')");
+						} else {
+							$query = mysqli_query($db,"UPDATE mobile SET title='".$Model_Title."', price='".$Model_Price."' WHERE id='".$Model_ID."'");
+						}
+					}
+
+					if($Storage_Title!="") {
+						$q_ms=mysqli_query($db,"SELECT * FROM models_storage WHERE id='".$Storage_ID."'");
+						$exist_models_storage_data=mysqli_fetch_assoc($q_ms);
+						if(empty($exist_models_storage_data)) {
+							mysqli_query($db,"INSERT INTO models_storage(model_id, storage_size, storage_size_postfix, storage_price, plus_minus, fixed_percentage) VALUES('".$f_model_id."','".$Storage_Title."','".$Storage_Title_Postfix."','".$Storage_Price."','".$Storage_Price_PlusMinus."','".$Storage_Price_FixedPercentage."')");
+						} else {
+							mysqli_query($db,"UPDATE models_storage SET storage_size='".$Storage_Title."', storage_size_postfix='".$Storage_Title_Postfix."', storage_price='".$Storage_Price."', plus_minus='".$Storage_Price_PlusMinus."', fixed_percentage='".$Storage_Price_FixedPercentage."' WHERE id='".$Storage_ID."'");
+						}
+					}
+
+					if($Condition_Title!="") {
+						$q_mc=mysqli_query($db,"SELECT * FROM models_condition WHERE id='".$Condition_ID."'");
+						$exist_models_condition_data=mysqli_fetch_assoc($q_mc);
+						if(empty($exist_models_condition_data)) {
+							mysqli_query($db,"INSERT INTO models_condition(model_id, condition_name, condition_price, plus_minus, fixed_percentage) VALUES('".$f_model_id."','".$Condition_Title."','".$Condition_Price."','".$Condition_Price_PlusMinus."','".$Storage_Price_FixedPercentage."')");
+						} else {
+							mysqli_query($db,"UPDATE models_condition SET condition_name='".$Condition_Title."', condition_price='".$Condition_Price."', plus_minus='".$Condition_Price_PlusMinus."', fixed_percentage='".$Condition_Price_FixedPercentage."' WHERE id='".$Condition_ID."'");
+						}
+					}
+
+					if($Network_Title!="") {
+						$q_mn=mysqli_query($db,"SELECT * FROM models_networks WHERE id='".$Network_ID."'");
+						$exist_models_network_data=mysqli_fetch_assoc($q_mn);
+						if(empty($exist_models_network_data)) {
+							mysqli_query($db,"INSERT INTO models_networks(model_id, network_name, network_price, plus_minus, fixed_percentage) VALUES('".$f_model_id."','".$Network_Title."','".$Network_Price."','".$Network_Price_PlusMinus."','".$Network_Price_FixedPercentage."')");
+						} else {
+							mysqli_query($db,"UPDATE models_networks SET network_name='".$Network_Title."', network_price='".$Network_Price."', plus_minus='".$Network_Price_PlusMinus."', fixed_percentage='".$Network_Price_FixedPercentage."' WHERE id='".$Network_ID."'");
+						}
+					}
+					
+					if($Accessories_Title!="") {
+						$q_macc=mysqli_query($db,"SELECT * FROM models_accessories WHERE id='".$Accessories_ID."'");
+						$exist_models_accessories_data=mysqli_fetch_assoc($q_macc);
+						if(empty($exist_models_accessories_data)) {
+							mysqli_query($db,"INSERT INTO models_accessories(model_id, accessories_name, accessories_price, plus_minus, fixed_percentage) VALUES('".$f_model_id."','".$Accessories_Title."','".$Accessories_Price."','".$Accessories_Price_PlusMinus."','".$Accessories_Price_FixedPercentage."')");
+						} else {
+							mysqli_query($db,"UPDATE models_accessories SET accessories_name='".$Accessories_Title."', accessories_price='".$Accessories_Price."', plus_minus='".$Accessories_Price_PlusMinus."', fixed_percentage='".$Accessories_Price_FixedPercentage."' WHERE id='".$Accessories_ID."'");
+						}
+					}
+					
+					if($Miscellaneous_Title!="") {
+						$q_macc=mysqli_query($db,"SELECT * FROM models_miscellaneous WHERE id='".$Miscellaneous_ID."'");
+						$exist_models_miscellaneous_data=mysqli_fetch_assoc($q_macc);
+						if(empty($exist_models_miscellaneous_data)) {
+							mysqli_query($db,"INSERT INTO models_miscellaneous(model_id, miscellaneous_name, miscellaneous_price, plus_minus, fixed_percentage) VALUES('".$f_model_id."','".$Miscellaneous_Title."','".$Miscellaneous_Price."','".$Miscellaneous_Price_PlusMinus."','".$Miscellaneous_Price_FixedPercentage."')");
+						} else {
+							mysqli_query($db,"UPDATE models_miscellaneous SET miscellaneous_name='".$Miscellaneous_Title."', miscellaneous_price='".$Miscellaneous_Price."', plus_minus='".$Miscellaneous_Price_PlusMinus."', fixed_percentage='".$Miscellaneous_Price_FixedPercentage."' WHERE id='".$Miscellaneous_ID."'");
+						}
+					}
+					
+				}
+			}
+			
+			if($query == '1') {
+				unlink($excel_file_path);
+				$msg="Data(s) successfully imported.";
+				$_SESSION['success_msg']=$msg;
+			} else {
+				$msg='Sorry! something wrong imported failed.';
+				$_SESSION['error_msg']=$msg;
+			}
+		} else {
+			$msg="Allow only .csv, .xls or .xlsx file.";
+			$_SESSION['success_msg']=$msg;
+		}
+	}
+	setRedirect(ADMIN_URL.'mobile.php');
+} else {
+	setRedirect(ADMIN_URL.'mobile.php');
+}
+exit();
+?>

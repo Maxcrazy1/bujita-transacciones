@@ -1,0 +1,13 @@
+Model_ID,Category_ID,Category_Title,Brand,Device,Model_Title,Model_Price,Type_ID,Type_Title,Type_Price,Network_ID,Network_Title,Network_Price,Network_UnlockPrice,Storage_ID,Storage_Title,Storage_Title_Postfix,Storage_Price,Color_ID,Color_Title,Color_Code,Color_Price,Condition_ID,Condition_Title,Condition_Price,Accessories_ID,Accessories_Title,Accessories_Price
+382,7,Tablets,Apple,iPhone,Ipad,500,1,Series 1,1,5,Airtel,1,2,13,16,GB,1,5,White,#ffffff,1,11,Brand New,11,7,Do you have charger?,5
+,,,,,,,2,Series 2,2,6,Vodafone,2,3,14,32,GB,3,6,Black,#000000,3,12,Flawless,12,8,Do you have pendrive?,8
+,,,,,,,3,Series 3,4,,,,,15,64,GB,4,,,,,13,Good,13,,,
+,,,,,,,,,,,,,,16,128,GB,5,,,,,14,Fair,14,,,
+,,,,,,,,,,,,,,17,256,GB,6,,,,,15,Broken,15,,,
+,,,,,,,,,,,,,,18,512,GB,8,,,,,,,,,,
+383,7,Tablets,Apple,iPhone,Ipad Mini,250,4,Series 1,1,7,Airtel,1,2,19,16,GB,1,7,White,#ffffff,1,16,Brand New,11,9,Do you have charger?,5
+,,,,,,,5,Series 2,2,8,Vodafone,2,3,20,32,GB,3,8,Black,#000000,3,17,Flawless,12,10,Do you have pendrive?,8
+,,,,,,,6,Series 3,4,,,,,21,64,GB,4,,,,,18,Good,13,,,
+,,,,,,,,Series 4,,,,,,22,128,GB,5,,,,,19,Fair,14,,,
+,,,,,,,,,,,,,,23,256,GB,6,,,,,20,Broken,15,,,
+,,,,,,,,,,,,,,24,512,GB,8,,,,,,,,,,

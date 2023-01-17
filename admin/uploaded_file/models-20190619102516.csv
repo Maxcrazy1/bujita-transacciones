@@ -1,0 +1,7 @@
+Model_ID,Category,Brand,Device,Model_Title,Model_Price,Type_ID,Type_Title,Type_Price,Network_ID,Network_Title,Network_Price,Network_UnlockPrice,Storage_ID,Storage_Title,Storage_Title_Postfix,Storage_Price,Color_ID,Color_Title,Color_Code,Color_Price,Condition_ID,Condition_Title,Condition_Price,Accessories_ID,Accessories_Title,Accessories_Price
+356,Tablets,Apple,sell my iPad,iPad Pro (12.9-inch),0,70,Test 111,410,,,,,421,16,GB,1,12,AH1,#000000,,1726,great condition,2,,,
+,,,,,,71,Test 222,512,,,,,422,32,GB,4,,,,,1727,noticeable wears and tears,4,,,
+,,,,,,,,,,,,,423,64,GB,5,,,,,2785,"cracked glass, good LCD",5,,,
+,,,,,,,,,,,,,427,128,GB,9,,,,,2786,Broken lcd,6,,,
+,,,,,,,,,,,,,428,256,TB,10,,,,,2787,DOA,7,,,
+,,,,,,,,,,,,,429,512,GB,11,,,,,,,,,,

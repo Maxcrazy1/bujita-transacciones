@@ -1,0 +1,14 @@
+Model_ID,Category,Brand,Device,Model_Title,Model_Price,Network_ID,Network_Title,Network_Price,Network_UnlockPrice,Storage_ID,Storage_Title,Storage_Title_Postfix,Storage_Price,Color_ID,Color_Title,Color_Code,Color_Price,Condition_ID,Condition_Title,Condition_Price,Accessories_ID,Accessories_Title,Accessories_Price
+355,Mobiles,Apple,iPhone,iPhone 8,100,517,Factory Unlocked,1,12,418,16,GB,1,1,Black,#69db4d,10,1724,great condition,11,1,Have you headphone ?,14
+,,,,,,518,ATT,3,13,419,32,GB,2,2,White3,#5f3aab,8,1725,noticeable wears and tears,22,2,Have you Charger ?,10
+,,,,,,1563,Verizon,2,12,420,64,TB,3,,,,,2602,"cracked glass, good LCD",44,,,
+,,,,,,1564,Tmobile,4,15,424,128,GB,4,,,,,2603,Broken lcd,33,,,
+,,,,,,1565,Sprint,5,16,425,256,GB,8,,,,,2604,DOA,55,,,
+,,,,,,1566,Other,6,17,426,512,GB,9,,,,,,,,,,
+,,,,,,,,,,471,1024,GB,10,,,,,,,,,,
+369,Mobiles,Apple,iPhone,iphone 8.1,100,1575,Unlocked,11,14,472,16,GB,1,10,White,,2,2915,Brand New,2,9,Have33 you Charger ?,10
+,,,,,,1576,ATT,14,15,473,32,GB,2,11,Black1,,3,2916,Flawless,5,10,Have you headphone ?,25
+,,,,,,,,,,474,64,TB,4,,,,,2917,Good,8,11,Box,20
+,,,,,,,,,,475,128,GB,3,,,,,2918,Fair,9,,,
+,,,,,,,,,,476,256,GB,5,,,,,2919,Broken,110,,,
+,,,,,,,,,,477,512,GB,6,,,,,,,,,,
