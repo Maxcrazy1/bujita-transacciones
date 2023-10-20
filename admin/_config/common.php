@@ -101,7 +101,7 @@ $header_logo .= '<body><div class="preheader" style="color: transparent; display
 															</a>
 														</td>
 														<td align="right" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; width:65%;padding-top:10px;padding-bottom:10px;padding-left:0px;padding-right:20px;font-size:17px;color:#f1bb00">
-														<strong>Telefono:</strong><br><a style="color:#fff;text-decoration:none" href="tel:'.$company_phone.'" target="_blank">'.$company_phone.'</a>
+														<strong>Teléfono:</strong><br><a style="color:#fff;text-decoration:none" href="tel:'.$company_phone.'" target="_blank">'.$company_phone.'</a>
 														</td>
 													</tr>
 												</tbody>
