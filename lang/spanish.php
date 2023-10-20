@@ -67,9 +67,10 @@ $LANG['Give us the opportunity to earn your business and your trust today, and w
 $LANG['SEE LOCATIONS'] = 'VER TIENDAS';
 $LANG['WE OFFER'] = 'OFRECEMOS';
 $LANG['CASH '] = 'COMPRA EN EFECTIVOS';
+$LANG['Cash'] = 'COMPRA EN EFECTIVOS';
 $LANG['CHECK'] = 'CHEQUE';
 $LANG['Check'] = 'Cheque';
-$LANG['Sell Order Total'] = 'Total de la orden de venta';
+$LANG['Order Total'] = 'Total de la orden de venta';
 $LANG['Meet in Person'] = 'Reunirse en persona';
 $LANG['PURCHASES WHEN YOU MEET UP IN PERSON WITHIN AUSTIN, TX.'] = 'EN UNA DE NUESTRAS DOS TIENDAS EN LAS PALMAS O VECINDARIO.';
 $LANG['FREE '] = 'GRATIS';
@@ -413,7 +414,8 @@ $LANG['Enter the e-mail address associated with your Cash Movil account, then cl
 $LANG['RETURN TO LOGIN'] = 'VOLVER AL INICIO DE SESIÓN';
 $LANG['Thank You!'] = 'Gracias!';
 $LANG['We really appreciate your business'] = 'Apreciamos mucho su negocio';
-$LANG['Your offer number is '] = '';
+$LANG['Offer Number'] = 'Código de orden';
+$LANG['Date of offer'] = 'Fecha de orden';
 $LANG['A copy of the information on this page has been sent to'] = 'Se ha enviado una copia de la información de esta página a';
 $LANG['Unable to create shipment, one or more parameters were invalid so please'] = 'No se ha podido crear el envío, uno o más parámetros no son válidos, así que por favor';
 $LANG['contact'] = 'contacte con';
@@ -444,10 +446,10 @@ $LANG['Remove or sign out from FIND MY IPHONE for Apple devices and remove ANDRO
 $LANG['offer details'] = 'detalles de la oferta';
 $LANG['Contact Information'] = 'Información de contacto';
 $LANG['Additional Information'] = 'Información adicional';
-$LANG['offer Date/Time'] = 'oferta Fecha/Hora';
+$LANG['Offer Date/Time'] = 'Oferta Fecha/Hora';
 $LANG['Payment Preference'] = 'Preferencia de pago';
 $LANG['LOCATION'] = 'UBICACIÓN';
-$LANG['offer #'] = 'oferta #';
+$LANG['Offer #'] = 'Oferta #';
 $LANG['You may cancel your trade-in offer up until your device is delivered to us.'] = 'Puede cancelar su oferta de canje hasta que se nos entregue el dispositivo.';
 $LANG['You may cancel your trade-in offer up until we have paid you.'] = 'Puedes cancelar tu oferta de canje hasta que te hayamos pagado.';
 $LANG['Offer Total'] = 'Total de la oferta';
@@ -467,9 +469,6 @@ $LANG['Sorry, your email address has not been verified yet. To re-send verificat
 $LANG['Please enter correct login details'] = 'Por favor, introduzca los datos de acceso correctos';
 $LANG['DEVICE'] = 'DISPOSITIVO';
 $LANG['GET OFFER NOW'] = 'OBTENGA LA OFERTA AHORA';
-$LANG[''] = '';
-$LANG[''] = '';
-$LANG[''] = '';
-$LANG[''] = '';
-
+$LANG['This offer is guaranteed to be valid until']='Se garantiza que esta oferta será válida hasta';
+$LANG['Invoice']='Recibo';
 ?>

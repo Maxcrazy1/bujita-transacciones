@@ -134,7 +134,6 @@ $msg_link = trim($general_setting_data['msg_link']);
 $instagram_link = trim($general_setting_data['instagram_link']);
 
 
-//Emmanuel's $footer_logo
 $footer_logo =                                                                                     			 '</div></td>
                                                                                                         </tr>
                                                                                                     </tbody>
@@ -171,7 +170,6 @@ $footer_logo =                                                                  
                                                                         $company_zipcode.'
                                                                     </a>
                                                                 </p>
-                                                                <p><i>If we served you right, refer someone to us!</i></p>
                                                                 <a href="'.$fb_link.'" style="text-decoration:none" rel="noreferrer" target="_blank"><img src="'.SITE_URL.'images/fb1gg.png" alt="Facebook Page" width="32" height="32"></a> &nbsp;
                                                                 <a href="'.$twitter_link.'" style="text-decoration:none" rel="noreferrer" target="_blank"><img src="'.SITE_URL.'images/twitter1gg.png" alt="Twitter Page" width="32" height="32"></a> &nbsp;
                                                                 <a href="'.$instagram_link.'" style="text-decoration:none" rel="noreferrer" target="_blank"><img src="'.SITE_URL.'images/insta1gg.png" alt="Instagram Page" width="32" height="32"></a> &nbsp;

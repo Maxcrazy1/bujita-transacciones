@@ -2,6 +2,7 @@
 
 require_once("../admin/_config/config.php");
 require_once("../admin/include/functions.php");
+require_once("../lang/spanish.php");
 
 if(isset($post['submit_form'])) {
 	if(empty($_POST)) {
@@ -208,7 +209,7 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 					<tbody>
 						<tr>
 							<td align="left" style="width:100%;padding-top:5px;padding-bottom:0px;"> 
-								<table width="100%" cellspacing="0" cellpadding="10" style="background:#f1bb00;border:none; text-align:center;">
+								<table width="100%" cellspacing="0" cellpadding="10" style="background:#8bb927;border:none; text-align:center;">
 									<tbody>
 										<tr>
 											<td valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:100%;">';
@@ -241,14 +242,14 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 																'<p style="text-decoration:none;color:#ffffff;font-size:16px; margin-bottom: 30px">PLEASE, FOLLOW THE STEPS BELOW TO SHIP YOUR DEVICE TO US</p>';
 															}else{
 																$visitor_body .=
-																'<p style="text-decoration:none;color:#ffffff;font-size:16px; margin-bottom: 30px">BEFORE OUR MEETING AT THE STARBUCKS OF YOUR CHOICE,</p>';
+																'<p style="text-decoration:none;color:#ffffff;font-size:16px; margin-bottom: 30px">'.$LANG['BEFORE OUR MEETING AT THE STARBUCKS OF YOUR CHOICE,'].'</p>';
 															} 
 															$visitor_body .=
 														   '</td>
 														</tr>
 														<tr>
 															<td style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; width:100%;" align="center" valign="middle">
-																<img src="https://www.1guygadget.com/images/prepare_your_device.png" width="auto" height="90" style="padding:5px;" alt="Prepare Your Device" class="CToWUd">
+																<img src="https://www.1guygadget.com/images/prepare_your_device.png" width="auto" height="90" style="padding:5px;" alt="'.$LANG['Prepare Your Device'].'" class="CToWUd">
 															</td>    
 
 														</tr>
@@ -262,17 +263,17 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 													<tbody>
 														<tr>
 															<td align ="left" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:100%; padding: 0px; padding-left: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
-																<p style="text-decoration:none;color:#f1bb00;font-size:16px;"><strong>PREPARE YOUR DEVICE</strong></p> 
+																<p style="text-decoration:none;color:#8bb927;font-size:16px;"><strong>'.$LANG['PREPARE YOUR DEVICE'].'</strong></p> 
 															</td>
 														</tr>
 														<tr>
 															<td style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; width:100%; font-size:16px;" align="left" valign="middle">
 															    <div>
-    																<ul style ="list-style:square; color:#f1bb00; padding: 0px; padding-left: 1.5em; margin-right: 0.5em; margin-left: 0.5em; line-height:1.4em;">
-    																	<li style ="list-style:square outside; mso-special-format: bullet; color:#f1bb00;"><p style="color:#ffffff;margin-top:0.5em;">Remove or sign out from "Find my iPhone" for Apple devices and remove "Android Activation Lock" for Android devices.</p></li>
-    																	<li style ="list-style:square outside; mso-special-format: bullet; color:#f1bb00;"><p style="color:#ffffff;margin-top:0.5em;">Remove any password protection service.</p></li>
-    																	<li style ="list-style:square outside; mso-special-format: bullet; color:#f1bb00;"><p style="color:#ffffff;margin-top:0.5em;">Reset device to "Factory Settings" if applicable.</p></li>
-    																	<li style ="list-style:square outside; mso-special-format: bullet; color:#f1bb00;"><p style="color:#ffffff;margin-top:0.5em;">Fully Charge the device\'s battery.</p></li>
+    																<ul style ="list-style:square; color:#8bb927; padding: 0px; padding-left: 1.5em; margin-right: 0.5em; margin-left: 0.5em; line-height:1.4em;">
+    																	<li style ="list-style:square outside; mso-special-format: bullet; color:#8bb927;"><p style="color:#ffffff;margin-top:0.5em;">'.$LANG['Remove or sign out from FIND MY IPHONE for Apple devices and remove ANDROID ACTIVATION LOCK for Android devices.'].'</p></li>
+    																	<li style ="list-style:square outside; mso-special-format: bullet; color:#8bb927;"><p style="color:#ffffff;margin-top:0.5em;">'.$LANG['Remove any password protection service.'].'</p></li>
+    																	<li style ="list-style:square outside; mso-special-format: bullet; color:#8bb927;"><p style="color:#ffffff;margin-top:0.5em;">'.$LANG['Reset device to "Factory Settings" if applicable.'].'</p></li>
+    																	<li style ="list-style:square outside; mso-special-format: bullet; color:#8bb927;"><p style="color:#ffffff;margin-top:0.5em;">'.$LANG["Fully Charge the device's battery."].'</p></li>
     																</ul>
     															</div>
 															</td>    
@@ -309,17 +310,17 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 														<tbody>
 															<tr>
 																<td align ="left" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:100%; padding: 0px; padding-left: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
-																	<p style="text-decoration:none;color:#f1bb00;font-size:16px;"><strong>PACKAGE YOUR DEVICE PROPERLY</strong></p> 
+																	<p style="text-decoration:none;color:#8bb927;font-size:16px;"><strong>PACKAGE YOUR DEVICE PROPERLY</strong></p> 
 																</td>
 															</tr>
 															<tr>
 																<td style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; width:100%; font-size:16px;" align="left" valign="middle">
 																    <div>
-    																	<ul style ="list-style:square; color:#f1bb00; padding: 0px; padding-left: 1.5em; margin-right: 0.5em; margin-left: 0.5em; line-height:1.4em;">
+    																	<ul style ="list-style:square; color:#8bb927; padding: 0px; padding-left: 1.5em; margin-right: 0.5em; margin-left: 0.5em; line-height:1.4em;">
     														
-    																		<li style ="list-style:square outside; mso-special-format: bullet; color:#f1bb00;"><p style="color:#ffffff;margin-top:0.5em;">Secure device properly inside its packaging to prevent damage while in transit. We recommend the use of bubble wraps and Styrofoam peanuts.</p></li>
-    																		<li style ="list-style:square outside; mso-special-format: bullet; color:#f1bb00;"><p style="color:#ffffff;margin-top:0.5em;">Seal the package with a durable shipping tape.</p></li>
-    																		<li style ="list-style:square outside; mso-special-format: bullet; color:#f1bb00;"><p style="color:#ffffff;margin-top:0.5em;">We are not accountable for any damages during shipping. This could force an offer review or lead to the cancellation of your offer.</p></li>
+    																		<li style ="list-style:square outside; mso-special-format: bullet; color:#8bb927;"><p style="color:#ffffff;margin-top:0.5em;">Secure device properly inside its packaging to prevent damage while in transit. We recommend the use of bubble wraps and Styrofoam peanuts.</p></li>
+    																		<li style ="list-style:square outside; mso-special-format: bullet; color:#8bb927;"><p style="color:#ffffff;margin-top:0.5em;">Seal the package with a durable shipping tape.</p></li>
+    																		<li style ="list-style:square outside; mso-special-format: bullet; color:#8bb927;"><p style="color:#ffffff;margin-top:0.5em;">We are not accountable for any damages during shipping. This could force an offer review or lead to the cancellation of your offer.</p></li>
     																	</ul>
     																</div>
 																</td>    
@@ -354,18 +355,18 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 															<tbody>
 																<tr>
 																	<td align ="left" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:100%; padding: 0px; padding-left: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
-																		<p style="text-decoration:none;color:#f1bb00;font-size:16px;"><strong>SHIPPING YOUR DEVICE</strong></p> 
+																		<p style="text-decoration:none;color:#8bb927;font-size:16px;"><strong>SHIPPING YOUR DEVICE</strong></p> 
 																	</td>
 																</tr>
 																<tr>
 																	<td style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; width:100%; font-size:16px;" align="left" valign="middle">
 																	    <div>
-    																		<ul style ="list-style:square;color:#f1bb00; padding: 0px; padding-left: 1.5em; margin-right: 0.5em; margin-left: 0.5em; line-height:1.4em;">
+    																		<ul style ="list-style:square;color:#8bb927; padding: 0px; padding-left: 1.5em; margin-right: 0.5em; margin-left: 0.5em; line-height:1.4em;">
     															
-    																			<li style ="list-style:square outside; mso-special-format: bullet; color:#f1bb00;"><p style="color:#ffffff;margin-top:0.5em;">Print the prepaid shipping label below, and attach it securely with a tape to your package.</p></li>
-    																			<li style ="list-style:square outside; mso-special-format: bullet; color:#f1bb00;"><p style="color:#ffffff;margin-top:0.5em;">Leave us a message If you don\'t have a printer, and we will mail you a printed label. You can also use the printer at a local library.</p></li>
-    																			<li style ="list-style:square outside; mso-special-format: bullet; color:#f1bb00;"><p style="color:#ffffff;margin-top:0.5em;">Drop off the package at a USPS location closest you. Ensure that it is marked "Fragile" at the counter</p></li>
-    																			<li style ="list-style:square outside; mso-special-format: bullet; color:#f1bb00;"><p style="color:#ffffff;margin-top:0.5em;">Your offer is guaranteed to be locked for <strong style="color:#f1bb00">21 days</strong>. Be sure to ship or deliver your device within this period to avoid cancellation of your offer.</p></li>
+    																			<li style ="list-style:square outside; mso-special-format: bullet; color:#8bb927;"><p style="color:#ffffff;margin-top:0.5em;">Print the prepaid shipping label below, and attach it securely with a tape to your package.</p></li>
+    																			<li style ="list-style:square outside; mso-special-format: bullet; color:#8bb927;"><p style="color:#ffffff;margin-top:0.5em;">Leave us a message If you don\'t have a printer, and we will mail you a printed label. You can also use the printer at a local library.</p></li>
+    																			<li style ="list-style:square outside; mso-special-format: bullet; color:#8bb927;"><p style="color:#ffffff;margin-top:0.5em;">Drop off the package at a USPS location closest you. Ensure that it is marked "Fragile" at the counter</p></li>
+    																			<li style ="list-style:square outside; mso-special-format: bullet; color:#8bb927;"><p style="color:#ffffff;margin-top:0.5em;">Your offer is guaranteed to be locked for <strong style="color:#8bb927">21 days</strong>. Be sure to ship or deliver your device within this period to avoid cancellation of your offer.</p></li>
     																		</ul>
     																	</div>
 																	</td>    
@@ -414,7 +415,7 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 									<tbody>
 										<tr>
 											<td valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:100%;"> 
-												<p style="text-decoration:none;color:#ffffff;font-size:16px;"><strong>OFFER DETAILS</strong></p>
+												<p style="text-decoration:none;color:#ffffff;font-size:16px;"><strong>'.$LANG['OFFER DETAILS'].'</strong></p>
 								
 											</td>
 										</tr>
@@ -425,11 +426,11 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 						
 						<tr>
 							<td align="left" style="width:100%;padding-top:0px;padding-bottom:5px;">
-								<table width="100%" cellspacing="0" cellpadding="10" style="background:#f1bb00;border:none;text-align:left; padding-top: 10px;">
+								<table width="100%" cellspacing="0" cellpadding="10" style="background:#8bb927;border:none;text-align:left; padding-top: 10px;">
 									<tbody>
 										<tr>
 											<td style = "font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; color:#000000;  padding-left: 1.1em; padding-right: 1.1em;" >
-												<strong>CONTACT INFORMATION</strong><br>
+												<strong>'.$LANG['Contact Information'].'</strong><br>
 												<hr align="left" bgcolor="#ffffff" style="width:150px; height:5px; color: #ffffff; background: #ffffff; border:none;">
 											</td>
 										</tr>
@@ -454,7 +455,7 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 										<tr>
 											<td style = "font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; color:#000000; padding-left: 1.1em; padding-right: 1.1em;" >
 												
-												<strong>ADDITIONAL INFORMATION</strong><br>
+												<strong>'.$LANG['Additional Information'].'</strong><br>
 												<hr align="left" bgcolor="#ffffff" style="width:150px; height:5px; color: #ffffff; background: #ffffff; border:none;">
 								
 											</td>
@@ -462,10 +463,10 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 										</tr>
 										<tr>
 											<td style = "font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; color:#000000;   padding-top:0px; padding-left: 1.1em; padding-right: 1.1em;" >
-												<strong>OFFER DATE/TIME</strong><br>'.
+												<strong>'.$LANG['Offer Date/Time'].'</strong><br>'.
 												format_date($order_data['date']) . ' ' . format_time($order_data['date']) . ' ' . $customer_timezone.'<br><br>'.'
-												<strong>PAYMENT PREFERENCE</strong><br>'.
-												ucfirst($payment_method).'<br><br>';
+												<strong>'.$LANG['Payment Preference'].'</strong><br>'.
+												$LANG[ucfirst($payment_method)].'<br><br>';
 												if ($order_data['cash_location_name']) {
 													$visitor_body .= '<strong>LOCATION</strong><br>'.
 													$order_data['cash_location_name'].'<br><br>';
@@ -485,15 +486,15 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 														<tbody>
 															<tr>
 																<td align ="center" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:100%; padding-top: 20px; margin-right: 0.5em; margin-left: 0.5em;">
-																	<p style="text-decoration:none !important;color:#000;font-size:20px;"><a href="#" style="text-decoration:none; color:#000;" title="Link: #"><strong>OFFER #'.$order_id.'</strong></a></p> 
+																	<p style="text-decoration:none !important;color:#000;font-size:20px;"><a href="#" style="text-decoration:none; color:#000;" title="Link: #"><strong>'.$LANG['Offer #']." ".$order_id.'</strong></a></p> 
 																</td>
 															</tr>
 															<tr>
 																<td align ="center" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:100%; padding-top: 5px; margin-right: 0.5em; margin-left: 0.5em;">';
 																if($payment_method != "cash"){
-																	$visitor_body .= '<p style="text-decoration:none;color:#979797;font-size:14px;">You may cancel your trade-in offer up until your device is delivered to us.</p>';
+																	$visitor_body .= '<p style="text-decoration:none;color:#979797;font-size:14px;">'.$LANG['You may cancel your trade-in offer up until your device is delivered to us.'].'</p>';
 																} else {
-																	$visitor_body .= '<p style="text-decoration:none;color:#979797;font-size:14px;">You may cancel your trade-in offer up until we have paid you.</p>';
+																	$visitor_body .= '<p style="text-decoration:none;color:#979797;font-size:14px;">'.$LANG['You may cancel your trade-in offer up until we have paid you.'].'</p>';
 																}	 
 											  $visitor_body .= '</td>
 															</tr>
@@ -515,7 +516,7 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 															<tbody>
 																<tr>
 																	<td align ="left" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:100%; padding: 0px; padding-left: 1.1em; padding-right: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
-																		<p style="text-decoration:none;color:#f1bb00;font-size:18px;"><strong>SUMMARY</strong></p> 
+																		<p style="text-decoration:none;color:#8bb927;font-size:18px;"><strong>'.$LANG['SUMMARY'].'</strong></p> 
 																	</td>
 																</tr>
 																
@@ -532,10 +533,10 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 															<tbody>
 											                    <tr>
 																	<td align ="left" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:60%; padding-top: 10px; padding-bottom: 10px; padding-left: 1.1em; padding-right: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
-																		<p style="text-decoration:none;color:#fff;font-size:15px;"><strong>ORDER TOTAL</strong></p> 
+																		<p style="text-decoration:none;color:#fff;font-size:15px;"><strong>'.$LANG['Order Total'].'</strong></p> 
 																	</td>
 																	<td align ="right" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:40%; padding-top: 10px; padding-bottom: 10px; padding-left: 1.1em; padding-right: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
-																		<p style="text-decoration:none;color:#f1bb00;font-size:15px;">'.($sum_of_orders>0?amount_fomat($sum_of_orders):'').'</p> 
+																		<p style="text-decoration:none;color:#8bb927;font-size:15px;">'.($sum_of_orders>0?amount_fomat($sum_of_orders):'').'</p> 
 																	</td>
 																</tr>
 															</tbody>	
@@ -550,7 +551,7 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 																		<p style="text-decoration:none;color:#fff;font-size:15px;"><strong>PRIORITY SHIPPING</strong></p> 
 																	</td>
 																	<td align ="right" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:40%; padding-top: 10px; padding-bottom: 10px; padding-left: 1.1em; padding-right: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
-																			<p style="text-decoration:none;color:#f1bb00;font-size:15px;">FREE</p> 
+																			<p style="text-decoration:none;color:#8bb927;font-size:15px;">FREE</p> 
 																	</td>
 																</tr>
 															</tbody>	
@@ -567,7 +568,7 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 																		<p style="text-decoration:none;color:#fff;font-size:15px;"><strong>'.$discount_amt_label.'</strong></p> 
 																	</td>
 																	<td align ="right" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:40%; padding-top: 10px; padding-bottom: 10px; padding-left: 1.1em; padding-right: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
-																			<p style="text-decoration:none;color:#f1bb00;font-size:15px;">'.'- '.$discount_amt_with_format.'</p> 
+																			<p style="text-decoration:none;color:#8bb927;font-size:15px;">'.'- '.$discount_amt_with_format.'</p> 
 																	</td>
 																</tr>
 															</tbody>	
@@ -582,7 +583,7 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 																		<p style="text-decoration:none;color:#fff;font-size:15px;"><strong>EXPRESS SERVICE</strong></p> 
 																	</td>
 																	<td align ="right" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:40%; padding-top: 10px; padding-bottom: 10px; padding-left: 1.1em; padding-right: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
-																			<p style="text-decoration:none;color:#f1bb00;font-size:15px;">'.'- '.amount_fomat($f_express_service_price).'</p> 
+																			<p style="text-decoration:none;color:#8bb927;font-size:15px;">'.'- '.amount_fomat($f_express_service_price).'</p> 
 																	</td>
 																</tr>
 															</tbody>	
@@ -597,7 +598,7 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 																		<p style="text-decoration:none;color:#fff;font-size:15px;"><strong>SHIPPING INSURANCE</strong></p> 
 																	</td>
 																	<td align ="right" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:40%; padding-top: 10px; padding-bottom: 10px; padding-left: 1.1em; padding-right: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
-																			<p style="text-decoration:none;color:#f1bb00;font-size:15px;">'.'- '.amount_fomat($f_shipping_insurance_price).'</p> 
+																			<p style="text-decoration:none;color:#8bb927;font-size:15px;">'.'- '.amount_fomat($f_shipping_insurance_price).'</p> 
 																	</td>
 																</tr>
 															</tbody>	
@@ -610,7 +611,7 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 																<tbody>
 																	<tr>
 																		<td align ="left" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:60%; padding-top: 15px; padding-bottom: 15px; padding-left: 1.1em; padding-right: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
-																			<p style="text-decoration:none;color:#f1bb00;font-size:16px;"><strong>TOTAL PAYMENT</strong></p> 
+																			<p style="text-decoration:none;color:#8bb927;font-size:16px;"><strong>'.$LANG['TOTAL PAYMENT'].'</strong></p> 
 																		</td>
 																		<td align ="right" valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; line-height:1; width:40%; padding-top: 15px; padding-bottom: 15px; padding-left: 1.1em; padding-right: 1.1em; margin-right: 0.5em; margin-left: 0.5em;">
 																				<p style="text-decoration:none;color:#fff;font-size:16px;"><strong>'.amount_fomat(($sum_of_orders - $discount_amt_with_format - $f_express_service_price - $f_shipping_insurance_price)).'</strong></p> 
@@ -950,8 +951,8 @@ $html.='
 <table cell-padding="0" cell-spacing="0" border="0;" width="100%" style="padding:15px 15px 15px 15px;font-size:12px;">
 	<tbody>
 	  <tr>
-		<td colspan="2"><h2 style="font-size:18px;">'.$company_name.' Invoice</h2></td>
-		<td bgcolor="#000" style="padding:5px 5px 5px 5px; border:1px solid #f1bb00;"><img width="210"  src="'.SITE_URL.'images/'.$general_setting_data['logo'].'"></td>
+		<td colspan="2"><h2 style="font-size:18px;">'.$LANG['Invoice'].' '.$company_name.'</h2></td>
+		<td bgcolor="#000" style="padding:5px 5px 5px 5px; border:1px solid #8bb927;"><img width="210"  src="'.SITE_URL.'images/'.$general_setting_data['logo'].'"></td>
 	  </tr>
 	  <tr>
 		<td>
@@ -965,9 +966,9 @@ $html.='
 		<td>
 			<dl>
 				<dt>'.$barcode_img_path.'</dt>
-				<dt><strong>Offer Number:</strong> #'.$order_id.'</dt>
-				<dt><strong>Date Of Offer:</strong> '.format_date($order_data['order_date']).'</dt>
-				<dt><strong>Payment Method:</strong> '.$order_data['payment_method'].'</dt>
+				<dt><strong>'.$LANG['Offer Number'].': </strong>#'.$order_id.'</dt>
+				<dt><strong>'.$LANG['Date of offer'].': </strong> '.format_date($order_data['order_date']).'</dt>
+				<dt><strong>'.$LANG['Payment Preference'].': </strong> '.$LANG[ucfirst($order_data['payment_method'])].'</dt>
 			</dl>
 		</td>
 	  </tr>
@@ -991,8 +992,8 @@ $html.='
 	$html .= '
 		<tr>
 			<td width="10%" bgcolor="#e0f2f7" style="padding:15px;"><strong>#</strong></td>
-			<td width="50%" bgcolor="#e0f2f7" style="padding:15px;"><strong>Details</strong></td>
-			<td width="20%" bgcolor="#e0f2f7" style="padding:15px;text-align:center;"><strong>Quantity</strong></td>';
+			<td width="50%" bgcolor="#e0f2f7" style="padding:15px;"><strong>'.$LANG['details'].'</strong></td>
+			<td width="20%" bgcolor="#e0f2f7" style="padding:15px;text-align:center;"><strong>'.$LANG['Quantity'].'</strong></td>';
 			if($hide_device_order_valuation_price!='1') {
 			$html .= '<td width="20%" bgcolor="#e0f2f7" style="padding:15px;text-align:right;"><strong>Subtotal</strong></td>';
 			}
@@ -1001,7 +1002,7 @@ $html.='
 		if($hide_device_order_valuation_price!='1') {
 		$html .= '<tr>
 			<td>&nbsp;</td>
-			<td colspan="2" style="text-align:right;"><strong>Offer Total:</strong></td>
+			<td colspan="2" style="text-align:right;"><strong>'.$LANG['Offer total'].'</strong></td>
 			<td style="text-align:right;">'.($sum_of_orders>0?amount_fomat($sum_of_orders):'').'</td>
 		</tr>';
 		if($payment_method != "cash"){

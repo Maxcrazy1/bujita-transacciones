@@ -355,7 +355,6 @@ $starbuck_location_list = get_starbuck_location_list();
                       <div id="termsOption" class="collapse" aria-labelledby="termsOptionSelect"
                         data-parent="#checkout">
                         <div class="card-body">
-                          
                           <div class="checkout-block terms_condition clearfix">
                             <h3><?php echo $LANG['TERMS & CONDITION']; ?></h3>
                             <p><?php echo $LANG['Please carefully read our']; ?> <a href="<?php echo SITE_URL.'terms-and-conditions' ?>"  target="_blank" rel="noopener noreferrer"><?php echo $LANG['terms and conditions']; ?></a> <?php echo $LANG['before placing your offer.']; ?></p>
