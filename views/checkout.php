@@ -206,7 +206,7 @@ $starbuck_location_list = get_starbuck_location_list();
                                 </div>
                             </div>
                             <div id="cash-form" class="payment-form clearfix">
-                                <legend><?php echo $LANG['This service is only for people who can meet locally around Austin, TX. Meetups are at select Starbucks locations. We will contact you to schedule a convenient meeting time.']; ?></legend>
+                                <legend><?php echo $LANG['The sale will be made in affiliated establishments']; ?></legend>
                                 <div class="form-group">
                                   <input type="email" class="form-control" id="cash_name" name="cash_name" placeholder="Name">
 								  <small id="cash_name_error_msg" class="help-block m_validations_showhide" style="display:none;"></small>
