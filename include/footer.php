@@ -213,7 +213,7 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="locationModalLabel"><strong>STARBUCKS COFFEE SHOPS</strong></h5>
+          <h5 class="modal-title" id="locationModalLabel"><strong><?php echo $LANG['Affiliated establishments']; ?></strong></h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -223,13 +223,13 @@
 		$starbuck_location_list = get_starbuck_location_list();
 		if(!empty($starbuck_location_list)) {
 			foreach($starbuck_location_list as $starbuck_location_data) { ?>
-				<p class="text-center address"><?='<strong>'.$starbuck_location_data['name']. '</strong><br />'.$starbuck_location_data['address'].''?><br /><a class="btn btn-primary" href="<?=$starbuck_location_data['map_link']?>" target="_blank">GET DIRECTIONS</a></p>
+				<p class="text-center address"><?='<strong>'.$starbuck_location_data['name']. '</strong><br />'.$starbuck_location_data['address'].''?><br /><a class="btn btn-primary" href="<?=$starbuck_location_data['map_link']?>" target="_blank"> <?php echo $LANG['Get directions']; ?></a></p>
 			<?php
 			}
 		} ?>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">CLOSE</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo $LANG['Close']; ?></button>
         </div>
       </div>
     </div>

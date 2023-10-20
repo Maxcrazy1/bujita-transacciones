@@ -66,7 +66,7 @@ $LANG['at unbeatable prices. We have built our reputation from nothing to where 
 $LANG['Give us the opportunity to earn your business and your trust today, and we assure you smooth-sailing selling experience. We put our word and reputation on the line!'] = 'Dénos la oportunidad de hacer negocio y ganarnos su confianza hoy, y le aseguramos una experiencia de venta sin problemas.¡Ponemos nuestra palabra y reputación en juego!';
 $LANG['SEE LOCATIONS'] = 'VER TIENDAS';
 $LANG['WE OFFER'] = 'OFRECEMOS';
-$LANG['CASH '] = 'COMPRA EN EFECTIVOS';
+$LANG['CASH '] = 'Reunirse en persona';
 $LANG['CHECK'] = 'CHEQUE';
 $LANG['Sell Order Total'] = 'Total de la orden de venta';
 $LANG['Meet in Person'] = 'Reunirse en persona';
