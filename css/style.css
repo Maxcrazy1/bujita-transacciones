@@ -22130,8 +22130,8 @@ object-fit: cover !important;
   border-radius: 10px;
   background: #e9ecef;
   z-index: 1;
-  top: 0px;
-  left: 280px;
+  top: -160px;
+  left: 290px;
   padding: 15px 20px;
   /* width: 100%; */
   text-align: justify;
@@ -25069,7 +25069,7 @@ input:checked + .slider-v2::after {
   }*/
   .block.phone-details.condition .conditions .custom-control.custom-radio .custom-control-label .condition-block {
       /* top: 140px; */
-      top: 364px;
+      top: 170px;
       left: 1px;
   }
 
