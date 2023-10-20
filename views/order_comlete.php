@@ -46,15 +46,6 @@ $shipment_label_url = $order_data['shipment_label_url'];
 					<h2><?php echo $LANG['We really appreciate your business']; ?></h2>
 					<h3><?php echo $LANG['Your offer number is ']; ?><?php echo $LANG['Your offer number is']; ?> <strong>#<?= $order_id ?></strong></h3>
 					<h4><?php echo $LANG['A copy of the information on this page has been sent to']; ?> <strong><?= strtoupper($order_data['email']) ?></strong></h4>
-					<?php
-					if (!$shipment_label_url && $payment_method != "cash") { ?>
-						<div class="alert alert-danger alert-dismissable">
-							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-							<?php echo $LANG['Unable to create shipment, one or more parameters were invalid so please']; ?> <a href="<?= $contact_link ?>"><?php echo $LANG['contact']; ?></a> <?php echo $LANG['our support team.']; ?>
-						</div>
-					<?php
-					} ?>
-
 				</div>
 			</div>
 		</div>

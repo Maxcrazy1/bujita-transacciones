@@ -163,7 +163,7 @@ function get_order_item($item_id, $type) {
 //Get order item device type, condition based on item id
 function get_order_item_1($item_id, $type) {
 	global $db;
-	$order_query=mysqli_query($db,"SELECT oi.*, o.`payment_method`, o.`date`, o.`approved_date`, o.`expire_date`, o.`status`, o.`sales_pack`, o.`paypal_address`, o.`chk_name`, o.`chk_street_address`, o.`chk_street_address_2`, o.`chk_city`, o.`chk_state`, o.`chk_zip_code`, o.`act_name`, o.`act_number`, o.`act_short_code`, o.`note`, d.title AS device_title, m.title AS model_title, b.title AS brand_title, c.fields_type AS fields_cat_type FROM order_items AS oi LEFT JOIN orders AS o ON o.order_id=oi.order_id LEFT JOIN devices AS d ON d.id=oi.device_id LEFT JOIN mobile AS m ON m.id=oi.model_id LEFT JOIN brand AS b ON b.id=m.brand_id LEFT JOIN categories AS c ON c.id=m.cat_id WHERE oi.id='".$item_id."'");
+	$order_query=mysqli_query($db,"SELECT oi.*, o.`payment_method`, o.`date`, o.`approved_date`, o.`expire_date`, o.`status`, o.`sales_pack`, o.`paypal_address`, o.`chk_name`, o.`chk_street_address`, o.`chk_street_address_2`, o.`chk_city`, o.`chk_state`, o.`chk_zip_code`, o.`act_name`, o.`act_number`, o.`act_short_code`, o.`note`, d.title AS device_title, m.title AS model_title, m.model_img AS model_img, b.title AS brand_title, c.fields_type AS fields_cat_type FROM order_items AS oi LEFT JOIN orders AS o ON o.order_id=oi.order_id LEFT JOIN devices AS d ON d.id=oi.device_id LEFT JOIN mobile AS m ON m.id=oi.model_id LEFT JOIN brand AS b ON b.id=m.brand_id LEFT JOIN categories AS c ON c.id=m.cat_id WHERE oi.id='".$item_id."'");
 	$data = mysqli_fetch_assoc($order_query);
 
 	$response_array = array();
@@ -182,6 +182,9 @@ function get_order_item_1($item_id, $type) {
 	} elseif($type == "email") {
 		$response_array['device_type'] = $data['model_title'].($data['color']?' ('.$data['color'].','.$data['storage'].') ':' '.$data['storage']).' '.$data['network'].' ('.$data['condition'].')'.($data['accessories']?'<br><strong>Accessories:</strong> '.$data['accessories']:'').($data['miscellaneous']?'<br><strong>Miscellaneous:</strong> '.$data['miscellaneous']:'');
 		$response_array['condition'] = ($data['condition']?'('.$data['condition'].')':'');
+		$response_array['quantity'] = $data['quantity'];
+		$response_array['model_img'] = $data['model_img'];
+		$response_array['price'] = $data['price'];
 
 		$response_array['device_title'] = $data['device_title'].' - '.$data['model_title'];
 		$temp_accessories = $data['accessories'].",;";

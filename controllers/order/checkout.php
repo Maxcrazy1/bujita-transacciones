@@ -751,12 +751,26 @@ $pdf->Output($file_folder_path.'/'.$pdf_name, 'F');
 					$attachment_data['folder'] = array('shipment_labels','pdf');
 		
 
-					send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL, $attachment_data);
+
+					$cabeceras = "From: ".FROM_NAME." <".FROM_EMAIL.">" . "\r\n";
+					$cabeceras .= "Reply-To:" .FROM_EMAIL."\r\n";
+					$cabeceras .= "MIME-Version: 1.0" . "\r\n";
+					$cabeceras .= "Content-Type: text/html; charset=UTF-8" . "\r\n";
+
+					mail($user_data['email'],$email_subject,$email_body_text,$cabeceras);
+					// send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL, $attachment_data);
 				} else {
 					$attachment_data['basename'] = array($pdf_name);
 					$attachment_data['folder'] = array('pdf');
 			
-					send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL, $attachment_data);
+
+					$cabeceras = "From: ".FROM_NAME." <".FROM_EMAIL.">" . "\r\n";
+					$cabeceras .= "Reply-To:" .FROM_EMAIL."\r\n";
+					$cabeceras .= "MIME-Version: 1.0" . "\r\n";
+					$cabeceras .= "Content-Type: text/html; charset=UTF-8" . "\r\n";
+
+					mail($user_data['email'],$email_subject,$email_body_text,$cabeceras);
+					// send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL, $attachment_data);
 				}
 
 				//START sms send to customer
@@ -779,7 +793,14 @@ $pdf->Output($file_folder_path.'/'.$pdf_name, 'F');
 			if(!empty($template_data_for_admin)) {
 				$email_subject_for_admin = str_replace($patterns,$replacements,$template_data_for_admin['subject']);
 				$email_body_text_for_admin = str_replace($patterns,$replacements,$template_data_for_admin['content']);
-				send_email($admin_user_data['email'], $email_subject_for_admin, $email_body_text_for_admin, $user_data['name'], $user_data['email']);
+
+					$cabeceras = "From: ".FROM_NAME." <".FROM_EMAIL.">" . "\r\n";
+					$cabeceras .= "Reply-To:" .FROM_EMAIL."\r\n";
+					$cabeceras .= "MIME-Version: 1.0" . "\r\n";
+					$cabeceras .= "Content-Type: text/html; charset=UTF-8" . "\r\n";
+
+					mail($admin_user_data['email'],$email_subject_for_admin ,$email_body_text_for_admin,$cabeceras);
+				// send_email($admin_user_data['email'], $email_subject_for_admin, $email_body_text_for_admin, $user_data['name'], $user_data['email']);
 			} //END email send to admin
 
 			//If order confirmed then final data saved/updated of order & unset all session items

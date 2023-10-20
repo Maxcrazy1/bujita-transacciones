@@ -1,4 +1,5 @@
 <?php
+
 require_once("../admin/_config/config.php");
 require_once("../admin/include/functions.php");
 
@@ -11,6 +12,8 @@ if(isset($post['submit_form'])) {
 
 	$user_id = $_SESSION['user_id'];
 	$order_id = $_SESSION['order_id'];
+
+	$order_data_before_saved = get_order_data($order_id);
 	
 	$order_item_ids = $_SESSION['order_item_ids'];
 	if(empty($order_item_ids)) {
@@ -109,125 +112,11 @@ if(isset($post['submit_form'])) {
 
 		//START post shipment by easypost API
 		if($payment_method != "cash" && $shipping_api == "easypost" && $shipment_generated_by_cust == '1' && $shipping_api_key != "") {
-			try {
-				require_once("../libraries/easypost-php-master/lib/easypost.php");
-				\EasyPost\EasyPost::setApiKey($shipping_api_key);
 
-				//create To address
-				$to_address_params = array(
-					"verify"  =>  array("delivery"),
-					//'name' => $company_name,
-					'company' => $company_name,
-					'street1' => $company_address,
-					'city' => $company_city,
-					'state' => $company_state,
-					'zip' => $company_zipcode,
-					'country' => $company_country,
-					'phone' => $company_phone,
-					'email' => $site_email
-				);
-		
-				//create From address
-				$from_address_params = array(
-					"verify"  =>  array("delivery"),
-					'name' => $user_data['name'],
-					'street1' => $user_data['address'],
-					//'street2' => $user_data['address2'],
-					'city' => $user_data['city'],
-					'state' => $user_data['state'],
-					'zip' => $user_data['postcode'],
-					'country' => $company_country,
-					'phone' => substr($user_data['phone'], -10),
-					'email' => $user_data['email']
-				);
-		
-				$to_address = \EasyPost\Address::create($to_address_params);
-				$from_address = \EasyPost\Address::create($from_address_params);
-				
-				$parcel_param_array = array(
-				  "length" => $shipping_parcel_length,
-				  "width" => $shipping_parcel_width,
-				  "height" => $shipping_parcel_height,
-				  "weight" => $shipping_parcel_weight
-				);
-				
-				if($shipping_predefined_package!="") {
-					$parcel_param_array['predefined_package'] = $shipping_predefined_package;
-				}
-				
-				$parcel_info = \EasyPost\Parcel::create($parcel_param_array);
-				
-		
-				
-				if($to_address->verifications->delivery->success == '1' && $from_address->verifications->delivery->success == '1') {
-					$shipment = \EasyPost\Shipment::create(array(
-					  "to_address" => $to_address,
-					  "from_address" => $from_address,
-					  "parcel" => $parcel_info,
-					  "carrier_accounts" => array($carrier_account_id),
-					  "options" => array(
-						  "label_size" => '4x6',
-						  //"label_size" => '8.5x11',
-						  //"print_custom_1" => "Instructions, Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.",
-						  //"print_custom_2" => "test 2",
-						  //"print_custom_3" => "test 3",
-					  )
-					));
-                    
-					$shipment_rate_id = '';
-					if(!empty($shipment->rates)) {
-						foreach($shipment->rates as $rate_data) {
-							if($rate_data->service == "Priority") {
-								$shipment_rate_id = $rate_data->id;
-							}
-						}
-					}
-					if($shipment_rate_id!="") {
-						$shipment->buy(array('rate' => array('id' => $shipment_rate_id)));
-					} else {
-						$shipment->buy(array(
-						  'rate' => $shipment->lowest_rate(),
-						));
-					}
-		
-					//$shipment->buy(array(
-					  //'rate' => $shipment->lowest_rate(),
-					//));
-
-					if($shipping_insurance == '1' && $f_shipping_insurance_price > 0) {
-						//$shipment->insure(array('amount' => $f_shipping_insurance_price));
-						$shipment->insure(array('amount' => ($sum_of_orders*1/100)));
-					}
-
-					$shipment->label(array(
-					  'file_format' => 'PDF'
-					));
+					$msg='Se acaba de enviar unas instrucciones via email a su bandeja de entrada para completar el pago via email';
+					setRedirectWithMsg(SITE_URL.'order-comlete',$msg,'success');
 					
-					/*echo '<pre>';
-					print_r($shipment);
-					exit;*/
-					
-					$shipment_id = $shipment->id;
-					$shipment_tracking_code = $shipment->tracker->tracking_code;
-					//$shipment_label_url = $shipment->postage_label->label_url;
-					$shipment_label_url = $shipment->postage_label->label_pdf_url;
 
-					$shipment_label_ext = pathinfo($shipment_label_url,PATHINFO_EXTENSION);
-					$shipment_label_custom_name = "Shipping-Label-".$order_id.".".$shipment_label_ext;
-				} else {
-					$msg='Unable to create shipment, one or more parameters were invalid.';
-					echo"<pre>"; print_r($msg); die;
-					setRedirectWithMsg(SITE_URL.'checkout',$msg,'error');
-					exit();
-				}
-			} catch(\EasyPost\Error $e) {
-				$shipment_error = "Error: ".$e->getHttpStatus().":".$e->getMessage();
-				error_log("Error: ".$e->getHttpStatus().":".$e->getMessage());
-
-				$msg='Unable to create shipment, one or more parameters were invalid.';
-				setRedirectWithMsg(SITE_URL.'checkout',$msg,'error');
-				exit();
-			}
 		} else {
 			$shipment_id = '';
 			$shipment_tracking_code = '';
@@ -235,62 +124,12 @@ if(isset($post['submit_form'])) {
 			$shipment_label_custom_name = '';
 		} //END post shipment by easypost API
 
-		//START logic for promocode
-		/*$promocode_id = $post['promocode_id'];
-		$promo_code = $post['promocode_value'];
-		if($promocode_id!='' && $promo_code!="" && $sum_of_orders>0) {
-			$query=mysqli_query($db,"SELECT * FROM `promocode` WHERE LOWER(promocode)='".strtolower($promo_code)."' AND ((never_expire='1' AND from_date <= '".$date."') OR (never_expire!='1' AND from_date <= '".$date."' AND to_date>='".$date."'))");
-			$promo_code_data = mysqli_fetch_assoc($query);
-
-			$is_allow_code_from_same_cust = true;
-			if($promo_code_data['multiple_act_by_same_cust']=='1' && $promo_code_data['multi_act_by_same_cust_qty']>0) {
-				$query=mysqli_query($db,"SELECT COUNT(*) AS multiple_act_by_same_cust FROM `orders` WHERE promocode_id='".$promo_code_data['id']."' AND user_id='".$user_id."'");
-				$act_by_same_cust_data = mysqli_fetch_assoc($query);
-				if($act_by_same_cust_data['multiple_act_by_same_cust']>$promo_code_data['multi_act_by_same_cust_qty']) {
-					$is_allow_code_from_same_cust = false;
-				}
-			}
-
-			$is_allow_code_from_cust = true;
-			if($promo_code_data['act_by_cust']>0) {
-				$query=mysqli_query($db,"SELECT COUNT(*) AS act_by_cust FROM `orders` WHERE promocode_id='".$promo_code_data['id']."'");
-				$act_by_cust_data = mysqli_fetch_assoc($query);
-				if($act_by_cust_data['act_by_cust']>$promo_code_data['act_by_cust']) {
-					$is_allow_code_from_cust = false;
-				}
-			}
-
-			$is_promocode_exist = false;
-			if(!empty($promo_code_data) && $is_allow_code_from_same_cust && $is_allow_code_from_cust) {
-				$discount = $promo_code_data['discount'];
-				if($promo_code_data['discount_type']=="flat") {
-					$discount_of_amt = $discount;
-					$total = ($sum_of_orders+$discount);
-					$discount_amt_with_format = amount_fomat($discount_of_amt);
-					$discount_amt_label = "Surcharge: ";
-				} elseif($promo_code_data['discount_type']=="percentage") {
-					$discount_of_amt = (($sum_of_orders*$discount) / 100);
-					$total = ($sum_of_orders+$discount_of_amt);
-					$discount_amt_with_format = amount_fomat($discount_of_amt);
-					$discount_amt_label = "Surcharge (".$discount."%): ";
-				}
-				$is_promocode_exist = true;
-			} else {
-				$msg = "This promo code has expired or not allowed.";
-				setRedirectWithMsg(SITE_URL.'revieworder',$msg,'info');
-				exit();
-			}
-		}*/ //END logic for promocode
 		$total = $sum_of_orders;
 		
 		$approved_date = ",approved_date='".$datetime."'";
 		$expire_date = ",expire_date='".date("Y-m-d H:i:s",strtotime($datetime." +".$order_expired_days." day"))."'";
 
-		/*$order_status = "awaiting_shipment";
-		if($hide_device_order_valuation_price=='1') {
-			$order_status = "submitted";
-		}*/
-		
+	
 		$order_status = "awaiting_shipment";
 		if($payment_method == "cash") {
 		    $order_status = "submitted";
@@ -301,42 +140,15 @@ if(isset($post['submit_form'])) {
 			//START append order items to block
 			//Get order item list based on orderID, path of this function (get_order_item_list) admin/include/functions.php
 			$order_item_list = get_order_item_list($order_id);
-			foreach($order_item_list as $order_item_list_data) {
+
+			foreach($order_item_ids as $orderItemId) {
 				//path of this function (get_order_item) admin/include/functions.php
-				$order_item_data = get_order_item_1($order_item_list_data['id'],'email');
-				// $order_list .= '<tr>
-				// 	<td bgcolor="#ddd" width="60%" style="padding:15px;">'.$order_item_list_data['device_title'].' - '.$order_item_data['device_type'].'</td>
-				// 	<td bgcolor="#ddd" width="20%" style="padding:15px;text-align:center;">'.$order_item_list_data['quantity'].'</td>';
-				// 	if($hide_device_order_valuation_price!='1') {
-				// 	$order_list .= '<td bgcolor="#ddd" width="20%" style="padding:15px;text-align:right;">'.amount_fomat($order_item_list_data['price']).'</td>';
-				// 	}
-				// $order_list .= '</tr>
-				// <tr>
-				// 	<td style="padding:1px;"></td>
-				// </tr>';
-
-			/*$order_list .= '<tr><td><table><tbody><tr><td>'
-														.'<img class="summary-img" src="'.SITE_URL.'libraries/phpthumb.php?imglocation='.SITE_URL.'images/mobile/'.$order_item_list_data['model_img'].'&h=509">'
-													.'</td><td><table><tbody>'
-																.'<tr>'
-																	.'<td class="summary-device-name">'.$order_item_list_data['model_title'].'</td>'										
-																.'</tr><tr>'
-																	.'<td class="summary-device-attribute">'.$order_item_data['device_info'].'</td>'
-																.'</tr><tr>'
-																	.'<td><a class="summary-device-edit-btn" href="">EDIT</a></td>'
-																.'</tr></tbody></table></td></tr></tbody></table></td>'
-									.'<td class="summary-device-quantity">'.$order_item_list_data['quantity'].'</td>';
-
-									if($hide_device_order_valuation_price!='1') {
-										$order_list .= '<td class="summary-device-price">$430.00</td>';
-									}
-									
-								$order_list .= '</tr>';*/
+				$order_item_data = get_order_item_1($orderItemId,'email');
 								
-							    $query= mysqli_query($db,"SELECT sef_url FROM `devices` WHERE title ='".$order_item_list_data['device_title']."'");
+							    $query= mysqli_query($db,"SELECT sef_url FROM `devices` WHERE title ='".$order_item_data['device_title']."'");
 							    $arr = mysqli_fetch_assoc($query);
 							    $slug1 = $arr['sef_url'];
-								$query = mysqli_query($db,"SELECT id FROM `mobile` WHERE title ='".$order_item_list_data['model_title']."'");
+								$query = mysqli_query($db,"SELECT id FROM `mobile` WHERE title ='".$order_item_data['model_title']."'");
 								$arr = mysqli_fetch_assoc($query);
 							    $slug2 = $arr['id'];
 										
@@ -344,25 +156,16 @@ if(isset($post['submit_form'])) {
                                                     <tbody>
                                                         <tr>
                                                             <td style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; width:100px" align="left" valign="top">'.
-																'<a href="'.SITE_URL.$slug1.'/'.createSlug($order_item_list_data['model_title']).'/'.$slug2.'" rel="noreferrer" target="_blank" >'.'<img src="'.SITE_URL.'libraries/phpthumb.php?imglocation='.SITE_URL.'images/mobile/'.$order_item_list_data['model_img'].'&h=64 &w=64" style="border-radius:6px;background:#ffffff;padding:5px;border:1px solid #ddd;margin-right:0.5rem" alt="'.$order_item_list_data['model_title'].' device image"></a>'.
+																'<a href="'.SITE_URL.$slug1.'/'.createSlug($order_item_data['model_title']).'/'.$slug2.'" rel="noreferrer" target="_blank" >'.'<img src="'.SITE_URL.'libraries/phpthumb.php?imglocation='.SITE_URL.'images/mobile/'.$order_item_data['model_img'].'&h=64 &w=64" style="border-radius:6px;background:#ffffff;padding:5px;border:1px solid #ddd;margin-right:0.5rem" alt="'.$order_item_data['model_title'].' device image"></a>'.
                                                             '</td>
                                                             <td valign="top" align="left" style = "font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; font-size:15px;">
-                                                                <strong>'.$order_item_list_data['device_title'].' - '.$order_item_list_data['model_title'].'</strong><br><br>'
+                                                                <strong>'.$order_item_data['device_title'].' - '.$order_item_data['model_title'].'</strong><br><br>'
                                                                         .$order_item_data['device_info']. 
                                                             '</td>                                                                                                   
                                                         </tr>
                                 					</tbody>
                                 				</table>'; 
                                 				
-                                /*               <table width="100%" cellspacing="0" cellpadding="0" style="margin-bottom: 40px; margin-top: 20px;">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; width:155px;  text-align:right" valign="bottom">
-                                                                <span bgcolor="#e9e9e9" style="padding: 16px 24px; background:#e9e9e9; border: 1px solid #b2b4b6; border-radius: 5px; color:#555">'.$order_item_list_data['quantity'].'</span>'
-                                                          .'</td>';
-                                if($hide_device_order_valuation_price!='1') {						  
-                                            $order_list .= '<td style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; padding:1rem 0.25rem 0;text-align:right" valign="bottom"> <strong>'.amount_fomat($order_item_list_data['price']).'</strong></td>';
-                                }*/
                                         
                                         $order_list .=
                                                 '<table width="100%" cellspacing="0" cellpadding="0" style="margin-bottom: 20px; margin-top: 20px;">
@@ -372,7 +175,7 @@ if(isset($post['submit_form'])) {
                                                                 <table  cellspacing="0" cellpadding="0">
                                                                     <tbody>
                                                                        <tr>
-                                                                            <td  Valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; text-align:center; padding: 1em 1.5em; background:#e9e9e9; border: 1px solid #b2b4b6; border-radius: 5px; color:#555">'.$order_item_list_data['quantity'].'
+                                                                            <td  Valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; text-align:center; padding: 1em 1.5em; background:#e9e9e9; border: 1px solid #b2b4b6; border-radius: 5px; color:#555">'.$order_item_data['quantity'].'
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -386,7 +189,7 @@ if(isset($post['submit_form'])) {
                                                                 <table  align="right" cellspacing="0" cellpadding="0" >
                                                                     <tbody>
                                                                         <tr>
-                                                                            <td Valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; text-align:right;"><strong>'.amount_fomat($order_item_list_data['price']).'</strong>
+                                                                            <td Valign="middle" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; text-align:right;"><strong>'.amount_fomat($order_item_data['price']).'</strong>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>
@@ -400,86 +203,6 @@ if(isset($post['submit_form'])) {
 			} //END append order items to block 
 			
 			
-/*
-$visitor_body .= '<div style="padding-top:1em"><table style="width:100%" border="0" cellpadding="0" cellspacing="0"><thead><tr>'
-.'<th class="offer-summary-header" colspan="2">HERE\'S YOUR OFFER SUMMARY</th></tr>'
-.'</thead><tbody><tr>'			
-			.'<td class="contact-additional-info-container">'
-				.'<table border="0" cellpadding="0" cellspacing="0" class="contact-additional-info-box">'
-					.'<thead><tr><th class="contact-additional-info">CONTACT INFORMATION</th>	</tr></thead><tbody><tr><td class="contact-additional-info-1">John Doe</td></tr><tr>'
-					.'<td class="contact-additional-detail">5220 Fairmount Dr.</td>'
-					.'</tr><tr><td class="contact-additional-detail">Arlington,</td></tr><tr><td class="contact-additional-detail">Tx, 76017</td></tr><tr><td class="contact-additional-detail">(781)-542-3342</td></tr>'
-						.'<tr><td class="contact-additional-detail">Johndoe@gmail.com</td></tr></tbody></table>'
-				.'<table border="0" cellpadding="0" cellspacing="0" class="contact-additional-info-box">'
-					.'<thead><tr><th class="contact-additional-info">ADITIONAL INFORMATION</th>'	
-						.'</tr></thead><tbody><tr><td class="contact-additional-info-1">Offer Date/Time</td></tr><tr><td class="contact-additional-detail">12/31/2019 / 3:00PM CST</td></tr>'
-						.'<tr><td class="contact-additional-info-1">PAYOUT PREFERENCE</td></tr><tr><td class="contact-additional-detail">PayPal</td></tr></tbody></table>'
-			.'</td><td class="summary-content-container">'				
-				.'<table  border="0" cellpadding="0" cellspacing="0" align="center">'
-					.'<thead><tr><th class="offer-id">OFFER #'.$order_id.'</th></tr><tr>'
-							.'<th class="offer-tip">You may cancel your trade-in offer up until your device is deliveried to us.</th>'
-						.'</tr></thead><tbody><tr><td>'
-								.'<table style="width:100%" border="0" cellpadding="0" cellspacing="0">'
-									.'<thead><tr><th class="summary-table-header">DETAILS</th>'
-
-											.'<th class="summary-table-header">QUANTITY</th>';
-
-											if($hide_device_order_valuation_price!='1'){
-												$visitor_body .= '<th class="summary-table-header">VALUE</th>';
-											}
-											
-									$visitor_body .= '</tr></thead><tbody>'
-										.$order_list					
-										.'</tbody></table></td></tr><tr>'
-							.'<td style="    border-top: 2px solid #f1bb00;padding-top: 2em;">'
-									.'<table class="summary-total" align="right" border="0" cellpadding="0" cellspacing="0"><thead><tr><th class="summary-total-header" colspan="2">SUMMARY</th></tr></thead><tbody>';
-
-if($hide_device_order_valuation_price!='1') {
-		$visitor_body .= '<tr><td class="summary-total-field">Sell Order total</td>'
-												.'<td class="summary-total-value">'.($sum_of_orders>0?amount_fomat($sum_of_orders):'').'</td></tr><tr>';		
-			$visitor_body .= '<tr><td class="summary-total-field">PREPAID SHIPPING</td>'
-			.'<td class="summary-total-value">FREE</td></tr>';
-
-			if($is_promocode_exist || $f_express_service_price>0 || $f_shipping_insurance_price>0) {
-					if($is_promocode_exist) {
-						$visitor_body .= '<tr><td class="summary-total-field">'.$discount_amt_label.'</td>'
-							.'<td class="summary-total-value">'.$discount_amt_with_format.'</td></tr>';
-						}
-						
-						if($f_express_service_price) {
-							$visitor_body .= '<tr><td class="summary-total-field">EXPRESS SERVICE</td>'
-							.'<td class="summary-total-value">'.amount_fomat($f_express_service_price).'</td></tr>';
-
-						}
-						
-						if($f_shipping_insurance_price) {
-
-							$visitor_body .= '<tr><td class="summary-total-field">SHIPPING INSURANCE</td>'
-							.'<td class="summary-total-value">'.amount_fomat($f_shipping_insurance_price).'</td></tr>';
-
-
-						}
-
-						$visitor_body .= '</tbody><tfoot><tr><td class="summary-total-footer">TOTAL PAYTOU</td>'
-							.'<td class="summary-total-value" style="border-top:2px solid #ccc">'.amount_fomat(($total - $f_express_service_price - $f_shipping_insurance_price)).'</td></tr></tfoot>';
-				
-				$visitor_body	.='</table></td></tr></tbody></table></td></tr></tbody></table></div>';
-
-			}else{
-
-				$visitor_body	.='</tbody></table></td></tr></tbody></table></td></tr></tbody></table></div>';	
-			}
-
-			
-}else{
-	$visitor_body	.='</tbody></table></td></tr></tbody></table></td></tr></tbody></table></div>';
-}
-
-$visitor_body .='<div style="padding-top:1em"><table class="custom-table-2" border="0" cellpadding="0" cellspacing="0"><thead><tr><th colspan="2" class="table-2-header">SENDING YOUR DEVICE TO US</th></tr><tr><td colspan="2" class="table-2-subheader">PLEASE, FOLLOW THE STEPS BELOW TO SHIP OR DELIVER YOUR DEVICE TO US</td></tr></thead><tbody><tr><td class="table-2-img"><img class="table2img" src="https://www.1guygadget.com/images/prepare_your_device.png"></td><td><table style="width:100%" border="0" cellpadding="0" cellspacing="0"><thead><tr><th class="table-2-ulheader">PREPARE YOUR DEVICE</th></tr></thead><tbody><tr><td><div><ul class="table-2-ul"><li><p class="table-2-p">Remove or sign out from "Find my iPhone" for Apple devices and remove "Android Activation Lock" for Android devices. <br><strong class="table-2-strong">Not sure? Here\'s how to proceed</strong></p></li><li><p class="table-2-p">Remove any password protection service</p></li><li><p class="table-2-p">Reset device to "Factory Settings" if applicable. <br><strong class="table-2-strong">Not sure? Here\'s how to proceed</strong></p></li><li><p class="table-2-p">Fully Charge the device\'s battery</p></li></ul></div></td></tr></tbody></table></td></tr><tr><td class="table-2-img"><img class="table2img" src="https://www.1guygadget.com/images/box.png"></td><td><table style="width:100%" border="0" cellpadding="0" cellspacing="0"><thead><tr><th class="table-2-ulheader">PACKAGE YOUR DEVICE PROPERLY</th></tr></thead><tbody><tr><td><div><ul class="table-2-ul"><li><p class="table-2-p">Secure device properly inside its packaging to prevent damage while in transit We recommend the use of bubble wraps and Styrofoam peanuts.</p></li><li><p class="table-2-p">Seal the package with a durable shipping tape.</p></li><li><p class="table-2-p">We are not accountable for any damages during shipping. This could force an offer review or lead to the cancellation of your offer.</p></li></ul></div></td></tr></tbody></table></td></tr><tr><td class="table-2-img"><img class="table2img" src="https://www.1guygadget.com/images/printer.png"></td><td><table style="width:100%" border="0" cellpadding="0" cellspacing="0"><thead><tr><th class="table-2-ulheader">SHIPPING YOUR DEVICE</th></tr></thead><tbody><tr><td><div><ul class="table-2-ul"><li><p class="table-2-p">Print the prepaid shipping label below, and attach it securely with a tape to your pacage.</p></li><li><p class="table-2-p">Leave us a message if you don\'t have a printer, and we will mail you a printed label. You can also use the printer at a local library.</p></li><li><p class="table-2-p">Drop off the package at a USPS location closest you. Ensure that it is marked "Fragile" at the counter.</p></li><li><p class="table-2-p">Your offer is guaranteed to be locked for 21 days. Be sure or deliver your device within this period to avoid cancellation of your offer.</p></li></ul></div></td></tbody></table></td></tr></tbody><tfoot><tr><th colspan="2" align="center"><div class="usps_logo"><img width="250px" class="table-2-footer-img" src="https://www.1guygadget.com/images/usps_logo.png"></div></th></tr></tfoot></table></div>';
-*/
-
-
-//Emmanuel's visitor_body
 
 $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="font-size:16px; margin-top: 15px;">
 					<tbody>
@@ -913,67 +636,170 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 
 
 
+		if($payment_method != "cash" && $shipping_api == "easypost" && $shipment_generated_by_cust == '1' && $shipping_api_key != "") {
+			$template_data = get_template_data('order_processing_status');
+
+			$general_setting_data = get_general_setting_data();
+			$admin_user_data = get_admin_user_data();
+			$order_data = get_order_data($order_id);
+
+			$sum_of_orders=get_order_price($order_id);
+			if($order_data['promocode_id']>0 && $order_data['promocode_amt']>0) {
+				$total_of_order = $sum_of_orders+$order_data['promocode_amt'];
+			} else {
+				$total_of_order = $sum_of_orders;
+			}
+			$expire_date=date('Y-m-d', strtotime(' + 5 days'));
+			
+			$model_item_id = $order_item_ids[0];
+
+			$model_item_data = get_order_item($model_item_id,'');
+
+			$patterns = array(
+				'{$logo}','{$header_logo}','{$footer_logo}',
+				'{$admin_logo}',
+				'{$admin_email}',
+				'{$admin_username}',
+				'{$admin_site_url}',
+				'{$admin_panel_name}',
+				'{$from_name}',
+				'{$from_email}',
+				'{$site_name}',
+				'{$site_url}',
+				'{$customer_fname}',
+				'{$customer_lname}',
+				'{$customer_fullname}',
+				'{$customer_phone}',
+				'{$customer_email}',
+				'{$customer_address_line1}',
+				'{$customer_address_line2}',
+				'{$customer_city}',
+				'{$customer_state}',
+				'{$customer_country}',
+				'{$customer_postcode}',
+				'{$customer_company_name}',
+				'{$order_id}',
+				'{$order_payment_method}',
+				'{$order_date}',
+				'{$order_approved_date}',
+				'{$order_expire_date}',
+				'{$order_status}',
+				'{$order_sales_pack}',
+				'{$current_date_time}',
+				'{$order_item_model}',
+				'{$order_item_price}',
+				'{$order_item_storage}',
+				'{$order_item_condition}',
+				'{$order_item_locks}',
+				'{$order_total}');
+				
+			$temp_arr = strtolower($order_data['name']).";";
+            $temp_arr = preg_split("/[\s*]/", $temp_arr);
+            $hold ="";
+            foreach($temp_arr as $str){
+               $hold.= ucfirst($str)." ";
+            }
+            $temp_arr = trim(preg_replace("/\;/", "", $hold));	
+            
+            
+            $pre_header = strip_tags($template_data['content']);
+            $pre_header = preg_replace('/\{\$(header_logo)\}/i', '' ,$pre_header);
+            $pre_header = preg_replace('/\{\$(footer_logo)\}/i', '' ,$pre_header);
+            $pre_header = preg_replace('/\{\$(customer_fullname)\}(\W)/i', $temp_arr."$2".' ' ,$pre_header);
+            
+            	$replacements_1 = array(
+				$logo,$header_logo,$footer_logo,
+				$admin_logo,
+				$admin_user_data['email'],
+				$admin_user_data['username'],
+				ADMIN_URL,
+				$general_setting_data['admin_panel_name'],
+				$general_setting_data['from_name'],
+				$general_setting_data['from_email'],
+				$general_setting_data['site_name'],
+				SITE_URL,
+				$user_data['first_name'],
+				$user_data['last_name'],
+				$user_data['name'],
+				$user_data['phone'],
+				$user_data['email'],
+				$user_data['address'],
+				$user_data['address2'],
+				$user_data['city'],
+				$user_data['state'],
+				$user_data['country'],
+				$user_data['postcode'],
+				$order_data['company_name'],
+				$order_data['order_id'],
+				$payment_method,
+				$order_data['order_date'],
+				$order_data['approved_date'],
+				$expire_date,
+				ucwords(str_replace("_"," ",$order_data['order_status'])),
+				$order_data['sales_pack'],
+				format_date(date('Y-m-d H:i')).' '.format_time(date('Y-m-d H:i')),
+				$model_item_data['data']['brand_title'].' - '.$model_item_data['data']['model_title'],
+				amount_fomat($model_item_data['data']['price']),
+				$model_item_data['data']['storage'],
+				$model_item_data['data']['condition'],
+				$model_item_data['data']['network'],
+				amount_fomat($total_of_order)
+				);
+				
+			$pre_header = str_replace($patterns,$replacements_1,$pre_header);
+			$header_logo = str_replace('my_preheader', substr($pre_header,0), $header_logo);
+            //$header_logo = str_replace('my_preheader', substr(preg_replace('/\{\$\w+\_\w+\}/i',"", preg_replace('/\{\$(customer_fullname)\}(\W)/i', $temp_arr."$2".' ' ,$pre_header)),0), $header_logo);
+		    
+			$replacements = array(
+				$logo,$header_logo,$footer_logo,
+				$admin_logo,
+				$admin_user_data['email'],
+				$admin_user_data['username'],
+				ADMIN_URL,
+				$general_setting_data['admin_panel_name'],
+				$general_setting_data['from_name'],
+				$general_setting_data['from_email'],
+				$general_setting_data['site_name'],
+				SITE_URL,
+				$user_data['first_name'],
+				$user_data['last_name'],
+				$user_data['name'],
+				$user_data['phone'],
+				$user_data['email'],
+				$user_data['address'],
+				$user_data['address2'],
+				$user_data['city'],
+				$user_data['state'],
+				$user_data['country'],
+				$user_data['postcode'],
+				$order_data['company_name'],
+				$order_data['order_id'],
+				$payment_method,
+				$order_data['order_date'],
+				$order_data['approved_date'],
+				$expire_date,
+				ucwords(str_replace("_"," ",$order_data['order_status'])),
+				$order_data['sales_pack'],
+				format_date(date('Y-m-d H:i')).' '.format_time(date('Y-m-d H:i')),
+				$model_item_data['data']['brand_title'].' - '.$model_item_data['data']['model_title'],
+				amount_fomat($model_item_data['data']['price']),
+				$model_item_data['data']['storage'],
+				$model_item_data['data']['condition'],
+				$model_item_data['data']['network'],
+				amount_fomat($total_of_order)
+				);
+		
+
+				$email_subject = str_replace($patterns,$replacements,$template_data['subject']);
+				$email_body_text = str_replace($patterns,$replacements,$template_data['content']);
 
 
-											
-			// $visitor_body .= '<table width="650" cellpadding="0" cellspacing="0">';
-			// 	$visitor_body .= '
-			// 		<tr><td style="padding:10px;"></td></tr>
-			// 		<tr>
-			// 			<td width="60%" bgcolor="#e0f2f7" style="padding:15px;"><strong>Handset/Device Type</strong></td>
-			// 			<td width="20%" bgcolor="#e0f2f7" style="padding:15px;text-align:center;"><strong>Quantity</strong></td>';
-			// 			if($hide_device_order_valuation_price!='1') {
-			// 			$visitor_body .= '<td width="20%" bgcolor="#e0f2f7" style="padding:15px;text-align:right;"><strong>Subtotal</strong></td>';
-			// 			}
-			// 	$visitor_body .= '
-			// 		</tr>
-			// 		<tr><td style="padding:0px;"></td></tr>';
-			// 	$visitor_body .= '<tbody>'.$order_list;
-				// if($hide_device_order_valuation_price!='1') {
-				// 	$visitor_body .= '<tr>
-				// 		<td></td>
-				// 		<td style="padding:5px;text-align:right;"><strong>Sell Order Total:</strong></td>
-				// 		<td style="padding:5px;text-align:right;">'.($sum_of_orders>0?amount_fomat($sum_of_orders):'').'</td>
-				// 	</tr>';
-				// 	if($is_promocode_exist || $f_express_service_price>0 || $f_shipping_insurance_price>0) {
-				// 		if($is_promocode_exist) {
-				// 			$visitor_body .= '<tr>
-				// 				<td></td>
-				// 				<td style="padding:5px;text-align:right;"><strong>'.$discount_amt_label.'</strong></td>
-				// 				<td style="padding:5px;text-align:right;">'.$discount_amt_with_format.'</td>
-				// 			</tr>';
-				// 		}
-						
-				// 		if($f_express_service_price) {
-				// 			$visitor_body .= '<tr>
-				// 				<td></td>
-				// 				<td style="padding:5px;text-align:right;"><strong>Express Service</strong></td>
-				// 				<td style="padding:5px;text-align:right;">-'.amount_fomat($f_express_service_price).'</td>
-				// 			</tr>';
-				// 		}
-						
-				// 		if($f_shipping_insurance_price) {
-				// 			$visitor_body .= '<tr>
-				// 				<td></td>
-				// 				<td style="padding:5px;text-align:right;"><strong>Shipping Insurance</strong></td>
-				// 				<td style="padding:5px;text-align:right;">-'.amount_fomat($f_shipping_insurance_price).'</td>
-				// 			</tr>';
-				// 		}
-						
-				// 		$visitor_body .= '<tr>
-				// 			<td></td>
-				// 			<td style="padding:5px;text-align:right;"><strong>Total:</strong></td>
-				// 			<td style="padding:5px;text-align:right;">'.amount_fomat(($total - $f_express_service_price - $f_shipping_insurance_price)).'</td>
-				// 		</tr>';
-				// 	}
-				// }
-			// 	$visitor_body .= '</tbody>';
-			// $visitor_body .= '</table>';
+		}else{
 
 			$template_data = get_template_data('new_order_email_to_customer');
 			$template_data_for_admin = get_template_data('new_order_email_to_admin');
+
 			$order_data = get_order_data($order_id);
-			
 
 			//Get admin user data
 			$admin_user_data = get_admin_user_data();
@@ -1047,13 +873,11 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 				format_date($datetime).' '.format_time($datetime),
 				$visitor_body);
 			
-			$pre_header = str_replace($patterns,$replacements_1,$pre_header);
-			$header_logo = str_replace('my_preheader', substr($pre_header,0), $header_logo);
-				
-            //$header_logo = str_replace('my_preheader', substr(preg_replace('/\{\$\w+\_\w+\}/i',"", preg_replace('/\{\$(customer_fullname)\}(\W)/i', $user_data['name']."$2".' ' ,$template_data['content'])),0), $header_logo);
-            
+
 			$replacements = array(
-				$logo,$header_logo,$footer_logo,
+				$logo,
+				$header_logo,
+				$footer_logo,
 				$admin_logo,
 				$admin_user_data['email'],
 				$admin_user_data['username'],
@@ -1083,6 +907,11 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 				$order_data['sales_pack'],
 				format_date($datetime).' '.format_time($datetime),
 				$visitor_body);
+
+		}
+
+
+
 
 //START for generate barcode
 $barcode_img_nm = "barcode_".date("YmdHis").".png";
@@ -1150,15 +979,15 @@ $html.='
 </table>
 <table cell-padding="0" cell-spacing="0" border="0;" width="100%" style="padding:10px 10px 10px 10px;">';
 
-	foreach($order_item_list as $order_item_list_data) {
+	foreach($order_item_ids as $orderItemId) {
 		//path of this function (get_order_item) admin/include/functions.php
-		$order_item_data = get_order_item($order_item_list_data['id'],'email');
+		$order_item_data = get_order_item_1($orderItemId,'email');
 		$order_list_pdf .= '<tr>
 			<td bgcolor="#ddd" width="10%" style="padding:15px;">'.($n=$n+1).'</td>
-			<td bgcolor="#ddd" width="50%" style="padding:15px;">'.$order_item_list_data['brand_title'].' - '.$order_item_data['device_type'].'</td>
-			<td bgcolor="#ddd" width="20%" style="padding:15px;text-align:center;">'.$order_item_list_data['quantity'].'</td>';
+			<td bgcolor="#ddd" width="50%" style="padding:15px;">'.$order_item_data['device_type'].'</td>
+			<td bgcolor="#ddd" width="20%" style="padding:15px;text-align:center;">'.$order_item_data['quantity'].'</td>';
 			if($hide_device_order_valuation_price!='1') {
-			$order_list_pdf .= '<td bgcolor="#ddd" width="20%" style="padding:15px;text-align:right;">'.amount_fomat($order_item_list_data['price']).'</td>';
+			$order_list_pdf .= '<td bgcolor="#ddd" width="20%" style="padding:15px;text-align:right;">'.amount_fomat($order_item_data['price']).'</td>';
 			}
 		$order_list_pdf .= '</tr>';
 	} //END append order items to block
@@ -1275,14 +1104,32 @@ $file_folder_path = CP_ROOT_PATH.'/'.$file_folder;
 if(!file_exists($file_folder_path))
 	mkdir($file_folder_path, 0777);
 
-//$pdf_name='order-'.date('Y-m-d-H-i-s').'.pdf';
-$pdf_name='Offer-'.$order_id.'.pdf';
-$pdf->Output($file_folder_path.'/'.$pdf_name, 'F');
-//echo SITE_URL.$file_folder.'/'.$pdf_name;
-//exit;
+//$pdfName='order-'.date('Y-m-d-H-i-s').'.pdf';
+$pdfName='Offer-'.$order_id.'.pdf';
+$pdf->Output($file_folder_path.'/'.$pdfName, 'F');
+$filetype    = "application/pdf"; // type
+$pdfLocation= "$file_folder_path/$pdfName";
+
+$eol = PHP_EOL;
+$semi_rand     = md5(time());
+$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
+
+					$from = FROM_EMAIL.$eol;
+					$cabeceras       = "From: $from" .
+					  "MIME-Version: 1.0$eol" .
+					  "Content-Type: multipart/mixed;$eol" .
+					  " boundary=\"$mime_boundary\"";
+
+					$file = fopen($pdfLocation, 'rb');
+					$data = fread($file, filesize($pdfLocation));
+					fclose($file);
+					$pdf = chunk_split(base64_encode($data));
+
 
 			//START email send to customer
+
 			if(!empty($template_data)) {
+
 				$email_subject = str_replace($patterns,$replacements,$template_data['subject']);
 				$email_body_text = str_replace($patterns,$replacements,$template_data['content']);
 
@@ -1291,17 +1138,43 @@ $pdf->Output($file_folder_path.'/'.$pdf_name, 'F');
 					$shipment_basename_label_url = $shipment_label_custom_name;
 					$label_copy_to_our_srvr = copy($shipment_label_url,'../shipment_labels/'.$shipment_basename_label_url);
 
-					$attachment_data['basename'] = array($shipment_basename_label_url,$pdf_name);
+					$attachment_data['basename'] = array($shipment_basename_label_url,$pdfName);
 					$attachment_data['folder'] = array('shipment_labels','pdf');
 		
-					file_put_contents('./a.html', $email_body_text);
+					$message = "--$mime_boundary$eol" .
+					"Content-Type: text/html; charset=\"iso-8859-1\"$eol" .
+					"Content-Transfer-Encoding: 7bit$eol$eol" .
+					$email_body_text . $eol;
 
-					send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL, $attachment_data);
+					$message .= "--$mime_boundary$eol" .
+					"Content-Type: $filetype;$eol" .
+					" name=\"$pdfName\"$eol" .
+					"Content-Disposition: attachment;$eol" .
+					" filename=\"$pdfName\"$eol" .
+					"Content-Transfer-Encoding: base64$eol$eol" .
+					$pdf . $eol .
+					"--$mime_boundary--";
+
+					mail($user_data['email'], $email_subject, $message,$cabeceras);
 				} else {
-					$attachment_data['basename'] = array($pdf_name);
+					$attachment_data['basename'] = array($pdfName);
 					$attachment_data['folder'] = array('pdf');
-					file_put_contents('./b.html', $email_body_text);
-					send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL, $attachment_data);
+
+					$message = "--$mime_boundary$eol" .
+					"Content-Type: text/html; charset=\"iso-8859-1\"$eol" .
+					"Content-Transfer-Encoding: 7bit$eol$eol" .
+					$email_body_text . $eol;
+
+					$message .= "--$mime_boundary$eol" .
+					"Content-Type: $filetype;$eol" .
+					" name=\"$pdfName\"$eol" .
+					"Content-Disposition: attachment;$eol" .
+					" filename=\"$pdfName\"$eol" .
+					"Content-Transfer-Encoding: base64$eol$eol" .
+					$pdf . $eol .
+					"--$mime_boundary--";
+
+					mail($user_data['email'], $email_subject, $message,$cabeceras);
 				}
 
 				//START sms send to customer
@@ -1324,7 +1197,8 @@ $pdf->Output($file_folder_path.'/'.$pdf_name, 'F');
 			if(!empty($template_data_for_admin)) {
 				$email_subject_for_admin = str_replace($patterns,$replacements,$template_data_for_admin['subject']);
 				$email_body_text_for_admin = str_replace($patterns,$replacements,$template_data_for_admin['content']);
-				send_email($admin_user_data['email'], $email_subject_for_admin, $email_body_text_for_admin, $user_data['name'], $user_data['email']);
+
+					mail($admin_user_data['email'], $email_subject_for_admin, $email_body_text_for_admin,$cabeceras);
 			} //END email send to admin
 
 			//If order confirmed then final data saved/updated of order & unset all session items
@@ -1339,7 +1213,9 @@ $pdf->Output($file_folder_path.'/'.$pdf_name, 'F');
 			unset($_SESSION['order_id']);
 			unset($_SESSION['payment_method']);
 
+			if (empty($msg)) {
 			$msg = "Your offer (#".$order_id.") request was completed successfully.";
+			}
 			setRedirectWithMsg(SITE_URL.'order-comlete',$msg,'success');
 		} else {
 			$msg='Sorry, something went wrong';

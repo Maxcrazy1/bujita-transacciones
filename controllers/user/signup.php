@@ -124,7 +124,14 @@ if(isset($post['submit_form'])) {
 					$email_subject = str_replace($patterns,$replacements,$template_data_for_email['subject']);
 					$email_body_text = str_replace($patterns,$replacements,$template_data_for_email['content']);
 
-					send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL);
+					// Cabeceras del correo
+					$cabeceras = "From: ".FROM_NAME." <".FROM_EMAIL.">" . "\r\n";
+					$cabeceras .= "Reply-To:" .FROM_EMAIL."\r\n";
+					$cabeceras .= "MIME-Version: 1.0" . "\r\n";
+					$cabeceras .= "Content-Type: text/html; charset=UTF-8" . "\r\n";
+
+					mail($user_data['email'],$email_subject,$email_body_text,$cabeceras);
+					// send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL);
 				} //END email send to customer
 
 				//START sms send to customer
@@ -136,7 +143,9 @@ if(isset($post['submit_form'])) {
 						try {
 							$sms = $sms_api->account->messages->sendMessage($from_number, $to_number, $sms_body_text, $image, array('StatusCallback'=>''));
 						} catch(Services_Twilio_RestException $e) {
+
 							$sms_error_msg = $e->getMessage();
+							print($sms_error_msg);
 							error_log($sms_error_msg);
 						}
 					}
@@ -232,7 +241,13 @@ if(isset($post['submit_form'])) {
 						$email_subject = str_replace($patterns,$replacements,$template_data_for_email['subject']);
 						$email_body_text = str_replace($patterns,$replacements,$template_data_for_email['content']);
 
-						send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL);
+					$cabeceras = "From: ".FROM_NAME." <".FROM_EMAIL.">" . "\r\n";
+					$cabeceras .= "Reply-To:" .FROM_EMAIL."\r\n";
+					$cabeceras .= "MIME-Version: 1.0" . "\r\n";
+					$cabeceras .= "Content-Type: text/html; charset=UTF-8" . "\r\n";
+
+					mail($user_data['email'],$email_subject,$email_body_text,$cabeceras);
+						// send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL);
 					} //END email send to customer
 
 					//START sms send to customer

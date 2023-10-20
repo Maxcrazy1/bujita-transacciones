@@ -665,11 +665,19 @@ if(isset($post['create_shipment'])) {
 			
 
 			if(!empty($template_data)) {
+
+
 				$email_subject = str_replace($patterns,$replacements,$template_data['subject']);
 				$email_body_text = str_replace($patterns,$replacements,$post['note']);
-				//$email_body_text = str_replace($patterns,$replacements,$template_data['content']);
 
-				send_email($order_data['email'], $email_subject, $email_body_text, FROM_NAME, $o_from_email);
+				$cabeceras = "From: ".FROM_NAME." <".FROM_EMAIL.">" . "\r\n";
+				$cabeceras .= "Reply-To:" .FROM_EMAIL."\r\n";
+				$cabeceras .= "MIME-Version: 1.0" . "\r\n";
+				$cabeceras .= "Content-Type: text/html; charset=UTF-8" . "\r\n";
+
+				mail($order_data['email'],$email_subject,$email_body_text,$cabeceras);
+
+
 
 				//START sms send to customer
 				if($template_data['sms_status']=='1' && $sms_sending_status=='1') {
@@ -716,8 +724,12 @@ if(isset($post['create_shipment'])) {
 	}
 } elseif(isset($post['update_order'])) {
 	$order_id = $post['order_id'];
-	$order_data_before_saved = get_order_data($order_id);
-	
+	$note=real_escape_string($post['note']);
+	$status=$post['status'];
+
+
+	$model_item_id = $post['model_item_id'];
+	$model_item_data = get_order_item($model_item_id,'');
 	/*echo '<pre>';
 	print_r($post);
 	exit;*/
@@ -747,6 +759,101 @@ if(isset($post['create_shipment'])) {
 		//$query=mysqli_query($db,"UPDATE `order_items` SET `imei_number`='".$imei_number."', `storage`='".$storage."', `condition`='".$condition."', `network`='".$network."', `accessories`='".$accessories."', `miscellaneous`='".$miscellaneous."', `price`='".$price."' WHERE id='".$s_key."'");
 		$query=mysqli_query($db,"UPDATE `order_items` SET `imei_number`='".$imei_number."', `price`='".$item_price."', quantity='".$quantity."' WHERE id='".$s_key."'");
 	}	
+
+
+
+	$query=mysqli_query($db,'UPDATE orders SET status="'.$status.'", note="'.$note.'"'.$approved_date.$expire_date.$offer_status.$cancelled_by.' WHERE order_id="'.$order_id.'"');
+
+	$order_data = get_order_data($order_id);
+
+	if($query=="1") {
+		if($email_template_id>0) {
+			$template_data = get_template_data_by_id($email_template_id);
+		} else {
+			$template_data = get_template_data('admin_reply_from_order');
+		}
+	}
+
+	$patterns = array(
+		'{$logo}','{$header_logo}','{$footer_logo}',
+		'{$admin_logo}',
+		'{$admin_email}',
+		'{$admin_username}',
+		'{$admin_site_url}',
+		'{$admin_panel_name}',
+		'{$from_name}',
+		'{$from_email}',
+		'{$site_name}',
+		'{$site_url}',
+		'{$customer_fname}',
+		'{$customer_lname}',
+		'{$customer_fullname}',
+		'{$customer_phone}',
+		'{$customer_email}',
+		'{$customer_address_line1}',
+		'{$customer_address_line2}',
+		'{$customer_city}',
+		'{$customer_state}',
+		'{$customer_country}',
+		'{$customer_postcode}',
+		'{$customer_company_name}',
+		'{$order_id}',
+		'{$order_payment_method}',
+		'{$order_date}',
+		'{$order_approved_date}',
+		'{$order_expire_date}',
+		'{$order_status}',
+		'{$order_sales_pack}',
+		'{$current_date_time}',
+		'{$order_total}');
+
+	$replacements = array(
+		$logo,$header_logo,$footer_logo,
+		$admin_logo,
+		$admin_user_data['email'],
+		$admin_user_data['username'],
+		ADMIN_URL,
+		$general_setting_data['admin_panel_name'],
+		$general_setting_data['from_name'],
+		$general_setting_data['from_email'],
+		$general_setting_data['site_name'],
+		SITE_URL,
+		$order_data['first_name'],
+		$order_data['last_name'],
+		$order_data['name'],
+		$order_data['phone'],
+		$order_data['email'],
+		$order_data['address'],
+		$order_data['address2'],
+		$order_data['city'],
+		$order_data['state'],
+		$order_data['country'],
+		$order_data['postcode'],
+		$order_data['company_name'],
+		$order_data['order_id'],
+		$order_data['payment_method'],
+		$order_data['order_date'],
+		$order_data['approved_date'],
+		$order_data['expire_date'],
+		ucwords(str_replace("_"," ",$order_data['order_status'])),
+		$order_data['sales_pack'],
+		format_date(date('Y-m-d H:i')).' '.format_time(date('Y-m-d H:i')),
+		amount_fomat($total_of_order)
+		);
+	
+
+
+
+	$email_subject = str_replace($patterns,$replacements,$template_data['subject']);
+	$email_body_text = str_replace($patterns,$replacements,$template_data['content']);
+
+	$cabeceras = "From: ".FROM_NAME." <".FROM_EMAIL.">" . "\r\n";
+	$cabeceras .= "Reply-To:" .FROM_EMAIL."\r\n";
+	$cabeceras .= "MIME-Version: 1.0" . "\r\n";
+	$cabeceras .= "Content-Type: text/html; charset=UTF-8" . "\r\n";
+
+	mail($order_data['email'],$email_subject,$email_body_text,$cabeceras);
+
 	if($query == '1') {
 		$msg="Order has been successfully updated.";
 		$_SESSION['success_msg']=$msg;
@@ -840,7 +947,6 @@ if(isset($post['create_shipment'])) {
 				'{$order_sales_pack}',
 				'{$current_date_time}');
 				
-//Emmanuel's changes			
 			$temp_arr = strtolower($order_data_before_saved['name']).";";
             $temp_arr = preg_split("/[\s*]/", $temp_arr);
             $hold ="";
@@ -892,19 +998,6 @@ if(isset($post['create_shipment'])) {
 			$pre_header = str_replace($patterns,$replacements_1,$pre_header);
 			$header_logo = str_replace('my_preheader', substr($pre_header,0), $header_logo);
 			
-			/*
-			$temp_arr = strtolower($order_data_before_saved['name']).";";
-            $temp_arr = preg_split("/[\s*]/", $temp_arr);
-            $hold ="";
-            foreach($temp_arr as $str){
-               $hold.= ucfirst($str)." ";
-            }
-            $temp_arr = trim(preg_replace("/\;/", "", $hold));				
-			
-			$header_logo = str_replace('my_preheader', substr(preg_replace('/\{\$\w+\_\w+\}/i',"", preg_replace('/\{\$(customer_fullname)\}(\W)/i', $temp_arr."$2".' ' ,$template_data['content'])),0,300), $header_logo);
-	        */
-	        
-	        
 			$replacements = array(
 				$logo,$header_logo,$footer_logo,
 				$admin_logo,

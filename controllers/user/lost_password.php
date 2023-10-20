@@ -82,7 +82,13 @@ if(isset($post['reset'])) {
 				$email_subject = str_replace($patterns,$replacements,$template_data['subject']);
 				$email_body_text = str_replace($patterns,$replacements,$template_data['content']);
 				
-				send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL);
+					$cabeceras = "From: ".FROM_NAME." <".FROM_EMAIL.">" . "\r\n";
+					$cabeceras .= "Reply-To:" .FROM_EMAIL."\r\n";
+					$cabeceras .= "MIME-Version: 1.0" . "\r\n";
+					$cabeceras .= "Content-Type: text/html; charset=UTF-8" . "\r\n";
+
+					mail($user_data['email'],$email_subject,$email_body_text,$cabeceras);
+				// send_email($user_data['email'], $email_subject, $email_body_text, FROM_NAME, FROM_EMAIL);
 			}
 
 			$msg='Confirmed! Reset your password link has been sent. Check your email.';
