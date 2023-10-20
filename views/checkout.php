@@ -358,7 +358,7 @@ $starbuck_location_list = get_starbuck_location_list();
                           
                           <div class="checkout-block terms_condition clearfix">
                             <h3><?php echo $LANG['TERMS & CONDITION']; ?></h3>
-                            <p><?php echo $LANG['Please carefully read our']; ?> <a href="#"><?php echo $LANG['terms and conditions']; ?></a> <?php echo $LANG['before placing your offer.']; ?></p>
+                            <p><?php echo $LANG['Please carefully read our']; ?> <a href="<?php echo SITE_URL.'terms-and-conditions' ?>"  target="_blank" rel="noopener noreferrer"><?php echo $LANG['terms and conditions']; ?></a> <?php echo $LANG['before placing your offer.']; ?></p>
                             <div class="custom-control custom-checkbox">
                               <input type="checkbox" class="custom-control-input" name="terms_and_conditions" id="terms_and_conditions" value="1">
                               <label class="custom-control-label" for="terms_and_conditions"><?php echo $LANG['I accept the terms and conditions']; ?></label>
