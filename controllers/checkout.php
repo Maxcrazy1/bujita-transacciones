@@ -746,10 +746,6 @@ $visitor_body .= '<table width="100%" cellspacing="0" cellpadding="0" style="fon
 				amount_fomat($total_of_order)
 				);
 				
-			$pre_header = str_replace($patterns,$replacements_1,$pre_header);
-			$header_logo = str_replace('my_preheader', substr($pre_header,0), $header_logo);
-            //$header_logo = str_replace('my_preheader', substr(preg_replace('/\{\$\w+\_\w+\}/i',"", preg_replace('/\{\$(customer_fullname)\}(\W)/i', $temp_arr."$2".' ' ,$pre_header)),0), $header_logo);
-		    
 			$replacements = array(
 				$logo,$header_logo,$footer_logo,
 				$admin_logo,
