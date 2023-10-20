@@ -414,7 +414,7 @@ $LANG['Enter the e-mail address associated with your Cash Movil account, then cl
 $LANG['RETURN TO LOGIN'] = 'VOLVER AL INICIO DE SESIÓN';
 $LANG['Thank You!'] = 'Gracias!';
 $LANG['We really appreciate your business'] = 'Apreciamos mucho su negocio';
-$LANG['Offer Number'] = 'Código de orden';
+$LANG['Offer Number'] = '# de orden';
 $LANG['Date of offer'] = 'Fecha de orden';
 $LANG['A copy of the information on this page has been sent to'] = 'Se ha enviado una copia de la información de esta página a';
 $LANG['Unable to create shipment, one or more parameters were invalid so please'] = 'No se ha podido crear el envío, uno o más parámetros no son válidos, así que por favor';

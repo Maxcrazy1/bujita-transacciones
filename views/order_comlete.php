@@ -108,26 +108,7 @@ $shipment_label_url = $order_data['shipment_label_url'];
 								</div>
 							</div>
 						</div>
-						<div class="shippping-block clearfix">
-							<div class="row">
-								<div class="col-md-8 offset-md-4">
-									<?php /*?>views/print/print_label.php?order_id=300062<?php */ ?>
-									<?php /*?> <a href="<?=($shipment_label_url?SITE_URL.'controllers/download.php?download_link='.$shipment_label_url:'#')?>" class="btn"><?php */ ?>
-									
-									<?php
-									if($order_data['shipment_label_custom_name']) {
-										$shipment_label_url = SITE_URL.'shipment_labels/'.$order_data['shipment_label_custom_name'];
-									} else {
-										$shipment_label_url = $order_data['shipment_label_url'];
-									} ?>
-									<a href="javascript:void(0);" onclick="open_window('<?=$shipment_label_url?>');" class="btn">
-
-									<?php /*?><a href="javascript:void(0);" onclick="open_window('<?= SITE_URL ?>views/print/print_label.php?order_id=<?= $order_id ?>');" class="btn"><?php */?>
-										<img class="" src="images/usps_logo.png" alt="USPS Logo"><br /><span><?php echo $LANG['Click to print label']; ?></span>
-									</a>
-								</div>
-							</div>
-						</div>
+						
 					</div>
 				</div>
 			</div>

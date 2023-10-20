@@ -966,7 +966,7 @@ $html.='
 		<td>
 			<dl>
 				<dt>'.$barcode_img_path.'</dt>
-				<dt><strong>'.$LANG['Offer Number'].': </strong>#'.$order_id.'</dt>
+				<dt><strong>'.$LANG['Offer Number'].': </strong>'.$order_id.'</dt>
 				<dt><strong>'.$LANG['Date of offer'].': </strong> '.format_date($order_data['order_date']).'</dt>
 				<dt><strong>'.$LANG['Payment Preference'].': </strong> '.$LANG[ucfirst($order_data['payment_method'])].'</dt>
 			</dl>
@@ -1067,7 +1067,7 @@ $html.='<table cell-padding="0" cell-spacing="0" border="0;" width="100%" style=
 	$html.='<tbody>';
 		$html .= '<tr>
 			<td>
-			This offer is guaranteed to be valid until <b>'.$expiring_date.'</b>.<br></td>
+			 '.$LANG['This offer is guaranteed to be valid until'].' <b>'.$expiring_date.'</b>.<br></td>
 		</tr>';
 	$html.='</tbody>
 </table>';
