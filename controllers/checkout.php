@@ -1113,7 +1113,7 @@ EOF;
 			$headers       = "From: $from" .
 				"MIME-Version: 1.0$eol" .
 				"Content-Type: multipart/mixed;charset=utf-8;$eol" .
-				"Content-Transfer-Encoding: 8bit'." .
+				"Content-Transfer-Encoding: 8bit" .
 				" boundary=\"$mime_boundary\"";
 
 			$file = fopen($pdfLocation, 'rb');
