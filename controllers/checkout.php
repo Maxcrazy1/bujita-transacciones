@@ -1110,13 +1110,10 @@ EOF;
 
 			$from = FROM_EMAIL . $eol;
 
-			$headers = [
-				"From: $from",
-				"MIME-Version: 1.0$eol",
-				"Content-Type: multipart/mixed;charset=utf-8;$eol",
-				"boundary=\"$mime_boundary\"",
-			];
-
+			$cabeceras       = "From: $from" .
+				"MIME-Version: 1.0$eol" .
+				"Content-Type: multipart/mixed;charset=utf-8;$eol" .
+				" boundary=\"$mime_boundary\"";
 
 			$file = fopen($pdfLocation, 'rb');
 			$data = fread($file, filesize($pdfLocation));
@@ -1153,7 +1150,7 @@ EOF;
 						$pdf . $eol .
 						"--$mime_boundary--";
 
-					mail($user_data['email'], $email_subject, $message, implode("\r\n", $headers));
+					mail($user_data['email'], $email_subject, $message, $cabeceras);
 				} else {
 					$attachment_data['basename'] = array($pdfName);
 					$attachment_data['folder'] = array('pdf');
@@ -1172,7 +1169,7 @@ EOF;
 						$pdf . $eol .
 						"--$mime_boundary--";
 
-					mail($user_data['email'], $email_subject, $message, implode("\r\n", $headers));
+					mail($user_data['email'], $email_subject, $message, $cabeceras);
 				}
 
 				//START sms send to customer
@@ -1196,7 +1193,7 @@ EOF;
 				$email_subject_for_admin = str_replace($patterns, $replacements, $template_data_for_admin['subject']);
 				$email_body_text_for_admin = str_replace($patterns, $replacements, $template_data_for_admin['content']);
 
-				mail($admin_user_data['email'], $email_subject_for_admin, $email_body_text_for_admin, implode("\r\n", $headers));
+				mail($admin_user_data['email'], $email_subject_for_admin, $email_body_text_for_admin, $cabeceras);
 			} //END email send to admin
 
 			//If order confirmed then final data saved/updated of order & unset all session items
