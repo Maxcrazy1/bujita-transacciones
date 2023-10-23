@@ -1112,7 +1112,7 @@ EOF;
 
 			$headers       = "From: $from" .
 				"MIME-Version: 1.0$eol" .
-				"Content-Type: multipart/mixed;charset=utf-8" .
+				"Content-Type: multipart/mixed;charset=utf-8;$eol" .
 				" boundary=\"$mime_boundary\"";
 
 			$file = fopen($pdfLocation, 'rb');
@@ -1137,7 +1137,7 @@ EOF;
 					$attachment_data['folder'] = array('shipment_labels', 'pdf');
 
 					$message = "--$mime_boundary$eol" .
-						"Content-Type: text/html; charset=\"iso-8859-1\"$eol" .
+						"Content-Type: text/html; charset=\"utf-8\"$eol" .
 						"Content-Transfer-Encoding: 7bit$eol$eol" .
 						$email_body_text . $eol;
 
@@ -1156,7 +1156,7 @@ EOF;
 					$attachment_data['folder'] = array('pdf');
 
 					$message = "--$mime_boundary$eol" .
-						"Content-Type: text/html; charset=\"iso-8859-1\"$eol" .
+						"Content-Type: text/html; charset=\"utf-8\"$eol" .
 						"Content-Transfer-Encoding: 7bit$eol$eol" .
 						$email_body_text . $eol;
 
