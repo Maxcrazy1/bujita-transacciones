@@ -1110,9 +1110,10 @@ EOF;
 
 			$from = FROM_EMAIL . $eol;
 
-			$cabeceras       = "From: $from" .
+			$headers       = "From: $from" .
 				"MIME-Version: 1.0$eol" .
 				"Content-Type: multipart/mixed;charset=utf-8;$eol" .
+				"Content-Transfer-Encoding: 8bit'." .
 				" boundary=\"$mime_boundary\"";
 
 			$file = fopen($pdfLocation, 'rb');
@@ -1150,7 +1151,7 @@ EOF;
 						$pdf . $eol .
 						"--$mime_boundary--";
 
-					mail($user_data['email'], $email_subject, $message, $cabeceras);
+					mail($user_data['email'], $email_subject, $message, $headers);
 				} else {
 					$attachment_data['basename'] = array($pdfName);
 					$attachment_data['folder'] = array('pdf');
@@ -1169,7 +1170,7 @@ EOF;
 						$pdf . $eol .
 						"--$mime_boundary--";
 
-					mail($user_data['email'], $email_subject, $message, $cabeceras);
+					mail($user_data['email'], $email_subject, $message, $headers);
 				}
 
 				//START sms send to customer
@@ -1193,7 +1194,7 @@ EOF;
 				$email_subject_for_admin = str_replace($patterns, $replacements, $template_data_for_admin['subject']);
 				$email_body_text_for_admin = str_replace($patterns, $replacements, $template_data_for_admin['content']);
 
-				mail($admin_user_data['email'], $email_subject_for_admin, $email_body_text_for_admin, $cabeceras);
+				mail($admin_user_data['email'], $email_subject_for_admin, $email_body_text_for_admin, $headers);
 			} //END email send to admin
 
 			//If order confirmed then final data saved/updated of order & unset all session items
