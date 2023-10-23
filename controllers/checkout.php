@@ -1108,7 +1108,7 @@ EOF;
 			$semi_rand     = md5(time());
 			$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
 
-			$from = "$company_name ".FROM_EMAIL . $eol;
+			$from = "$company_name ".FROM_EMAIL." $eol";
 
 			$headers       = "From: $from" .
 				"MIME-Version: 1.0$eol" .
@@ -1209,7 +1209,7 @@ EOF;
 			unset($_SESSION['payment_method']);
 
 			if (empty($msg)) {
-				$msg = "Your offer (#" . $order_id . ") request was completed successfully.";
+				$msg = "Tu solicitud (#" . $order_id . ") fue generada exitosamente.";
 			}
 			setRedirectWithMsg(SITE_URL . 'order-comlete', $msg, 'success');
 		} else {
