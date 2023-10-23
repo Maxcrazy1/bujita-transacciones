@@ -163,7 +163,7 @@ $footer_logo =                                                                  
                                                         <tr>
                                                             <td style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; padding:10px;color:#333">
                                                                 <p>
-                                                                    <a href= "#" style="text-decoration:none; color:#333">
+                                                                    <a href= "'.SITE_URL.'" style="text-decoration:none; color:#333">
                                                                       '.$company_name.' | '.
                                                                         $company_address.' | '.
                                                                         $company_city.', '.$company_state.' | '.
@@ -191,25 +191,6 @@ $footer_logo =                                                                  
                 </table>
             </body>
         </html>';
-
-/*
-$footer_logo = '</div></td>'
-	.'</tr></tbody>'
-	.'<tfoot style="background: #1c1e23;"><tr>'
-		.'<td>'
-				.'<table class="social-img" border="0" cellpadding="0" cellspacing="0">'
-					.'<tr>'
-						.'<td><a href="https://www.facebook.com"><img width="100%"  src="'.SITE_URL.'images/icons-facebook.png"></a></td>'
-						.'<td><a href="https://www.twitter.com"><img width="100%" src="'.SITE_URL.'images/icons-twitter.png"></i></td>'						
-						.'<td><a href="https://www.instagram.com"><img width="100%" src="'.SITE_URL.'images/icons-instagram.png"></a></td>'
-					.'</tr>'
-				.'</table>'
-		.'</td>'
-		.'<td class="footer-content" ><p style="display: inline-block;text-align: center;">If we served you right, refer someone to us! <br> &copy 2019 .com</p>'
-		.'</td>'
-		.'</tr></tfoot>'
-.'</table></td></tr></tbody></table></body></html>';		
-*/
 
 $admin_logo = '<img src="'.SITE_URL.'images/'.$general_setting_data['admin_logo'].'" width="200">';
 		
