@@ -1108,9 +1108,7 @@ EOF;
 			$semi_rand     = md5(time());
 			$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
 
-			$from = "$company_name ".FROM_EMAIL." $eol";
-
-			$headers       = "From: $from" .
+			$headers       = "From: $company_name$eol" .
 				"MIME-Version: 1.0$eol" .
 				"Content-Type: multipart/mixed;charset=utf-8;$eol" .
 				" boundary=\"$mime_boundary\"";
