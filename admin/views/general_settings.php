@@ -1300,58 +1300,6 @@ function chg_mailer_type(type) {
 										</div>
 									</div>
 									
-									<?php
-									/*$language_data_list_array = array(
-										'Home Page'=>array(
-											array('name'=>'home_call_us_desc', 
-												'label'=>'Call Us Desc', 
-												'text'=>'If you have any query for related investment... We are available'
-											),
-											array('name'=>'home_call_us_label', 
-												'label'=>'Call Us Label', 
-												'text'=>'Call us'
-											)
-										),
-										'Models Page'=>array(
-											array('name'=>'home_find_your_model', 
-												'label'=>'Find your model', 
-												'text'=>'Find your model'
-											),
-											array('name'=>'home_call_us_label', 
-												'label'=>'Call Us Label', 
-												'text'=>'Call us'
-											)
-										),
-									);*/
-									
-									/*echo '<pre>';
-									print_r($language_data_list_array);
-									echo '</pre>';*/
-									/*?>
-									
-									<div class="tab-pane active" id="tab10">
-										<div class="span7">
-											<h3>Language</h3>
-											<?php
-											foreach($language_data_list_array as $language_h_k => $language_data_list) {
-												echo '<h4>'.$language_h_k.'</h4>';
-												foreach($language_data_list as $language_data) {
-												?>
-												<div class="control-group">
-													<label class="control-label" for="input"><?=$language_data['label']?></label>
-													<div class="controls">
-														<input type="text" class="input-xlarge" id="<?=$language_data['name']?>" name="<?=$language_data['name']?>" value="<?=$language_data['text']?>">
-													</div>
-												</div>
-												<?php
-												}
-											} ?>
-											
-										</div>
-									</div>
-									<?php
-									*/ ?>
-									
 									<div class="tab-pane" id="tab15">
 										<div class="span7">
 											<h3>Captcha Settings</h3>
