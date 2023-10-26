@@ -24347,8 +24347,7 @@ form .help-block {
   }
 
   .block.phone-details.condition .conditions .custom-control.custom-radio .custom-control-label .condition-block {
-   /* top: 140px;*/
-    top: 286px;
+    top: 140px;
     left: 1px;
   }
   .block.phone-details.condition .conditions .custom-control.custom-radio .custom-control-label .condition-block p {
