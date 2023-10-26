@@ -1007,7 +1007,7 @@ EOF;
 				if ($payment_method != "cash") {
 					$html .= '<tr>
 			<td>&nbsp;</td>
-			<td colspan="2" style="text-align:right;"><strong>Priority Shipping:</strong></td>
+			<td colspan="2" style="text-align:right;"><strong>'.$LANG['Priority Shipping'].':</strong></td>
 			<td style="text-align:right;">$0.00</td>
 		</tr>';
 				}
@@ -1044,7 +1044,7 @@ EOF;
 					if ($f_shipping_insurance_price) {
 						$html .= '<tr>
 					<td>&nbsp;</td>
-					<td colspan="2" style="text-align:right;"><strong>Shipping Insurance:</strong></td>
+					<td colspan="2" style="text-align:right;"><strong>'.$LANG['Shipping Insurance'].':</strong></td>
 					<td style="text-align:right;">-' . amount_fomat($f_shipping_insurance_price) . '</td>
 				</tr>';
 					}
