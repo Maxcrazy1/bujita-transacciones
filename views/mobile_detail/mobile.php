@@ -55,7 +55,6 @@ $n_i_array = array();
 
 		$(window).resize(responsive_height);
 		function responsive_height() {
-			console.log(window.innerHeight);
 			if(window.innerWidth < 768){
 				var h = $(".conditions.clearfix").height();
 				var heigth_conditions = $(".condition-block").height();
@@ -63,8 +62,6 @@ $n_i_array = array();
 					padding_top_step_navigation=`${heigth_conditions+200}px`;
 					condition_block_top=`${h+20}px`
 
-					console.log('👾👾 padding_top_step_navigation:', padding_top_step_navigation);
-					
 				if(h){
 					$(".step-navigation").css("padding-top",padding_top_step_navigation );	
 					$(".condition-block").css("top", condition_block_top);	
@@ -156,15 +153,12 @@ $n_i_array = array();
 
 				let rule = one[dependencies_keys[next_id]];
 				rule = rule.split(',');
-				console.log(next_id, rule);
 				
 				 				
 				const keys = Object.keys(assigned_dependencies);
 				for(const key of keys){
 					let temp = one[key].split(',');
 					if(temp == "") continue;
-					console.log("temp",temp);
-					console.log("assigned_dependencies", assigned_dependencies);
 					
 					if(Array.isArray(assigned_dependencies[key]))
 					{
@@ -175,7 +169,6 @@ $n_i_array = array();
 								if(rule[0] != "")
 								{
 									available_keys = available_keys.concat(rule);
-									console.log("found depens",available_keys);
 								}
 							}	
 						}	
@@ -185,7 +178,6 @@ $n_i_array = array();
 							if(rule[0] != "")
 							{
 								available_keys = available_keys.concat(rule);
-								console.log("found depens",available_keys);
 							}
 						}	
 					}
@@ -194,7 +186,6 @@ $n_i_array = array();
 
 			}
 
-			console.log("available_keys",available_keys);
 
 			if(available_keys.length > 0){
 				$('#'+next_id+" .custom-radio").each(
@@ -296,7 +287,6 @@ $n_i_array = array();
 			var current_id = $(".phone-details:visible").attr('id');
 			assigned_dependencies[dependencies_keys[current_id]] = "";
 			 $("#"+current_id+" input:checked").prop('checked',false);
-			console.log(assigned_dependencies);
 
 			var prev_step = $(".phone-details:visible").prev(".phone-details");
 			var prev_id = $(prev_step).attr("id");
