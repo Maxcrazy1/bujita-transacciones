@@ -97,10 +97,10 @@ $header_logo .= '<body><div class="preheader" style="color: transparent; display
 													<tr style="background:#000000;">
 														<td align="left" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; width:25%;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:0px">
 															<a style="border:none;"href="'.SITE_URL.'" target="_blank">'.
-															   '<img src="'.SITE_URL.'images/logo.png" width="auto" height="50" alt="" class="CToWUd">
+															   '<img src="'.SITE_URL.'images/logo-cover.png" width="auto" height="50" alt="" class="CToWUd">
 															</a>
 														</td>
-														<td align="right" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; width:65%;padding-top:10px;padding-bottom:10px;padding-left:0px;padding-right:20px;font-size:17px;color:#f1bb00">
+														<td align="right" style="font-family:\'Montserrat\',Helvetica,Roboto,Arial,sans-serif; width:65%;padding-top:10px;padding-bottom:10px;padding-left:0px;padding-right:20px;font-size:17px;color:#8bb927">
 														<strong>Teléfono:</strong><br><a style="color:#fff;text-decoration:none" href="tel:'.$company_phone.'" target="_blank">'.$company_phone.'</a>
 														</td>
 													</tr>
