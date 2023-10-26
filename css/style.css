@@ -23540,8 +23540,6 @@ form .help-block {
    /* min-width: 70px;*/
   }
   .block.phone-details.condition .conditions .custom-control.custom-radio .custom-control-label .condition-block {
-    top: 10px;
-    position:relative;
   }
   .block.phone-details.condition .conditions .custom-control.custom-radio .custom-control-label .condition-block p {
     font-size: 15px;
@@ -24348,7 +24346,7 @@ form .help-block {
   }
 
   .block.phone-details.condition .conditions .custom-control.custom-radio .custom-control-label .condition-block {
-    top: 140px;
+    top: 220px;
     left: 1px;
   }
   .block.phone-details.condition .conditions .custom-control.custom-radio .custom-control-label .condition-block p {
@@ -25068,9 +25066,8 @@ input:checked + .slider-v2::after {
       top: 0.25em !important;  
   }*/
   .block.phone-details.condition .conditions .custom-control.custom-radio .custom-control-label .condition-block {
-      top: 10px;
-      left: 1px;
-      position:relative;
+        left: 1px;
+        top: 85px;
   }
 
 }

@@ -79,9 +79,9 @@ $n_i_array = array();
 		function responsive_height() {
 			console.log(window.innerHeight);
 			if(window.innerWidth < 768){
-				var h = $(".block.phone-details.condition .custom-control .custom-control-input:checked ~ .custom-control-label .condition-block").height();
+				var h = $(".condition-block").height();
 
-				console.log(h);
+				console.log("here:",h);
 
 				if(h){
 					h = h + 100 + "px";

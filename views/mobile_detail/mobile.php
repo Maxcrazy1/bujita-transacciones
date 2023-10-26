@@ -57,13 +57,17 @@ $n_i_array = array();
 		function responsive_height() {
 			console.log(window.innerHeight);
 			if(window.innerWidth < 768){
-				var h = $(".block.phone-details.condition .custom-control .custom-control-input:checked ~ .custom-control-label .condition-block").height();
+				var h = $(".conditions.clearfix").height();
+				var heigth_conditions = $(".condition-block").height();
 
-				console.log(h);
+					padding_top_step_navigation=`${heigth_conditions+200}px`;
+					condition_block_top=`${h+20}px`
 
+					console.log('👾👾 padding_top_step_navigation:', padding_top_step_navigation);
+					
 				if(h){
-					h = h + 100 + "px";
-					$(".step-navigation").css("padding-top", h);	
+					$(".step-navigation").css("padding-top",padding_top_step_navigation );	
+					$(".condition-block").css("top", condition_block_top);	
 					return;
 				}
 					
