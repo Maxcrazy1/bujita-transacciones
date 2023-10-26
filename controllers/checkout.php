@@ -951,7 +951,7 @@ EOF;
 	<tbody>
 	  <tr>
 		<td colspan="2"><h2 style="font-size:18px;">' . $LANG['Invoice'] . ' ' . $company_name . '</h2></td>
-		<td bgcolor="#000" style="padding:5px 5px 5px 5px; border:1px solid #8bb927;"><img width="210"  src="' . SITE_URL . 'images/' . $general_setting_data['logo'] . '"></td>
+		<td ><img width="210"  src="' . SITE_URL . 'images/logo-cover.png"></td>
 	  </tr>
 	  <tr>
 		<td>
