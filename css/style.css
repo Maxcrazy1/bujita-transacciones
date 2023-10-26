@@ -23540,7 +23540,8 @@ form .help-block {
    /* min-width: 70px;*/
   }
   .block.phone-details.condition .conditions .custom-control.custom-radio .custom-control-label .condition-block {
-    /*top: 140px;*/
+    top: 10px;
+    position:relative;
   }
   .block.phone-details.condition .conditions .custom-control.custom-radio .custom-control-label .condition-block p {
     font-size: 15px;
@@ -25067,9 +25068,9 @@ input:checked + .slider-v2::after {
       top: 0.25em !important;  
   }*/
   .block.phone-details.condition .conditions .custom-control.custom-radio .custom-control-label .condition-block {
-      /* top: 140px; */
-      top: 170px;
+      top: 10px;
       left: 1px;
+      position:relative;
   }
 
 }
