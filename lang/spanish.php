@@ -68,6 +68,7 @@ $LANG['SEE LOCATIONS'] = 'VER TIENDAS';
 $LANG['WE OFFER'] = 'OFRECEMOS';
 $LANG['CASH'] = 'Reunirse en persona';
 $LANG['Cash'] = 'Reunirse en persona';
+$LANG['Paypal'] = 'Paypal';
 $LANG['CHECK'] = 'CHEQUE';
 $LANG['Check'] = 'Cheque';
 $LANG['Order Total'] = 'Total de la orden de venta';
